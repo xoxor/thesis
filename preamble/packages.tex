@@ -1,0 +1,143 @@
+%Permits to copy eg x ⪰ y ⇔ v(x) ≥ v(y) from PDF to unicode data, and to search. From pdfTeX users manual. See https://tex.stackexchange.com/posts/comments/1203887.
+	\input glyphtounicode
+	\pdfgentounicode=1
+%Latin Modern has more glyphs than Computer Modern, such as diacritical characters. fntguide commands to load the font before fontenc, to prevent default loading of cmr.
+	\usepackage{lmodern}
+%Encode resulting accented characters correctly in resulting PDF, permits copy from PDF.
+	\usepackage[T1]{fontenc}
+%UTF8 seems to be the default in recent TeX installations, but not all, see https://tex.stackexchange.com/a/370280.
+	\usepackage[utf8]{inputenc}
+%Provides \newunicodechar for easy definition of supplementary UTF8 characters such as → or ≤ for use in source code.
+	\usepackage{newunicodechar}
+%Text Companion fonts, much used together with CM-like fonts. Provides \texteuro and commands for text mode characters such as \textminus, \textrightarrow, \textlbrackdbl.
+	\usepackage{textcomp}
+%St Mary’s Road symbol font, used for ⟦ = \llbracket.
+%	\usepackage{stmaryrd}
+\usepackage[super]{nth}
+\usepackage{centernot}
+
+\usepackage{emptypage}
+\usepackage[acronym,toc,automake]{glossaries}
+
+\usepackage{fancyhdr}
+%Headers style
+\pagestyle{fancy}
+\fancyhead{}
+\fancyhead[LE]{\scshape{Part~\thepart}, \leftmark}
+%\fancyhead[LE]{\leftmark}% LE -> Left part on Even pages
+\fancyhead[RO]{\rightmark}% RO -> Right part on Odd pages
+%% remove the number at Conclusion
+
+\makeatletter
+\renewcommand\chaptermark[1]{
+	\markboth{\textsc{%
+			\ifnum\c@secnumdepth>\m@ne\if@mainmatter
+			\@chapapp\ \thechapter. \ \fi\fi #1}}{}%
+}
+\makeatother
+
+\appto\backmatter{
+	\pagestyle{fancy}
+	\fancyhead[LE,RO]{\leftmark}
+} 
+
+
+%chapter
+\makeatletter
+\def\thickhrulefill{\leavevmode \leaders \hrule height 1ex \hfill \kern \z@}
+\def\@makechapterhead#1{%
+	\vspace*{-30\p@}%
+	{\parindent \z@ \raggedright \reset@font
+		\scshape \@chapapp{} \thechapter
+		\par\nobreak
+		\interlinepenalty\@M
+		\Huge \bfseries #1\par\nobreak
+		%\vspace*{1\p@}%
+		\hrulefill
+		\par\nobreak
+		\vskip 50\p@
+}}
+\def\@makeschapterhead#1{%
+	\vspace*{-50\p@}%
+	{\parindent \z@ \raggedright \reset@font
+		\scshape \vphantom{\@chapapp{} \thechapter}
+		\par\nobreak
+		\interlinepenalty\@M
+		\Huge \bfseries #1 \par\nobreak
+		%\vspace*{1\p@}%
+		\hrulefill
+		\par\nobreak
+		\vskip 30\p@
+}}
+
+%part
+\makeatletter
+\def\@part[#1]#2{%
+	\ifnum \c@secnumdepth >-2\relax
+	\refstepcounter{part}%
+	\addcontentsline{toc}{part}{\thepart\hspace{1em}#1}%
+	\else
+	\addcontentsline{toc}{part}{#1}%
+	\fi
+	\markboth{}{}%
+	\vspace*{-50\p@}%
+	{\parindent \z@ \centering \reset@font
+		\LARGE \scshape{Part \thepart}
+		\par\nobreak
+		\scshape \vphantom{\partname}
+		\par\nobreak
+		\interlinepenalty\@M
+		\Huge \bfseries #1 \par\nobreak
+		%\vspace*{1\p@}%
+		\hrulefill
+		\par\nobreak
+		\vskip 30\p@
+	}
+		\kern-2pt
+	\cleardoublepage
+}
+\makeatother
+
+
+
+\usepackage{lipsum}
+
+
+%ntheorem doc says: “empheq provides an enhanced vertical placement of the endmarks”; must be loaded before ntheorem. Loads the mathtools package, which loads and fixes some bugs in amsmath and provides \DeclarePairedDelimiter. amsmath is considered a basic, mandatory package nowadays (Grätzer, More Math Into LaTeX).
+	\usepackage[ntheorem]{empheq}
+%Package frenchb asks to load natbib before babel-french. Package hyperref asks to load natbib before hyperref.
+	\usepackage{natbib}
+
+%Turns the doi provided by some bibliography styles into URLs. However, uses old-style dx.doi url (see 3.8 DOI system Proxy Server technical details, “Users may resolve DOI names that are structured to use the DOI system Proxy Server (https://doi.org (current, preferred) or earlier syntax http://dx.doi.org).”, https://www.doi.org/doi_handbook/3_Resolution.html). The patch solves this.
+	\usepackage{doi}
+	\makeatletter
+	\patchcmd{\@doi}{http://dx.doi.org}{https://doi.org}{}{}
+	\makeatother
+%Makes sure upper case greek letters are italic as well.
+	\usepackage{fixmath}
+%Provides \mathbb; obsoletes latexsym (see http://tug.ctan.org/macros/latex/base/latexsym.dtx). Relatedly, \usepackage{eucal} to change the mathcal font and \usepackage[mathscr]{eucal} (apparently equivalent to \usepackage[mathscr]{euscript}) to supplement \mathcal with \mathscr. This last option is not very useful as both fonts are similar, and the intent of the authors of eucal was to provide a replacement to mathcal (see doc euscript). Also provides \mathfrak for supplementary letters.
+	\usepackage{amsfonts}
+%Provides a beautiful (IMHO) \mathscr and really different than \mathcal, for supplementary uppercase letters. But there is no bold version. Alternative: mathrsfs (more slanted), but when used with tikzposter, it warns about size substitution, see https://tex.stackexchange.com/q/495167.
+	\usepackage[scr]{rsfso}
+%Multiple means to produce bold math: \mathbf, \boldmath (defined to be \mathversion{bold}, see fntguide), \pmb, \boldsymbol (all legacy, from LaTeX base and AMS), \bm (the most recommended one), \mathbold from package fixmath (I don’t see its advantage over \boldsymbol).
+%“The \boldsymbol command is obtained preferably by using the bm package, which provides a newer, more powerful version than the one provided by the amsmath package. Generally speaking, it is ill-advised to apply \boldsymbol to more than one symbol at a time.” — AMS Short math guide. “If no bold font appears to be available for a particular symbol, \bm will use ‘poor man’s bold’” — bm. It is “best to load the package after any packages that define new symbol fonts” – bm. bm defines \boldsymbol as synonym to \bm. \boldmath accesses the correct font if it exists; it is used by \bm when appropriate. See https://tex.stackexchange.com/a/10643 and https://github.com/latex3/latex2e/issues/71 for some difficulties with \bm.
+	\usepackage{bm}
+%Also loaded by tikz.
+	\usepackage{xcolor}
+%Vizualization, on top of TikZ
+	%\usepackage{pgfplots}
+	%\pgfplotsset{compat=1.14}
+	\usepackage{graphicx}
+	\graphicspath{{graphics/}}
+	
+%	\usepackage[intoc]{acro}
+
+\usepackage{hyperref}
+\hypersetup{plainpages=false}
+
+%Provides \print­length{length}, useful for debugging.
+	%\usepackage{printlen}
+	%\uselengthunit{mm}
+
+
+%Do not use the displaymath environment: use equation. Do not use the eqnarray or eqnarray* environments: use align(*). This improves spacing. (See l2tabu or amsldoc.)

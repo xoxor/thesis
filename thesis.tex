@@ -1,0 +1,138 @@
+\documentclass[a4paper, 11pt]{book}
+
+\usepackage{psl-cover}
+\usepackage[headheight=14.5pt]{geometry}
+\usepackage{imakeidx}
+\makeindex[title = List of Definitions, intoc, options=-s index.ist]
+
+\input{preamble/packages}
+\input{preamble/math}
+\input{preamble/redac}
+\input{preamble/glossary}
+\input{preamble/acronyms}
+
+\title{Elicitation and explanation for voting rules}
+
+\author{Beatrice NAPOLITANO}
+
+\institute{l'Université Paris-Dauphine}
+\doctoralschool{École Doctorale SDOSE}{543}
+\specialty{Informatique}
+\date{jj mois aaaa}
+
+%% cotutelle
+% \entitle{Thesis Subject in English}
+% \otherinstitute{CEA Saclay}
+% \logootherinstitute{logo-institute}
+
+\jurymember{1}{Prénom NOM}{Titre, établissement}{Président}
+\jurymember{2}{Prénom NOM}{Titre, établissement}{Rapporteur}
+\jurymember{3}{Prénom NOM}{Titre, établissement}{Rapporteur}
+\jurymember{4}{Prénom NOM}{Titre, établissement}{Examinateur}
+\jurymember{5}{Prénom NOM}{Titre, établissement}{Examinateur}
+\jurymember{6}{Prénom NOM}{Titre, établissement}{Examinateur}
+\jurymember{7}{Prénom NOM}{Titre, établissement}{Examinateur}
+\jurymember{8}{Prénom NOM}{Titre, établissement}{Directeur de thèse}
+% \jurymember{9}{Prénom NOM}{Titre, établissement}{Invité}
+% \jurymember{10}{Prénom NOM}{Titre, établissement}{Invité}
+
+%moins de 1000 caractères
+%This is 1415
+\frabstract{
+  L'objectif de la thèse de doctorat est le développement de procédures pouvant aider un comité (ou une société) à choisir une règle de vote appropriée. Cela implique une analyse axiomatique des règles de vote, l'explication de ces axiomes en termes non-expert peut comprendre et privilégier les méthodes d'élicitation. Les règles de vote sont des moyens formels d'agréger les préférences d'un groupe d'électeurs dans une décision collective. Quelle règle à utiliser est une question difficile et cela dépend de la conception de la justice de la société ou du comité concerné. Aucune règle ne peut être considérée comme la meilleure indépendamment du contexte. Une règle de vote peut être caractérisée par un ensemble d'axiomes, et l'analyse axiomatique est une approche bien acceptée pour étudier les propriétés satisfaites par les règles de vote. Mais le choix des axiomes à satisfaire ne devrait pas être laissé aux scientifiques. Ainsi, des méthodes pour présenter des axiomes et leurs conséquences à des utilisateurs non experts doivent être mises en œuvre. De plus, nous ne pouvons pas simplement demander au comité quels axiomes il aime, car il est souvent impossible pour les utilisateurs non experts de voir les conséquences de l'acceptation d'un ensemble d'axiomes. Par conséquent, il existe des techniques d'élicitation qui peuvent capturer des préférences subjectives informelles dans des modèles formels.
+}
+
+%moins de 1000 caractères
+%This is 1208
+\enabstract{
+  The goal of the Ph.D. project is the development of procedures able to help a committee (or a society) choose a suitable voting rule. This involves axiomatic analysis of voting rules, explanation of those axioms in terms a non-expert can understand and preference elicitation methods. Voting rules are formal means to aggregate preferences of a group of voters into a collective decision. But which rule to use is a difficult question and it depends on the conception of justice of the concerned society or committee. No rule can be considered the best independent of the context. A voting rule can be characterized by a set of axioms, and the axiomatic analysis is a well-accepted approach to studying the properties satisfied by voting rules. But the choice of which axioms should be satisfied should not be left to scientists. Thus, methods to present axioms and their consequences to non-expert users must be implemented. Moreover, we cannot simply ask the committee which axioms it likes, because it is often impossible for non-expert users to see the consequences of accepting a set of axioms. Therefore, elicitation techniques exist that can capture informal subjective preferences into formal models.
+}
+
+\frkeywords{Intelligence Artificielle, Computational Social Choice, Théorie de la décision, Élicitation de préférence, Analyse axiomatique, Modélisation des préférences.}
+\enkeywords{Artificial Intelligence, Computational Social Choice, Decision Theory, Preference Elicitation, Axiomatic Analysis, Preference Modeling.}
+
+
+\makeglossaries
+
+\begin{document}
+
+\maketitle{}
+
+\frontmatter
+
+\begingroup
+\hypersetup{hidelinks}
+\tableofcontents
+\endgroup
+
+\listoffigures
+\addcontentsline{toc}{chapter}{List of Figures}
+\listoftables
+\addcontentsline{toc}{chapter}{List of Tables}
+
+\printglossary[toctitle=List of Abbreviations,title=List of Abbreviations,type=\acronymtype]
+
+\mainmatter
+
+\part{Introduction} 
+
+\chapter{Introduction}
+\citet{Abreu1991}
+\index{Test!test}
+\lipsum{}
+\section{Research Questions}
+\section{Contributions}
+\section{Organization of the Thesis}
+
+
+\chapter{Preliminaries}
+\begin{table}
+	\label{table:Table1}
+	\caption{Table 1}
+\end{table}
+\index{Social Choice!SCR}
+\index{Social Choice!Voting Rule}
+\index{Social!SCR}
+\lipsum{}
+\section{Notation}
+\lipsum[1]
+\gls{scr}
+\index{Social Choice!Voting}
+\index{Social Choice!SCR}
+
+
+\chapter{Literature Review}
+
+
+\part{Incomplete Information}
+
+\part{Compromise}
+
+
+
+
+\part{Conclusion}
+\chapter{Conclusion}
+\section{Contribution}
+\lipsum[2]
+\section{Future works}
+\lipsum[3]
+\gls{scr} (\acrshort{SCR})
+
+
+\backmatter
+
+\bibliography{biblio}
+\addcontentsline{toc}{chapter}{Bibliography}
+
+\begingroup
+\hypersetup{hidelinks}
+\printindex
+\endgroup
+ 
+
+\printglossary
+
+\chapter{Résumé long en français}
+
+\end{document}

@@ -1,0 +1,68 @@
+%basic
+\NewDocumentCommand{\R}{}{ℝ}
+\NewDocumentCommand{\N}{}{ℕ}
+%\mathscr is rounder than \mathcal.
+\NewDocumentCommand{\powerset}{m}{\mathscr{P}(#1)}
+%Powerset without zero.
+\NewDocumentCommand{\powersetz}{m}{\mathscr{P}^*(#1)}
+%https://tex.stackexchange.com/a/45732, works within both \set and \set*, same spacing than \mid (https://tex.stackexchange.com/a/52905).
+\NewDocumentCommand{\suchthat}{}{\;\ifnum\currentgrouptype=16 \middle\fi|\;}
+%Integer interval.
+\NewDocumentCommand{\intvl}{m}{⟦#1⟧}
+%Allows for \abs and \abs*, which resizes the delimiters.
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}
+\DeclarePairedDelimiter\card{\lvert}{\rvert}
+%Perhaps should use U+2016 ‖ DOUBLE VERTICAL LINE here?
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}
+%Better than using the package braket because braket introduces possibly undesirable space. Then: \begin{equation}\set*{x \in \R^2 \suchthat \norm{x}<5}\end{equation}.
+\DeclarePairedDelimiter\set{\{}{\}}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+%Decision Theory (MCDA and SC)
+\NewDocumentCommand{\allalts}{}{A}
+\NewDocumentCommand{\allcrits}{}{\mathscr{C}}
+\NewDocumentCommand{\alts}{}{A}
+\NewDocumentCommand{\dm}{}{i}
+\NewDocumentCommand{\allF}{}{\mathscr{F}}
+\NewDocumentCommand{\allvoters}{}{\mathscr{N}}
+\NewDocumentCommand{\voters}{}{N}
+\NewDocumentCommand{\allprofs}{}{\boldsymbol{\mathcal{R}}}
+\NewDocumentCommand{\prof}{}{P}
+\NewDocumentCommand{\ibar}{}{\overline{i}}
+\NewDocumentCommand{\lprof}{}{\lambda_P}
+\NewDocumentCommand{\lprofi}{O{x}}{\lambda_P(#1)_i}
+\NewDocumentCommand{\lprofibar}{O{x}}{\lambda_P(#1)_{\overline{i}}}
+\NewDocumentCommand{\ineq}{}{(\sigma \circ \lambda_P)}
+
+\NewDocumentCommand{\linors}{}{\mathcal{L}(\allalts)}
+%Thanks to https://tex.stackexchange.com/q/154549
+	%\makeatletter
+	%\def\@myRgood@#1#2{\mathrel{R^X_{#2}}}
+	%\def\myRgood{\@ifnextchar_{\@myRgood@}{\mathrel{R^X}}}
+	%\makeatother
+\NewDocumentCommand{\pref}{}{\succ}
+\NewDocumentCommand{\prefi}{O{i}}{\succ_{#1}}
+\NewDocumentCommand{\paretopt}{}{\text{PO}}
+\NewDocumentCommand{\SPPd}{}{\Sigma^\text{PPd}}
+\NewDocumentCommand{\SAll}{}{\Sigma^\text{All}}
+\NewDocumentCommand{\SThreshold}{}{\Sigma_\text{threshold}}
+\NewDocumentCommand{\vpr}{}{\boldsymbol{v}}
+
+\NewDocumentCommand{\musigma}{O{\sigma}O{P}}{\min_{A}({#1}\circ\lambda_{{#2}})}
+\NewDocumentCommand{\mustar}{O{\sigma}O{P}}{\min_{\paretopt({#2})} ({#1} \circ \lambda_{#2})}
+\NewDocumentCommand{\minineq}{O{\allalts}}{\min_{#1}(\sigma \circ \lambda)}
+\NewDocumentCommand{\FBP}{}{\text{FB}(P)}
+\NewDocumentCommand{\POP}{}{\text{PO}(P)}
+
+\NewDocumentCommand{\alllosses}{}{\intvl{0, m-1}^N}
+
+\NewDocumentCommand{\Ptop}{}{\bar{P}}
+\NewDocumentCommand{\sigmatop}{}{\bar{\sigma}}
+
+\NewDocumentCommand{\fltwo}{}{\floor{\bar{l_2}}}
+\NewDocumentCommand{\bltwo}{}{\bar{l_2}}
+
+\newtheorem{conjecture}{Conjecture}
