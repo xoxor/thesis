@@ -8,7 +8,7 @@
 %https://tex.stackexchange.com/a/45732, works within both \set and \set*, same spacing than \mid (https://tex.stackexchange.com/a/52905).
 \NewDocumentCommand{\suchthat}{}{\;\ifnum\currentgrouptype=16 \middle\fi|\;}
 %Integer interval.
-\NewDocumentCommand{\intvl}{m}{⟦#1⟧}
+\NewDocumentCommand{\intvl}{m}{\llbracket#1\rrbracket}
 %Allows for \abs and \abs*, which resizes the delimiters.
 \DeclarePairedDelimiter\abs{\lvert}{\rvert}
 \DeclarePairedDelimiter\card{\lvert}{\rvert}
@@ -18,8 +18,6 @@
 \DeclarePairedDelimiter\set{\{}{\}}
 \DeclarePairedDelimiter\ceil{\lceil}{\rceil}
 \DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
-\DeclareMathOperator*{\argmax}{arg\,max}
-\DeclareMathOperator*{\argmin}{arg\,min}
 
 %Decision Theory (MCDA and SC)
 \NewDocumentCommand{\allalts}{}{A}
@@ -43,7 +41,6 @@
 	%\def\@myRgood@#1#2{\mathrel{R^X_{#2}}}
 	%\def\myRgood{\@ifnextchar_{\@myRgood@}{\mathrel{R^X}}}
 	%\makeatother
-\NewDocumentCommand{\pref}{}{\succ}
 \NewDocumentCommand{\prefi}{O{i}}{\succ_{#1}}
 \NewDocumentCommand{\paretopt}{}{\text{PO}}
 \NewDocumentCommand{\SPPd}{}{\Sigma^\text{PPd}}
@@ -61,8 +58,63 @@
 
 \NewDocumentCommand{\Ptop}{}{\bar{P}}
 \NewDocumentCommand{\sigmatop}{}{\bar{\sigma}}
+\NewDocumentCommand{\smad}{}{\sigma_\text{mad}}
 
 \NewDocumentCommand{\fltwo}{}{\floor{\bar{l_2}}}
 \NewDocumentCommand{\bltwo}{}{\bar{l_2}}
 
 \newtheorem{conjecture}{Conjecture}
+\newtheorem{example}{Example}
+\newenvironment{abstract}{\rightskip1in\itshape}{}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{claim}{Claim}
+\newtheorem{prop}{Proposition}
+\newtheorem{corollary}{Corollary}
+\newtheorem{definition}{Definition}
+%\newtheorem{proof}{Proof}
+\newtheorem{proposition}{Proposition}
+\newtheorem{remark}{Remark}
+%\newtheorem{sketch}[proof]{Proof Sketch}
+
+%--------minimax-----
+\DeclareMathOperator{\Regret}{Regret}
+\DeclareMathOperator{\SCORE}{Score}
+\DeclareMathOperator{\PMR}{PMR}
+\DeclareMathOperator{\MaxR}{MR}
+\DeclareMathOperator{\MMR}{MMR}
+\DeclareMathOperator{\leximax}{leximax}
+\DeclareMathOperator*{\argmax}{argmax}
+\DeclareMathOperator*{\argmin}{argmin}
+
+%Thanks to https://tex.stackexchange.com/q/154549
+\makeatletter
+\newcommand{\newrelation}[2]{% #1 = control sequence, #2 = replacement text
+	\@ifdefinable{#1}{%
+		\def#1{%
+			\@ifnextchar_{\csname\string#1\endcsname}{\mathrel{#2}}%
+		}%
+		\@namedef{\string#1}##1##2{\mathrel{#2_{##2}}}%
+	}%
+}
+\makeatother
+
+\newrelation{\prefinc}{\!\parallel\!}%partial pref, complement (incomparable)
+\newrelation{\pinc}{\bowtie^\text{p}}
+%\newrelation{\prefinc}{Q^\text{p}}%partial pref, complement (incomparable)
+
+\newcommand{\profile}{\bm{v}}%(complete) profile
+\newcommand{\pprofile}{{\bm{p}}}%partial profile
+\newcommand{\w}{\bm{w}}
+\newcommand{\W}{\mathcal{W}}
+\newcommand{\Co}{\mathcal{C}}
+\newcommand{\pw}{W}%our knowledge about the weights
+\newcommand{\strat}[1]{\emph{#1}}
+\newcommand{\pref}{\succ}%real, connected pref, strict
+\newcommand{\prefeq}{\succeq}%real, connected pref, strict
+\newcommand{\prefr}{{\succ}^\text{r}}%real, connected pref, strict
+\newcommand{\pprefeq}{\succeq^\text{p}}%partial pref
+\newcommand{\ppref}{\succ^\text{p}}%partial pref
+\newcommand{\pprefinv}{\prec^\text{p}}%partial pref
+\newcommand{\nppref}{\nsucc^\text{p}}%negated partial pref
+

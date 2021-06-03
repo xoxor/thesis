@@ -1,3 +1,4 @@
+\usepackage{fix-cm}
 %Permits to copy eg x ⪰ y ⇔ v(x) ≥ v(y) from PDF to unicode data, and to search. From pdfTeX users manual. See https://tex.stackexchange.com/posts/comments/1203887.
 	\input glyphtounicode
 	\pdfgentounicode=1
@@ -7,17 +8,28 @@
 	\usepackage[T1]{fontenc}
 %UTF8 seems to be the default in recent TeX installations, but not all, see https://tex.stackexchange.com/a/370280.
 	\usepackage[utf8]{inputenc}
+	\usepackage{siunitx}
 %Provides \newunicodechar for easy definition of supplementary UTF8 characters such as → or ≤ for use in source code.
 	\usepackage{newunicodechar}
 %Text Companion fonts, much used together with CM-like fonts. Provides \texteuro and commands for text mode characters such as \textminus, \textrightarrow, \textlbrackdbl.
 	\usepackage{textcomp}
 %St Mary’s Road symbol font, used for ⟦ = \llbracket.
-%	\usepackage{stmaryrd}
+	\usepackage{stmaryrd}
+	\SetSymbolFont{stmry}{bold}{U}{stmry}{m}{n}
 \usepackage[super]{nth}
 \usepackage{centernot}
-
+\usepackage{xpatch}
 \usepackage{emptypage}
-\usepackage[acronym,toc,automake]{glossaries}
+\usepackage[acronym,toc,automake,shortcuts]{glossaries}
+
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{times}
+\usepackage{soul}
+%\usepackage[hidelinks,hypertexnames=false]{hyperref}
+\usepackage{xr}
 
 \usepackage{fancyhdr}
 %Headers style
@@ -51,7 +63,7 @@
 		\scshape \@chapapp{} \thechapter
 		\par\nobreak
 		\interlinepenalty\@M
-		\Huge \bfseries #1\par\nobreak
+		\Huge  #1\par\nobreak
 		%\vspace*{1\p@}%
 		\hrulefill
 		\par\nobreak
@@ -63,7 +75,7 @@
 		\scshape \vphantom{\@chapapp{} \thechapter}
 		\par\nobreak
 		\interlinepenalty\@M
-		\Huge \bfseries #1 \par\nobreak
+		\Huge  #1 \par\nobreak
 		%\vspace*{1\p@}%
 		\hrulefill
 		\par\nobreak
@@ -87,7 +99,8 @@
 		\scshape \vphantom{\partname}
 		\par\nobreak
 		\interlinepenalty\@M
-		\Huge \bfseries #1 \par\nobreak
+		\Huge  #1 \par\nobreak
+		%\Huge \upshape \bfseries #1 \par\nobreak
 		%\vspace*{1\p@}%
 		\hrulefill
 		\par\nobreak
@@ -125,11 +138,11 @@
 %Also loaded by tikz.
 	\usepackage{xcolor}
 %Vizualization, on top of TikZ
-	%\usepackage{pgfplots}
-	%\pgfplotsset{compat=1.14}
+	\usepackage{pgfplots}
+	\pgfplotsset{compat=1.14}
 	\usepackage{graphicx}
 	\graphicspath{{graphics/}}
-	
+	\usepackage{tikz}
 %	\usepackage[intoc]{acro}
 
 \usepackage{hyperref}
@@ -139,5 +152,8 @@
 	%\usepackage{printlen}
 	%\uselengthunit{mm}
 
-
+\usepackage[capitalise]{cleveref}
 %Do not use the displaymath environment: use equation. Do not use the eqnarray or eqnarray* environments: use align(*). This improves spacing. (See l2tabu or amsldoc.)
+\let\proof\relax
+\let\endproof\relax
+\usepackage{amsthm}

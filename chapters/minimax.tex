@@ -1,0 +1,649 @@
+%\usepackage{graphicx}
+%\usepackage{times}
+%\usepackage{soul}
+%%\usepackage[hidelinks,hypertexnames=false]{hyperref}
+%\usepackage{xr}
+%%%% Load required packages here (note that many are included already).
+%
+%\usepackage{algorithm, algpseudocode}
+%\usepackage{booktabs}
+%\usepackage{pgfplots}
+%\pgfplotsset{compat=1.16}
+%
+%\usepackage[hypertexnames=false]{hyperref} 
+
+\begin{abstract}
+Social choice deals with the problem of determining a consensus choice from the preferences of different agents. In the classical setting, the voting rule is fixed beforehand and full information concerning the preferences of the agents is provided. This assumption of full preference information has recently been questioned by a number of researchers and several methods for eliciting the preferences of the agents have been proposed. In this paper we argue that in many situations one should consider as well the voting rule to be partially specified. Focusing on positional scoring rules, we assume that the chair, while not able to give a precise definition of the rule, is capable of answering simple questions requiring to pick a winner from a concrete profile. In addition, we assume that the agent preferences also have to be elicited. We propose a method for robust approximate winner determination and interactive elicitation based on minimax regret; we develop several strategies for choosing the questions to ask to the chair and the agents in order to converge quickly to a near-optimal alternative. Finally, we analyze these strategies in experiments where the rule and the preferences are simultaneously elicited.
+\end{abstract}
+%
+%
+%
+\section{Introduction}
+Aggregation of preference information is a central task in many computer systems (recommender systems, search engines, etc).
+In many situations, such as in group recommender systems, the goal is to find a consensus choice;
+social choice theory can provide foundations for such applications.
+%The traditional approach to social choice assumes that both the social choice function and the full preference orderings of the agents (agents) are expressed beforehand. These represent two strong hypothesis.
+The traditional approach to social choice assumes that 1) the full preference orderings of the agents and 2) the social choice function are expressed beforehand. These represent two strong hypotheses.
+Requiring agents to express full preference orderings can be prohibitively costly (in terms of cognitive and communication cost).
+This observation has motivated several works assuming partial preference orders: 
+%and incremental elicitation of agent preferences. 
+%In the context of social choice, several authors have been interested in obtaining information about winners with reduced assumptions about the knowledge of the agent preferences (assuming that the voting rule is known).
+one early work is  by \citet{Conitzer2005} who studied the complexity of communication when using different voting rules; %determining lower and upper bounds;
+%they showed that, 
+%in the worst case, the agents should send their complete set of preference for several rules. 
+\citet{Konczak05} studied the computation of possible and necessary winners for various voting rules; %and showed that the problem is hard in the general case.
+\citet{Xia2008} then showed that, while the identification of a necessary co-winner in scoring rules is polynomial,  the determination of possible co-winners is NP-hard;
+% they also  proposed polynomial-time algorithms when using maximin and Bucklin.
+additional complexity results were given by \citet{Walsh2007} and \citet{Pini2007}.
+%\cite{Walsh2007} showed that the general case remains computationally hard even when restricting to single-peaked preferences;  sufficient conditions that ensure tractability were then found \cite{Pini2007}.
+
+Since in many practical situations there would be too many possible winners but no necessary winners, several works addressed the problem of agent preferences elicitation using a variety of approaches (minimax regret, Bayesian methods, etc.) with the goal of converging to a necessary winner \citep{Naamani-Dery2015,Kalech2011,Lu2011,Pini2009,Benabbou2016,Dey2016_2}. Among those, \citet{Walsh2009} and \citet{Conitzer2009} analyzed when to stop the elicitation process.
+
+A second concern is the ability of the chair (the person or organization supervising the voting process) to provide a precise definition of the voting rule, suggesting the relaxation of the second hypothesis. Indeed, it is often difficult for non-experts to formalize a voting rule on the basis of some generic preferences over a desired aggregation method. 
+%Thus, the first hypothesis should also be relaxed. 
+%While most of the focus in the research community has been in dealing with incomplete agent preferences, 
+Here we provide two examples of such situations.
+
+Consider, as a first example, a chair that is about to hire a new employee whose performances are evaluated by several experts. The members of the chair may not have a voting rule in mind at the start of the process, and might not wish to agree on a specific voting rule. However, they might be willing to answer a few questions requiring to select who should be the winner out of specific profiles. 
+
+Consider, as a second example, the reviewing process of a conference where the best paper must be elected. The agents express their preferences on the papers they reviewed, but they are not aware of the voting rule the Program Chair will apply when aggregating them. Nonetheless, reviewers are still willing to participate in the process. Also, the PC may not have a specific voting rule in mind, and she will find it hard to provide a precise scoring vector if asked. Maybe she strongly believes that being ranked once in the first position is “much more” valuable than being ranked two times second, but does not know exactly how much more (though she can judge example cases).
+%The information provided can be used to   % to determine their employee of choice.
+
+%This paper considers both sources of uncertainty at the same time, and proposes a method able to recommend a consensus choice without requiring full knowledge of either.
+In this paper, we focus on positional scoring rules with convex weights, that are a particularly common method used to aggregate rankings. 
+We develop methods, based on the notion of minimax regret, for determining a robust ``winner'' under uncertainty of both the voting rule and the agent preferences.
+%alternative using positional scoring rules and 
+We provide incremental elicitation methods that 
+at each step of the elicitation question either one of the agents or the chair, and we discuss several heuristics to choose questions that quickly reduce the regret. 
+Answers to questions are encoded as constraints; questions to the agents are comparisons between pairs of alternatives while
+questions to the chair ask to select a winner out of a synthetic profile.
+
+While some previous works have considered partially specified aggregation methods \citep{Stein1994,Llamazares2013,Viappiani2018}, we do not know of any work considering both sources of uncertainty at the same time. 
+%has dealt with %scenarios where it is instead the voting rule that is partially defined. % but the preferences are given. 
+%a  partially defined voting rule.
+%While previous works have considered either partial information about the agent preferences or a partially specified aggregation method, we do not know of any work considering both sources of uncertainty at the same time.
+Actually, very few works altogether have considered the problem of eliciting a voting rule by asking questions to the chair. We mention the work of \citet{Cailloux2014} that assumes a different representation for the rule. %we mention the work of \Citet{Cailloux2014} considering elicitation the voting rule by assuming a specific representation.
+%A classic paper is the one by \citet{Stein1994} that, considering scoring rules, identified dominance relations between alternatives; these relations allow to determine pairs of alternatives where the first is at least as good as the second no matter which weights are chosen among a generic class of weights (decreasing weighs or convex decreasing weights).
+%More recent articles considered the problem of dealing with unspecified weights in positional scoring rules: \citet{Llamazares2013} proposed a method based on Data Envelopment Analysis (DEA), while \citet{Viappiani2018} proposed to aggregate the uncertainty in weights using criteria used in decision-making under uncertainty (such as minimax regret). 
+% provided an elicitation framework for a different class of rules.
+Additionally, some works address the manipulability of voting rules \citep{Elkind2012,Dey2018,Conitzer2011,Baumeister2019} and 
+strategic behaviors \citep{Endriss2016,Lev2019,Annemieke2012}.
+
+Our approach is evaluated on simulations with synthetic and real datasets where both the voting rule and the agent preferences are initially unknown to the system and incrementally revealed through questioning. We assume the chair to be human, thus able to answer questions about a limited number of alternatives, so we focus on small scale social choice situations. We compare the effectiveness of several questioning strategies based on the current knowledge of the rule and preferences. To summarize our contributions: 1) we provide a novel mechanism for eliciting a voting rule by translating abstract questions about weights to a choice of an alternative given a concrete profile; 2) we show that with our elicitation method it is possible to reach low regret with a reasonable number of questions; 3) we present elicitation strategies that achieve good results within reasonable computation time; 4) we show that for the class of rules considered, asking a few questions to the chair suffice to reach low regret; 5) our experiments suggest that low degree of similarity among preferences (as in impartial culture) is a more challenging setting than less varied profiles.
+%\begin{itemize}
+%	\item we provide a novel mechanism for eliciting a voting rule by translating abstract questions about weights to a choice of an alternative given a concrete profile;  
+%	\item we showed that with our elicitation method %in small problem sizes, %starting with zero knowledge,
+%	it is possible to reach low regret with a reasonable number of questions;
+%	\item the elicitation strategies that we provide, in particular Pessimistic, achieve good results within reasonable computation time; %for small problem sizes;
+%	\item we showed that for the class of rules considered, asking a few questions to the chair suffice to reach low regret;
+%	\item our experiments suggest that low degree of similarity among preferences %rankings 
+%	(as in impartial culture) is a more challenging setting than less varied profiles.
+%\end{itemize}
+
+\section{Social choice with partial information}
+\label{sec:background}
+We now introduce some basic concepts.
+We consider a set $A$ of $m$ alternatives (products, restaurants, public projects, job candidates, etc.) and an infinite set $\N$ of potential agents.
+
+A {\em profile} $(\pref_j, j \in N)$ considers a finite subset of agents $N \subset \N$ and associates to each agent a preference order ${\pref_j}  \in \linors$, a linear order over the alternatives.
+A profile is equivalently represented by $\profile=(v_j, j \in N)$ where $v_j(x) \in \set{1, \ldots, m}$ denotes the rank of alternative $x$ in the preference order $\pref_j$. 
+A social choice function $f : \cup_{\emptyset ≠ N \subset \N, N \text{finite}} \linors^N \rightarrow \powersetz{A}$ associates to each profile a set of (tied) winners, where $\powersetz{A}$ is the powerset of $A$ excluding the empty set.
+Among the many possible social choice functions, we consider convex \acp{PSR}. A \ac{PSR} $f^{\w}$ is parameterized by a \emph{scoring vector} $\w$ associating weights $w_r \in [0, 1]$ to positions, with $1 = w_1 ≥ w_2 ≥ … ≥ w_m = 0$.
+Let $\alpha^{x}_r$ be the number of times that alternative $x$ was ranked in the $r$-th position.
+Given $\profile$ and $\w$, an alternative $x \in A$ obtains the score
+\begin{align}
+	\label{eq:srule}
+	s(x; \profile, \w) = \sum_{j\in N} w_{v_j(x)}
+	= \sum_{r=1}^{m} \alpha^{x}_r w_r\ .
+\end{align}
+The winners $f^{\w}(\profile)$ are the alternatives with highest score.
+
+An important class of \acp{PSR} is the one using convex weights \citep{Stein1994,Llamazares2016}, meaning that the difference between the weight of the first position and the weight of the second position is at least as large as the difference between the weights of the second and third positions, etc.
+\begin{equation} 
+	\label{eq:convexity}
+	\forall r \in \{1,\ldots,m-2\}: w_r - w_{r+1} \geq w_{r+1}-w_{r+2}.
+\end{equation}
+The constraint above is a natural and common assumption, often used when aggregating rankings in sport competitions (such as F1 racing, alpine skiing world cup): losing ranks at the top  is more damaging than losing ranks at the bottom.
+Let $\W$ denote the set of such convex weight vectors.
+
+We consider a specific finite set of agents $N^* \subset \N$ and let $\profile^* = (\pref_j^*, j \in N^*)$ and $\w^*$ denote the profile and weight vector, unknown to us, that represent the preferences of the agents in $N^*$ and of the chair. 
+
+At a given time, our knowledge of agent $j$'s preference is encoded by a partial order ${\ppref_j} \subseteq {\pref_j^*}$ over the alternatives, a transitive and asymmetric relation (we assume that preference information is truthful).
+%We use $\prefinc$ to denote incomparability, that is $a \prefinc_{j} b$ iff $a \nppref_j b \wedge b \nppref_j a$.
+An incomplete profile $\pprofile = (\ppref_j, j \in N^*)$ maps each agent to a partial preference.
+Let $C(\ppref_j) = \set{{\succ} \in \linors \suchthat {\ppref_j} \subseteq {\succ}}$ denote the set of possible completions of $\ppref_i$ and $C(\pprofile) = \prod_{j \in N} C(\ppref_j)$ the set of complete profiles extending $\pprofile$. Note that $\profile^* \in C(\pprofile)$.
+
+The vector $\w^*$  is also unknown but we assume that the chair is able to specify additional preference information taking the form of linear constraints about $\w^*$. Let $\pw \subseteq \W$ denote the set of weight vectors compatible with the preferences expressed by the chair about the scoring vector.
+%Of course it may be difficult for real decision makers to state preferences about the voting rule in such an abstract way.
+We will show in \cref{sec:elicit} that the additional preferences we use can be elicited by showing a complete profile of a synthetic election and asking who should be elected in this case.
+
+\section{Robust winner determination}
+\label{sec:mmr}
+It is desirable in an elicitation protocol such as ours to be able to stop before reaching full knowledge of the agent preferences or of the preferences of the chair about the voting rule. As, often, there are no necessary winners and too many possible winners, it is useful to declare a winner given partial information.
+As a decision criterion to determine a winner, we propose to use minimax regret \citep{Savage1954}. 
+This decision criterion has been used for robust optimization under data uncertainty \citep{Kouvelis1997} as well as in decision-making with uncertain utility values \citep{Salo2001,Boutilier2006}.
+In particular, \citet{Lu2011} have adopted minimax regret for winner determination in social choice where
+the preferences of agents are partially known, while the social choice function is known.
+
+We consider the simultaneous presence of incomplete knowledge in agent preferences and in the weights of the \ac{PSR}.
+We use \emph{maximum regret} to quantify the worst-case error, and let the alternatives that minimize this quantity win, giving some robustness in face of ignorance.
+Intuitively, the quality of a proposed alternative $a$ is how far $a$ is from the optimal one in the worst case, given the current knowledge.
+
+Given $\pprofile$ and $\pw$ (that represent the current knowledge about agent preferences and the \ac{PSR}),
+the maximum regret is considered by assuming that an adversary can both 1) extend the partial profile $\pprofile$ into a complete profile, and 2) instantiate the weights choosing among any weight vector in $\pw$. %where $\pprofile$ and $\pw$ represent our knowledge so far.
+We formalize the notion of minimax regret in multiple steps.
+First of all, $\Regret(x, \profile, \w)$
+is the “regret” of selecting $x$ as a winner instead of the optimal alternative under $\profile$ and $\w$:
+$$\Regret(x, \profile, \w) = \max_{y \in A} s(y; \profile,\w) - s(x; \profile, \w).$$
+The \ac{PMR} of $x$ relative to $y$ given the partial profile $\pprofile$ and the set of weights $W$ is the worst-case loss of choosing $x$ instead of $y$ under all possible realizations of the full profile {\em and} all possible instantiations of the weights:
+$$\PMR(x,y;\pprofile,W) = \max_{\w \in W} \max_{\profile \in C(\pprofile)} s(y; \profile,\w) - s(x; \profile,\w).$$
+The maximum regret %$\MaxR(x;\pprofile,W)$ 
+is the worst-case loss of $x$:
+\begin{align}
+	\MaxR(x;\pprofile,W) & = \max_{y \in A} \PMR(x,y; \pprofile, W) = \max_{\w \in W} \max_{\profile \in C(\profile)} \Regret(x; \profile, \w).
+\end{align}
+$\MaxR(x;\pprofile,W)$ is the result of an adversarial selection of the complete profile $\profile \in C(\pprofile)$ and of the scoring vector $\w \in W$ that jointly maximize the loss between $x$ and the true winner under $\profile$ and $\w$.
+Finally,  $\MMR(\pprofile,W) = \min_{x \in A} \MaxR(x;\pprofile,W)$ is the value of \ac{MMR} under $\pprofile$ and $W$, obtained when recommending a {\em minimax optimal} alternative $x^*_{\pprofile, W} \in A^*_{\pprofile, W} = \argmin_{x \in A} \MaxR(x;\pprofile,W)$.
+Picking as consensus choice an alternative associated with minimax regret provides a recommendation that gives worst-case guarantees. 
+In cases of ties, %in minimax regret, 
+we can return all minimax alternatives $A^*_{\pprofile, W}$ as winners or pick one of them using some tie-breaking strategy.
+
+Observe that if $\MMR(\pprofile, W)\!=\!0$, then any $x^{*}_{\pprofile,W} \in A^*_{\pprofile, W}$ is a necessary winner: any valid completion of the profile and choice of $w \in W$ gives to $x^{*}_{\pprofile,W}$ the highest score.
+
+We note that our notion of regret gives some cardinal meaning to the scores: instead of just being used to select winners under the corresponding \ac{PSR}, their differences are considered as representing the regret of the chair.
+
+% Add some general remarks about using minimax regret
+
+\paragraph{Computation of minimax regret}
+Given a voting rule and a partially specified profile, \citet{Xia2008} determine necessary winners by showing constructions that attempt to maximize the score difference between a proposed winner and a chosen alternative. This reasoning was later adopted by \citet{Lu2011} who used the considerations on the worst-case completions for computing the minimax regret. 
+
+In order to compute pairwise maximum regret, and therefore minimax regret, we decompose the \ac{PMR} into the contributions associated to each agent by adapting this same reasoning to our setting. The context is however more challenging due to the presence of uncertainty in the weights.
+
+Recall that, in the computation of $s(x; \profile, \w)$, $w_{v_j(x)}$ represents the score that $x$ obtains in the ranking $v_j$ (see \cref{eq:srule}).
+Since scoring rules are additively decomposable, we can consider separately the contribution of each agent to the total score. Thus, we can write the actual regret of choosing $x$ instead of $y$ as $s(y; \profile,\w) - s(x; \profile, \w) = \sum_{j \in N} w_{v_j(y)} - w_{v_j(x)}$, and we obtain \[\PMR(x,y; \pprofile, W) =  \max_{\w \in W} \sum_{j \in N} \max_{v_j \in C(\succ_j^p)} [w_{v_j(y)} - w_{v_j(x)}].\]
+%Note that in general the inner max depends on the weights chosen by the outer max.
+
+The following propositions show that the procedure for completing a partial profile,  proposed by \citet{Lu2011} when considering a fixed weight vector, also applies in our setting. We write $a \pprefeq_j b$ iff $a \ppref_j b \lor a = b$ and adopt the canonical notation when considering a relation as a function, writing ${\pprefeq_j}(x)$ for $\set{y \suchthat x \pprefeq_j y}$.
+
+
+\begin{proposition} \label{claim:completion}
+	\begin{sloppypar}
+		There exists a completion $\hat{\profile} \in C(\pprofile)$ of the partial profile $\pprofile$ such that ${\PMR(x,y; \pprofile, W) = \max_{\w \in W} [ s(y; \hat{\profile}, \w) - s(x; \hat{\profile}, \w) ]}$ and such that the linear order $\hat{v}_{j}$ of each agent $j$ satisfies:
+	\end{sloppypar}
+	\vspace{-0.5cm}
+	\begin{eqnarray}
+		\label{eq:complx}
+		a \pref_j x &⇔& \lnot(x \pprefeq_j a);\\
+		\label{eq:comply}
+		y \pref_j a &⇔& \lnot(a \pprefeq_j y) ∧ \lnot((x \pprefeq_j y) ∧ \lnot(x \pprefeq_j a)).
+	\end{eqnarray}
+	%	\begin{align} 
+	%		\label{eq:complx}
+	%		a \pref_j x &⇔ ¬(x \pprefeq_j a)\\
+	%		\label{eq:comply}
+	%		y \pref_j a &⇔ ¬(a \pprefeq_j y) ∧ ¬((x \pprefeq_j y) ∧ ¬(x \pprefeq_j a)).
+	%	\end{align} 
+\end{proposition}
+
+\begin{proof}[Proof Sketch]
+	Consider our knowledge $\pprefeq_j$ about the preference of the agent $j$. 
+	The adversary's goal is to make the score of $y$ as high as possible and the score of $x$ as low as possible. 
+	To do this, he should complete $\ppref_j$ to $\pref_j$ by placing above $x$ as many alternatives as possible; that is, all the alternatives except those that are known to be worse than $x$ (those $a$ such that $x \pprefeq_j a$); and similarly, he should put below $y$ all the alternatives he can. Two conditions must be excluded for $a$ to go below $y$. The alternatives such that $a \pprefeq_j y$ can’t be put below $y$.
+	Furthermore, the first objective must take priority over the second one: when an alternative should go above $x$ according to the first objective (because $¬(x \pprefeq_j a)$), and $x$ is known to be better than $y$ (thus $x \pprefeq_j y$), then $a$ should be put above $x$ (irrespective of whether $a \pprefeq_j y$), which will move both $x$ and $y$ one rank lower than if $a$ had been put below $y$. 
+	This maximizes the adversary’s interests: because the weight vector is convex, the score difference will be lower when both alternatives are ranked lower (\cref{eq:convexity}), and that difference of scores is in favor of $x$ when $x \ppref_j y$, thus to be minimized from the the adversary's point of view.
+\end{proof}
+
+
+\begin{proposition} \label{claim:rankPMR}
+	\begin{sloppypar}
+	The rank of $x$ in the \ac{PMR}-maximizing linear orders of agent $j$ is $\hat{v}_{j}(x) = 1+\card{A}-\card{{\pprefeq_j}(x)}$, and the rank of $y$ is $\hat{v}_{j}(y)=1+\card{{\pprefinv_j}(y)}+\card{\beta}$, where $\card{\beta} = \card{A \setminus ({\pprefeq_j}(x) \cup {\pprefinv_j}(y))}$ if $(x \pprefeq_j y)$ and $\card{\beta} = 0$ otherwise.
+	\end{sloppypar}
+\end{proposition}
+
+\begin{proof}[Proof]
+	The rank of $x$ is directly obtained from (\cref{eq:complx}). The rank of $y$ is obtained by complementing (\cref{eq:comply}), obtaining $a \prefeq_j y ⇔ (a \pprefeq_j y) ∨ ((x \pprefeq_j y) ∧ ¬(x \pprefeq_j a))$, and, observing that $a \pref_j y ⇔ a ≠ y ∧ a \prefeq_j y$, obtaining that $a \pref_j y$ if and only if
+	\begin{equation}
+		\label{eq:betteryinter}
+		(a \neq y) ∧ [(a \pprefeq_j y) ∨ ((x \pprefeq_j y) ∧ ¬(x \pprefeq_j a))],
+	\end{equation} 
+	or equivalently, if and only if
+	\begin{equation}
+		\label{eq:bettery}
+		%a \pref_j y ⇔ 
+		(a \ppref_j y) ∨ ((x \pprefeq_j y) ∧ ¬(x \pprefeq_j a)).
+	\end{equation} 
+	Indeed, \eqref{eq:betteryinter} $⇒$ \eqref{eq:bettery}, and \eqref{eq:bettery} $⇒$ \eqref{eq:betteryinter} because $(x \pprefeq_j y) ∧ ¬(x \pprefeq_j a) ⇒ a ≠ y$ (as when $a = y$, $(x \pprefeq_j y)$ and $¬(x \pprefeq_j a)$ are opposite claims). Suffices now to rewrite \cref{eq:bettery} to let the two disjuncts designate disjoint sets:
+	\begin{equation}
+		\label{eq:betteryfinal}
+		a \pref_j y ⇔ 
+		(a \ppref_j y) ∨ ((x \pprefeq_j y) ∧ ¬(x \pprefeq_j a) ∧ ¬(a \ppref_j y)).
+	\end{equation}
+\vspace{-0.5cm}
+\end{proof}
+
+
+Note that in \cref{claim:rankPMR}, in the case $(x \pprefeq_j y)$, $\beta$ is the number of alternatives incomparable with both $x$ and $y$.
+\begin{proposition}\label{claim:PMR}
+	The \ac{PMR} can be written as:
+	\begin{align} 
+		\PMR(x,y; \pprofile, W)  
+		& = \max_{w \in W} \sum_{j \in N} w_{\hat{v}_j(y)} - w_{\hat{v}_j(x)} = \max_{w \in W} \sum_{r=1}^m (\hat{\alpha}_{r}^{y} - \hat{\alpha}_{r}^{x}) w_i,
+	\end{align}
+	where $\hat{\alpha}_{r}^{y}$ (resp. $\hat{\alpha}_{r}^{x}$)  is the number of times $y$ (resp. $x$) has rank $r$ in the complete profile $\hat{\profile}$ defined in \cref{claim:rankPMR}. 
+\end{proposition}
+%\cref{claim:rankPMR} can be understood by observing that in the case $(x \pprefeq_j y)$, $\beta$ is the number of alternatives incomparable with both $x$ and $y$.
+\cref{claim:PMR}  shows that \ac{PMR} is linear in the weights.
+%Recall that $\pw$ represents the weight vectors compatible with the preferences of the chair stated so far.
+The pairwise max regret $\PMR(x,y; \pprofile,W)$ can thus be obtained by solving the following linear program defined on the variables $w_1, …, w_m$:
+\begin{align}
+	\max_{\w} \sum_{r=1}^m (\hat{\alpha}_{r}^{y} - \hat{\alpha}_{r}^{x}) w_{r} \quad
+	\text{ s.t. } w_1 = 1 ≥ … ≥ w_m = 0, \text{\cref{eq:convexity}} \text{ and } \w \in \pw.
+\end{align}
+%Note that given our choice $w_{1}=1$ and $w_{m}=0$, there are only $m-2$ variables 
+%(we leave $w_{1}$ and $w_{m}$ in the LP just for clarity of presentation).
+The max regret $\MaxR(x; \pprofile, W)$ is determined by computing the pairwise regret of $x$ with all other alternatives in $A$, and the recommended alternatives are the ones with least max regret. 
+Observe that when the \ac{PMR} of an alternative $x$ (against some other alternative $y$) exceeds the best MR value found so far, we do not need to further evaluate $x$. 
+This idea can be exploited using a minimax-search tree \citep{Braziunas2012}.
+
+\section{Interactive Elicitation} 
+\label{sec:elicit}
+We propose an incremental elicitation method based on minimax regret.
+At each step, the system may ask a question either to one of the agents about her preferences or to the chair about the voting rule. 
+The goal is to obtain relevant information to reduce minimax regret as quickly as possible.
+The elicitation can be terminated either after a given number of questions, or when the minimax regret is lower than a threshold (or when it drops to zero if we wish optimality).
+
+%As termination condition of elicitation, we can check whether minimax regret is lower than a threshold; or after having asked a given number of questions.
+%if we wish optimality, we can perform elicitation until minimax regret drops to zero.
+
+%The remainder of this section is structured as follows.
+%First, we discuss the different types of questions that can be asked to the agents and to the chair, and the way responses are handled.
+%Then, we describe different strategies to determine informative queries to ask next, with the goal of reducing $\MMR(\pprofile,W)$ quickly.
+
+\paragraph{Question types}
+We distinguish between questions asked to the agents and questions asked to the chair.
+As {\em questions asked to the agents} we consider comparison queries relating two alternatives.
+%Another common type of queries are {\em top-k}, asking to each agent her $k$ most preferred alternatives.
+The effect of a response to a question asked to an agent is the increase in our knowledge about the agent rankings, thus augmenting the partial profile $\pprofile$. 
+If agent $j$ answers a comparison query stating that alternative $a$ is preferred to $b$, then the partial order $\ppref_j$ is augmented with $a \ppref_j b$ and by transitive closure.
+
+A bit more discussion is needed about {\em questions asked to the chair}.
+Such questions aim at refining our knowledge about the scoring rule; a response gives us a constraint on the weight vector $\w$.
+In particular, we want to obtain constraints of the type $w_{r} - w_{r+1} \geq \lambda (w_{r+1} - w_{r+2})$ for $r \in \{1,\ldots,m-2\}$, relating the difference between the importance of ranks $r$ and $r+1$ with the difference between ranks $r+1$ and $r+2$.
+
+\paragraph{Building concrete questions for the chair}
+Even if the chair might be considered able to answer directly such abstract questions, we want to ensure that these questions can also, in principle, be asked in a more concrete way: in terms of winners of example profiles. Such questions have clear semantics whose understanding can be assumed to be shared by the chair, contrary to abstract questions about weights. 
+Moreover, this way of questioning the chair is independent of the voting rule that is being elicited; whereas questions about weights only make sense when considering \acp{PSR}.
+Asking who should win in specific profiles has been used in experimental settings investigating the feeling of justice of individuals \citep{Giritligil2005}, but, to the best of our knowledge, the use of such questions to systematically guide an elicitation process about voting rules is novel. 
+This is similar to favor, in decision theory, direct choice questions ("please choose either a or b") compared to, say, questioning the decision maker about the shape of her utility function. The former are considered “observable”: acts of choice are translated to preference statements \citep[Ch.\ 1]{colell_microeconomic_1995}. 
+
+Although questioning in terms of profiles and in terms of weights is logically equivalent in our setting, there is no a priori certainty that questioning the chair using different phrasing would yield logically equivalent answers: research in experimental psychology shows that participants’ answers differ widely when changing the phrasing of preference-related questions \citep{Lichtenstein2006}. To get out of such conundrums, we need a language considered “fundamental”. Questions of the form “In this profile, who should win?” arguably provides such a natural language.
+
+Thus, our task is to build a profile, given $\lambda$ and $r ≤ m-2$, in such a way that the set of (tied) winners picked by the chair reveals whether $w_{r} - w_{r+1} \geq \lambda (w_{r+1} - w_{r+2})$.
+\begin{proposition}\label{prop:chairQuestions}
+	Given a rational $\lambda = p/q > 1$ and a rank $r$ between $1$ and $m - 2$, there exists a profile $P$ such that, for any weight vector $\w \in \W$, $a \in f(P)$ iff $w_{r} - w_{r+1} ≥ \lambda (w_{r+1} - w_{r+2})$ and $b \in f(P)$ iff $w_{r} - w_{r+1} ≤ \lambda (w_{r+1} - w_{r+2})$, where $f$ is the \ac{PSR} parameterized with $\w$.
+\end{proposition}
+
+\begin{proof}[Proof]
+	\label{proof:chairQuestions}
+	Define a linear order $>_1$ over $A$ as placing $a$ at rank $r$, $b$ at rank $r + 1$, and the remaining alternatives arbitrarily. 
+	Define %a linear order 
+	$>_2$ over $A$ as placing $a$ at rank $r + 2$, $b$ at rank $r + 1$, and the remaining alternatives arbitrarily.
+	Define an arbitrary linear ordering $>$ over $A \setminus \set{a, b}$. 
+	Define a linear order $>_3$ as placing $a$ first, $b$ second, and following the order of $>$ for the remaining positions.
+	Finally, define a linear order $>_4$ as placing $b$ first, $a$ second, and following the \emph{inverse} order of $>$ for the remaining positions.
+	
+	Define $P$ as the profile of $3 (p + q)$ agents containing $q$ times $>_1$, $p$ times $>_2$, and $>_3$ and $>_4$ each $p + q$ times.
+	As a result, $a$ obtains the following ranks: $q$ times $r$, $p$ times $r + 2$, $p + q$ times first, and $p + q$ times second. The alternative $b$ obtains the ranks $r + 1$, $2$ and $1$, each $p + q$ times. Consider any alternative $c \in A \setminus \set{a, b}$. Its score is maximal when it comes first in $>_1$, first in $>_2$ and first in $>$, by convexity of the weights. In that case, $c$ is positioned at the ranks $1$, $3$ and $m$, each $p + q$ times. 
+	
+	Letting $s(x)$ denote the score of $x$ at $P$, we obtain $s(a) = q w_r + p w_{r + 2} + (p + q) w_1 + (p + q) w_2$, thus, $s(a) ≥ (p + q) w_m + (p + q) w_1 + (p + q) w_2$; $s(b) = (p + q) w_{r + 1} + (p + q) w_2 + (p + q) w_1$; and, $\forall c \in A \setminus \set{a, b}$, 
+	$s(c) ≤ (p + q) w_1 + (p + q) w_3 + (p + q) w_m$. It follows that $a$ or $b$ maximize $s$ (as $s(a) ≥ s(c)$). We conclude by observing that $a \in f(P) ⇔ s(a) ≥ s(b) ⇔ q w_r + p w_{r + 2} ≥ (p + q) w_{r + 1} ⇔ w_r - w_{r + 1} ≥ (p / q) (w_{r + 1} - w_{r + 2})$, and similarly for $b \in f(P)$.
+\end{proof}
+
+\begin{example}
+	Suppose we want to ask the following question to the chair: $w_{2} - w_{3} ≥ 2 (w_{3} - w_{4})$. We show the profile in \cref{fig:profileQstComm} to the chair and ask who should win (each column is the preference of one agent).
+	Both $a$ and $b$ have scores higher than $c$ and $d$ for all convex weights, thus either $a$ or $b$ will be picked under our hypothesis; and $s(a) ≥ s(b) ⇔ w_2 + 2 w_4 ≥ 3 w_3$.
+	\cref{fig:profileQstCommCompact} represents the same profile using a compressed view, the numbers in bold indicating the number of agents having the preference in the corresponding column. As the proof shows, constructed profiles require only four different linear orders.
+	\begin{figure}
+		\centering
+		\caption{Profile representing a question to the chair in extended (a) and compact (b) form.}
+		\begin{subfigure}[b]{0.49\textwidth}
+			\begin{center}
+				$
+				\begin{array}{ccccccccc}
+					c&d&d&a&a&a&b&b&b\\
+					a&c&c&b&b&b&a&a&a\\
+					b&b&b&c&c&c&d&d&d\\
+					d&a&a&d&d&d&c&c&c\\
+				\end{array}.
+				$
+			\end{center}
+			\caption{}
+			\label{fig:profileQstComm}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[b]{0.49\textwidth}
+			\begin{center}
+				$
+				\begin{array}{cccc}
+					\mathbf{1}&\mathbf{2}&\mathbf{3}&\mathbf{3} \\
+					c&d&a&b\\
+					a&c&b&a\\
+					b&b&c&d\\
+					d&a&d&c\\
+				\end{array}.
+				$
+			\end{center}
+			\caption{}
+			\label{fig:profileQstCommCompact}
+		\end{subfigure}
+	\end{figure}
+\end{example}
+
+
+\paragraph{Elicitation strategies}
+We develop several strategies for simultaneous elicitation of agent preferences and of the \ac{PSR}.
+While it is of course possible to first fully elicit the agent preferences and afterwards elicit weights, we want to investigate approaches that are able to recommend winning alternatives before obtaining complete knowledge of the profile or the rule.
+%Indeed, it can be beneficial to split efforts asking questions to the chair and to agents, depending on which is estimated to be more informative.
+We define here various strategies; %we tested experimentally. 
+a strategy tells us, given the current partial knowledge $(\pprofile, W)$, which question to ask next.
+
+The \strat{Random} strategy is used as a baseline. % and informs about the difficulty of an elicitation problem. 
+It first chooses equiprobably whether to question the chair or the agents. In the first case, it draws one rank in $1 ≤ r ≤ m-2$ equiprobably, takes the middle of the interval of values for $\lambda$ that are still possible considering our knowledge so far, and asks whether $w_r - w_{r+1} ≥ \lambda (w_{r+1} - w_{r+2})$.
+%The intervals are initialized to $[1, n]$: $\lambda≥1$ by convexity and we assume $\lambda≤n$ wlog, in fact for $\lambda≥n$, the rule coincides with Plurality.
+In the second case, it draws equiprobably among the agents whose preference is not known entirely; it then draws an alternative $a$ among those involved in some incomparabilities in $\ppref_j$ and an alternative $b$ among those incomparable with $a$ in $\ppref_j$.
+
+Let $(x^{*},\bar{y}, \bar{\profile}, \bar{\w})$ be the current solution of the minimax regret, where $x^{*}$ is the minimax optimal alternative and $\bar{y}, \bar{\profile}, \bar{\w}$ the corresponding adversarial choices. 
+The \strat{Pessimistic} strategy considers a set of $n + (m-2)$ candidate questions: one per agent, and one per rank (excluding the first and the last one which are known).
+
+The candidate questions to the agents are chosen by extending the idea of \citet{Lu2011}, that privilege learning about the relationship of $x^*$ and $\bar{y}$ to the other alternatives if possible.
+Given $j \in N^*$, if $x^*$ and $\bar{y}$ are incomparable in $\ppref_j$, the candidate question concerns the pair $(x^*, \bar{y})$, otherwise, %the candidate question
+it concerns the pair $(x^*, z)$ for some $z$ incomparable to $x^*$ (randomly chosen), or if none such $z$ exist, the pair $(\bar{y}, z)$ for some $z$ incomparable to $\bar{y}$, or, if both $x^*$ and $\bar{y}$ are comparable to every alternatives in $\ppref_j$, any incomparable pair is picked at random. 
+%Responses to questions involving $x^*$ or $\bar{y}$ constrain the ability of the adversary to complete the profile in such manner, possibly reducing minimax regret.
+
+The candidate questions to the chair are determined as in the Random strategy.
+
+Once having selected $n + m - 2$ candidate questions, the Pessimistic strategy selects the one that leads to minimal regret in the worst case.
+%, considering both possible answers to the question, and with penalty terms depending on the kind of question. To define this comparison precisely, 
+Assume that a question $q_1$ has type $t_1$ (being “chair” or “agent”), and leads to the new knowledge states $(\pprofile_1, W_1)$ if answered positively and $(\pprofile'_1, W'_1)$ if the answer is negative. 
+Define \[R^{\max}_1 = \max\set{\MMR(\pprofile_1, W_1), \MMR(\pprofile'_1, W'_1)}\]
+and \[R^{\min}_1 = \min\set{\MMR(\pprofile_1, W_1), \MMR(\pprofile'_1, W'_1)} \epsilon_{t} + \epsilon'_{t}.\]
+%If $(\pprofile_1, W_1) ≥ (\pprofile'_1, W'_1)$, define $\MMR^{\max} = \MMR(\pprofile_1, W_1)$ and $\MMR^{\min} = \MMR(\pprofile'_1, W'_1)$; otherwise, define $\MMR^{\max} = \MMR(\pprofile'_1, W'_1)$ and $\MMR^{\min} = \MMR(\pprofile_1, W_1)$.
+% and and $(\pprofile^\min_2, W^\min_2)$. numbering them so that $\MMR(\pprofile_1, W_1) ≥ \MMR(\pprofile_2, W_2)$. Then the badness of the question in the worst case is:
+The terms $\epsilon_t$ and $\epsilon'_{t}$ are real numbers associated to the type $t$ of question; these parameters are used to fine tune the choice of the question type. 
+Define similarly $t_2$, $R^{\max}_2$ and $R^{\min}_2$ for  $q_2$.
+%We are now faced with the problem of aggregating these values in order to compare the informative values of the candidate questions.  \footnote{We adopt a pessimistic approach, reported to perform better than optimistic aggregation \cite{Cailloux2014}, although Our experiments in this context suggested a weak impact of that choice on the performance of the strategy.}
+%To avoid the absorption property of the max, we adopt $\leximax$ as an aggregator.
+Pessimistic considers question $q_1$ to be better  than $q_2$ iff $R^{\max}_1 < R^{\max}_2 \text{ or } [R^{\max}_1 = R^{\max}_2 \text{ and } R^{\min}_1 < R^{\min}_2]$.
+%This comparison gives a way of picking questions among a set of possible questions, by picking one that minimizes this approximate measure of minimax regret {\em a posteriori}. 
+%The motivation for using this operator lies in 
+In other words if the maximal {\em a posteriori} \ac{MMR} of two questions are (approximately) equal, then it considers the (penalized) minimal \ac{MMR} values. %, preferring the question with the lowest value.
+%(Technically, instead of applying a pure lexicographic aggregation, which is very sensitive to small errors due to floating-point computations, we apply a weighted sum between the maximal and the penalized minimal MMR values, with a predominant weight given to the maximal one, several order of magnitudes higher than the weight given to the penalized minimal MMR.)
+
+
+
+The \strat{Extended pessimistic} strategy uses the same criterion as the pessimistic strategy, but extending it to a bigger set of candidate questions, the same as those considered by the Random strategy. These candidate questions are then evaluated using the same operator as for the Pessimistic strategy.
+%We use this strategy to test whether Pessimistic performs well: depending on the quality of the heuristic of the Pessimistic strategy, it might perform nearly equally well, or perhaps even better, than Extended pessimistic, while being (much) faster. 
+Extended pessimistic is applicable only to very small problem instances: its complexity is in $O(n^2 m^5)$, because we consider $O(m^2)$ questions for each agent and need for each question to compute \ac{MMR} twice, whose complexity is $O(nm^3)$.
+
+The \strat{Two phases} strategy is developed in order to investigate the effect of varying the proportion of questions of the two types, %asked to agents and to the chair, %and to compare the performance
+when asking all questions to the chair at the beginning or at the end.
+%first or to the agents first. 
+It is parameterized by $q_c$,  the number of questions to be asked to the chair.
+The \strat{Two phases-ca} variant first asks $q_c$ questions to the chair, then $k - q_c$ questions to the agents, using in both cases Pessimistic to select the specific questions; whereas the \strat{Two phases-ac} variant starts with $k - q_c$ questions to the agents, then questions the chair. 
+%Note that when asking first only questions to the chair, if the obtained knowledge approximates well the scoring vector, then in the second part of the elicitation we fall into the more classical setting of incompleteness of preferences assuming a known voting rule. 
+%And vice-versa when asking first questions to the agents, the second part of the elicitation is similar to the setting of incompletely specified scoring rule. 
+%This strategy also permits to simulate the current state of the art when considering incomplete preferences. By asking enough questions to the chair we can reduce our problem into a well studied one of incompleteness of preferences knowing the voting rule. Similarly, if we invert to whom ask questions first, we fall instead in an already studied case of uncertainty of the voting rule with a known complete profile. 
+
+Finally, the \strat{Elitist} strategy aims at uncovering as quickly as possible the top alternatives of all agents. 
+%It asks $m - 1$ questions to each agent in turn. 
+For any agent $j$, it asks to compare an alternative currently undominated in $\ppref_j$ with one that is currently incomparable. Thus, the top alternative for $j$ will be known after having asked exactly $m-1$ questions to $j$.
+After having asked $n (m-1)$ questions to the agents, it questions the chair only, using the same approach as Pessimistic.
+This strategy can be expected to perform well when the chair assigns a large weight to the first rank, as compared to the other ranks. It is used to further challenge Pessimistic, which is not specifically tailored to such a situation.
+
+%\item {\em Volumetric} strategy: chooses an agent $i$ and a query that maximizes the number of new pairwise preferences revealed given the worst response.
+
+\section{Empirical Evaluation} 
+\label{sec:experiments}
+We  performed several numerical experiments using both real data and randomly generated profiles in order to validate our approach and test the performance of our elicitation strategies. %Our experiments are described by topic here below. 
+%We start by describing the general protocol of experimentation. %use the following protocol, deviations are indicated below for each experiment.
+
+Given a problem size $(m, n)$, a number of questions $k$ and a strategy to test, we first create an “oracle”, representing the true preferences of the agents (randomly generated or coming from real data) and the weights associated with the chair’s scoring rule (randomly generated).
+We start with empty knowledge ($\pprofile = \emptyset, W = \W$) about the preference orderings of the agents and the weights %differences favored by
+of the chair. We obtain the first question to be asked using the strategy under test. We then use the oracle to answer the question and update the system's knowledge, which is thus used to obtain the next question. This is repeated until $k$ answers have been obtained, computing the resulting \ac{MMR} values along the way for various values of $k$. We repeat this whole experiment a variable number of times, for a given $(m, n, k)$, and report the average resulting \ac{MMR} and standard deviation \textit{sd}. The sizes of the considered scenarios are comparable to the ones used by \citet{Cailloux2014}. 
+
+The oracle is built as follows. 
+For the real preferences, we used three datasets from \href{https://www.preflib.org/}{PrefLib} \citep{PrefLib}: \textit{T Shirt} (researchers voted on tee shirt designs; $m \!=\! 11, n \!=\! 30$),
+\textit{Courses}  (students voted on courses; $m \!=\! 9, n \!=\! 146$; referred to as AGH on PrefLib)
+and \emph{Skate} (judges voted on skaters at the Euros Pairs Short Program; $m \!=\! 14, n \!=\! 9$).
+% tee shirt designs voted by 
+%$n \!=\! 30$ 
+%members of the Optimization Research Group at NICTA;
+% \textit{AGH Course Selection}: $m \!=\! 9$ courses evaluated by $n = 146$ students 
+%of the AGH University; 
+%and \emph{Skate}: $m \!=\! 14$ skaters evaluated by $n \!=\! 9$ judges at the Euros Pairs Short Program.
+%We want to focus on the most critical setting, as there is a wide variety of possible situations to test in such experiments.
+For the synthetic datasets, we follow an \ac{IC} assumption: the linear order of each agent is drawn i.i.d.\ uniformly.
+%independently and all have the same probability of appearing. 
+We believe \ac{IC} to be a challenging situation and expect the number of questions to ask, in order to reach a certain level of regret, to decrease with less varied profiles.
+%We adopt IC because it is a more challenging situation: as can be expected intuitively , the number of questions to be asked decrease with less varied profiles. 
+To generate the scoring rule weights, we first draw $m \!-\! 1$ numbers uniformly at random (in the interval $\intvl{0,1}$ representing weight ``differences''), normalize and sort them; a sequence of convex decreasing weights is then obtained by a decumulative sum. The penalty parameters for the Pessimistic and Extended pessimistic strategies are  $\epsilon_{\text{chair}} = 1.1$, $\epsilon'_{\text{chair}} = 10^{-6}$, $\epsilon_{\text{agent}} = 1.0$ and $\epsilon'_{\text{agent}} = 0$.
+
+\sisetup{table-number-alignment = center, table-figures-integer=2, table-figures-decimal=1, table-auto-round}
+\begin{figure}
+	\centering
+	\captionsetup{type=figure}
+	\caption{Average MMR in problems of size $(5, 10)$ after $k$ questions.}
+	\label{fig:smallSize}
+	\scalebox{0.85}{
+		\begin{tikzpicture}
+			\begin{axis}[
+				y=8,
+				xlabel=Number of Questions,
+				ylabel=Avg. Regret,
+				ytick={0,2,4,6,8,10},
+				xtick distance=10,
+				ytick distance=2,
+				xtick pos=left,
+				ymajorgrids=true,
+				ytick style={draw=none},
+				ymin=0,
+				ymax=11,
+				xmin=0,
+				xmax=100,
+				yticklabels={0,2,4,6,8,10},
+				legend style={font=\scriptsize}]
+				\addlegendimage{mark=*,teal,mark size=1.5}
+				\addlegendimage{mark=triangle*,orange,mark size=1.5}
+				\addlegendimage{mark=square*,blue,mark size=1.5}
+				\addlegendimage{mark=diamond*,red,mark size=1.5}
+				
+				\addplot[thick, mark=*, mark size = {2}, mark indices = {35}, teal] table [x=k, y=Pes.]{data/comparison.dat};
+				\addlegendentry{Pes.}
+				\addplot[thick, mark=triangle*, mark size = {2}, mark indices = {45}, orange] table [x=k, y=Ex.Pes.]{data/comparison.dat};
+				\addlegendentry{Ex.Pes.}
+				\addplot[thick, mark=square*, mark size = {2}, mark indices = {50}, blue] table [x=k, y=Eli.]{data/comparison.dat};
+				\addlegendentry{Eli.}
+				\addplot[thick, mark=diamond*, mark size = {2}, mark indices = {50}, red] table [x=k, y=Rnd.]{data/comparison.dat};
+				\addlegendentry{Rnd.}
+				
+			\end{axis}
+		\end{tikzpicture}
+	}
+\end{figure}
+
+\begin{table}
+	\centering
+	\captionsetup{type=table}
+	\caption{Average MMR in problems of size $(10, 20)$ after $k$ questions assuming geometric weights.}
+	\label{tab:geometricWeights}
+	\scalebox{0.85}{
+		\begin{tabular}{S[table-figures-integer=3, table-figures-decimal=0]S[table-number-alignment = right]@{ ± }S[table-number-alignment = left, table-figures-integer=1]S[table-number-alignment = right]@{ ± }S[table-number-alignment = left, table-figures-integer=1]}
+			\toprule
+			{k} & {Pes.} & {sd} & {Eli.} & {sd} \\
+			\midrule
+			0	&20.0	&0.0	&20.0	&0.0\\
+			50	&15.96	&0.54	&17.26	&0.42\\
+			100	&12.48	&0.93	&15.6	&0.43\\
+			150	&9.58	&1.37	&13.94	&0.76\\
+			200	&7.43	&1.25	&10.95	&1.12\\
+			250	&5.26	&1.52	&6.6	&0.79\\
+			300	&3.47	&1.32	&6.57	&0.79\\
+			\bottomrule
+		\end{tabular}
+	}
+\end{table}
+
+
+\paragraph{Comparison of strategies}
+Our first experiment concerns small size situations.
+\Cref{fig:smallSize} compares some of our strategies in the case $m = 5, n = 10$ (variations around this size yield similar conclusions), where the results are averaged over $200$ runs.
+%(The figure also displays the performance of the Elitist strategy, to which we will come back.)
+We see that asking random questions does not allow to reach a low regret level even after having asked 100 questions, whereas a low regret level ($\MMR \!=\! 1$) is reached by Pessimistic before having asked 60 questions. This also holds for other problem sizes. For instance, for $m =10$, $n = 20$ and $500$ questions, Random strategy reaches an average regret (over 20 runs) of $9.3$ (±$ 0.7$) and Pessimistic $0.5$ (±$ 0.5$).
+We notice that Pessimistic performs slightly better than Extended pessimistic, showing that Pessimistic chooses candidate questions wisely; this is good news since Pessimistic is much faster: it takes on average only $16$s for a complete elicitation session (for $m = 5$, $n = 10$ and $100$ questions), while Extended pessimistic takes $50$s. Although their performance is close, Pessimistic performs systematically better in multiple runs of the experiment.
+
+We also compared the Pessimistic strategy against Elitist in a situation specifically tailored to advantage Elitist. For that experiment specifically, instead of drawing the weights of the oracle randomly, we fix it to a “geometric” weight vector, such that $w_r - w_{r + 1} = 2(w_{r + 1} - w_{r + 2})$, for all $r ≤ m - 2$, so as to dramatically increase the importance of the weights associated to the top ranks. Even in that case, we see in \cref{tab:geometricWeights} that Pessimistic performs better than Elitist.
+
+\paragraph{Evaluation of Pessimistic Strategy}
+\label{sec:lowRegret}
+Our next set of experiments evaluate the Pessimistic strategy in absolute terms. 
+We first wonder how many questions should be asked in order to achieve low regret, fixed at $n / 10$: this is equivalent to the difference of score of an alternative $x$ that results from switching from a profile $P$ to a profile $P'$ where a tenth of the agents rank $x$ last instead of first.
+\cref{tab:questions}, first five columns, contains the result: it displays, for each dataset, the number of questions asked to the chair ($q_{c}^{\scriptscriptstyle{\MMR} ≤ n/10}$), and the quartiles of the number of questions asked to the agents ($q_{a}^{\scriptscriptstyle{\MMR} ≤ n/10}$), averaged over $20$ runs. It is interesting to note that about twenty or thirty questions per agent on average suffice to reach a low regret in those instances. We find also noteworthy that the Pessimistic strategy chooses to ask zero questions to the chair but still achieves low regret, in most of those instances.
+
+Another interesting measure is the average number of questions asked to the chair ($q_{c}^{\scriptscriptstyle{\MMR} = 0}$) and to the agents ($q_{a}^{\scriptscriptstyle{\MMR} = 0}$) before reaching zero regret. The results for various sizes are displayed in the last two columns of \cref{tab:questions}. Here, we see that the Pessimistic strategy does choose to question the chair when reaching low enough regret values. The m15n30 dataset did not reach zero regret in $1000$ questions.
+%For example, in the case $m = 10, n = 20$, Pessimistic asks on average $49$ questions to the chair and $18$ questions to each agent (\cref{tab:Numquestions} provides more data).
+
+\begin{table}
+	\caption{Questions asked by Pessimistic strategy on several datasets to reach $\frac{n}{10}$ regret, columns 4 and 5, and zero regret, last two columns.}
+	\label{tab:questions}
+	\begin{tabular}{cccS[table-number-alignment = center, table-figures-integer=2] S[table-figures-integer=3, table-figures-decimal=1]@{ | }S[table-figures-integer=2, table-figures-decimal=1]@{ | }S[table-figures-integer=2, table-figures-decimal=1]@{ ]} S[table-number-alignment = center, table-figures-integer=2]S[table-figures-integer=3, table-figures-decimal=1]@{ | }S[table-figures-integer=2, table-figures-decimal=1]@{ | }S[table-figures-integer=2, table-figures-decimal=1]@{ ]}}
+		\toprule
+		{dataset} & m & n &{$q_{c}^{\scriptscriptstyle{\MMR} ≤ n/10}$} & \multicolumn{3}{c}{$q_{a}^{\scriptscriptstyle{\MMR} ≤ n/10}$} & {$q_{c}^{ \scriptscriptstyle{\MMR} = 0}$} & \multicolumn{3}{c}{$q_{a}^{ \scriptscriptstyle{\MMR} = 0}$} \\
+		\midrule
+		m5n20 & 5&20&0.0&[4.3 &4.95 & 5.84 &5.25&[ \ 5.36 & 6.15 & 7.21\\
+		m10n20&10&20&0.0&[13.85 & 16.1& 18.41&31.95&[19.66 & 21.78 & 24.7\\
+		m11n30&11&30&0.0&[16.55&19.0&22.26&45.15&[23.07&25.7&28.89\\
+		tshirts&11&30&0.0&[13.08&16.6&19.58& 43.15 &[28.22&31.98 &35.62\\
+		courses&9&146&0.0&[6.03 &7.0 &7.0&0.0&[6.81 & 7.0 &7.0\\
+		%m9n146&9&146&0&0&[1.94 &8 &9.25&999.3&0.47&0&0&[1.94&8&9.25&999.3&0.47\\
+		m14n9&14&9&5.4&[30.3&33.45&36.65&64.05&[37.55&40.5&44.3\\
+		skate&14&9&0.0&[11.35&11.6&12.3&0.0&[11.5&11.8&12.75 \\
+		m15n30&15&30&0.0&[24.95&29.5&33.68 \\
+			
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\Cref{fig:linearity} shows the decrease in \ac{MMR} according to the number of questions asked for various problem sizes. In particular, this shows important differences between some real datasets and the problems generated using IC.
+In the \textit{Skate} problem, the value $\MMR\!=\!1$ is reached after less than $100$ questions, while the \ac{IC} case of the same size ($m = 14, n = 9$) requires more than $200$ questions to reach that value. This reasoning also applies to the \textit{Courses} dataset but not to the \textit{T Shirt} dataset. This can be explained by the high degree of similarity in the preference rankings of the \textit{Skate} and the \textit{Courses} problems, which helps reducing the regret faster. For example, in \textit{Skate} the top-2 alternatives are the same for all agents, and 8 out of 9 agents rank the same alternative at position 3. By contrast, in \textit{T Shirt}, the alternatives are evenly distributed in the preference rankings. 
+% in \textit{Courses} all agents rank the same alternative at the top position,
+
+\begin{figure}
+	\centering
+	\caption{Average MMR (normalized by $n$) after $k$ questions with Pessimistic strategy for different datasets.}
+	\label{fig:linearity}
+	\begin{tikzpicture}
+		\pgfplotsset{
+			every axis legend/.append style={
+				at={(0.5,1.1)},
+				anchor=south
+			},
+		}
+		\begin{axis}[
+			y=80,
+			legend columns=3,
+			xlabel=Number of Questions,
+			ylabel=MMR/n,
+			ytick={0,0.5,1},
+			xtick distance=100,
+			xtick pos=left,
+			ymajorgrids=true,
+			ytick style={draw=none},
+			ymin=0,
+			ymax=1,
+			xmin=0,
+			xmax=1000,
+			yticklabels={0,0.5,1},
+			legend style={font=\footnotesize}]
+			
+			\addlegendimage{mark=halfsquare right*,brown,mark size=2}
+			\addlegendimage{mark=diamond*,red,mark size=2}
+			\addlegendimage{mark=pentagon*,cyan,mark size=2}
+			\addlegendimage{mark=halfcircle*,violet,mark size=2}
+			\addlegendimage{mark=*,pink,mark size=2}
+			\addlegendimage{mark=triangle*,green,mark size=2}
+			\addlegendimage{mark=halfsquare left*,blue,mark size=2}
+			\addlegendimage{mark=square*,teal,mark size=2}
+			\addlegendimage{mark=halfsquare*,magenta,mark size=2}
+			
+			
+			\addplot[thick, mark=halfsquare right*, mark size = {2}, mark indices = {120}, brown] table [x=k, y=5.20]{data/linearity.dat};
+			\addlegendentry{m=5, n=20}
+			\addplot[thick, mark=diamond*, mark size = {2}, mark indices = {150}, red] table [x=k, y=10.20]{data/linearity.dat};
+			\addlegendentry{m=10, n=20}
+			\addplot[thick, mark=pentagon*, mark size = {2}, mark indices = {240}, cyan] table [x=k, y=11.30]{data/linearity.dat};
+			\addlegendentry{m=11, n=30}
+			\addplot[thick, mark=halfcircle*, mark size = {2}, mark indices = {400}, violet] table [x=k, y=tshirts]{data/linearity.dat};
+			\addlegendentry{tshirts m11n30}
+			\addplot[thick, mark=*, mark size = {2}, mark indices = {400}, pink] table [x=k, y=courses]{data/linearity.dat};
+			\addlegendentry{courses m9n146}
+			\addplot[thick, mark=triangle*, mark size = {2}, mark indices = {400}, green] table [x=k, y=9.146]{data/linearity.dat};
+			\addlegendentry{m=9, n=146}
+			\addplot[thick, mark=halfsquare left*, mark size = {2}, mark indices = {200}, blue] table [x=k, y=14.9]{data/linearity.dat};
+			\addlegendentry{m=14, n=9}
+			\addplot[thick, mark=square*, mark size = {2}, mark indices = {60}, teal] table [x=k, y=skate]{data/linearity.dat};
+			\addlegendentry{skate m14n9}
+			\addplot[thick, mark=halfsquare*, mark size = {2}, mark indices = {400}, magenta] table [x=k, y=15.30]{data/linearity.dat};
+			\addlegendentry{m=15, n=30}
+		\end{axis}
+	\end{tikzpicture}
+\end{figure}
+
+\begin{table}
+	\centering
+	\caption{Average MMR in problems of size $(10, 20)$ after $500$ questions, among which $q_c$ to the chair.}
+	\label{tab:twoP500}
+	\scalebox{0.85}{
+		\begin{tabular}{S[table-figures-integer=3, table-figures-decimal=0]S[table-number-alignment = right]@{ ± }S[table-number-alignment = left, table-figures-integer=1]S[table-number-alignment = right]@{ ± }S[table-number-alignment = left, table-figures-integer=1]}
+			\toprule
+			{$q_c$} & {2 ph.\ ca} & {sd} & {2 ph.\ ac} & {sd} \\
+			\midrule		
+			
+			0	&	0.62	&	0.52	&	0.62	&	0.52	\\
+			15	&	0.515	&	0.48	&	0.54	&	0.46	\\
+			30	&	0.345	&	0.47	&	0.325	&	0.425	\\
+			50	&	0.045	&	0.09	&	0.03	&	0.065	\\
+			100	&	0.14	&	0.23	&	0.075	&	0.135	\\
+			200	&	2.305	&	1.36	&	2.145	&	1.845	\\
+			300	&	5.15	&	2.38	&	6.83	&	0.625	\\
+			400	&	10.905	&	0.89	&	12.245	&	0.99	\\
+			500	&	20.0	&	0.0	&	20.0	&	0.0	\\
+			
+			\bottomrule
+		\end{tabular}
+	}	
+\end{table}
+
+
+%\subsection{Value of information comparison}
+\paragraph{Comparison with Two Phases}
+
+The experiments so far let the strategy free to question either the chair or an agent at each step. One may wonder what is lost in terms of regret by asking different proportions of questions to the chair and the agents. Such restrictions may be useful because of (partial) unavailability of the chair, or because the estimated cognitive costs may differ sensibly. %, as these types of questions differ in nature. 
+
+\Cref{tab:twoP500} shows the \ac{MMR} value reached in problems of size $m = 10, n = 20$ after $500$ questions, using the Two phases strategy, in the “ca” (chair then agents) and in the “ac” (agents then chair) variants. These numbers are to be compared with the \ac{MMR} value reached after 500 questions with the Pessimistic strategy (displayed in \cref{fig:linearity}), which is $0.7$; the Pessimistic strategy asks on average $13$ (± $13$) questions to the chair in this setting. 
+%\commentBN{This is not true anymore, after 400 questions it reaches $0.9$ with 0 questions to the chair, after 500 questions it reaches $0.47$ ($\sigma = 0.51$) with $11.05$ question to the chair ($\sigma=12.34$). The data in Table 2 is after 582 questions.}\commentBN{Even this comment is not entirely true. We should take the data after 500 questions on the same datasets as the one used in Table3. On the first 3 runs, after 500 questions the regret is $0.62$ ($\sigma = 0.42$) and the number of questions to the chair is $14.33$ ($\sigma = 13.58$). On the first 7 runs, after 500 questions the regret is $0.67$ ($\sigma = 0.45$) and the number of questions to the chair is $13.29$ ($\sigma = 13.11$).}
+The line $q_c = 0$, where no question is asked to the chair, suggest that it is possible to obtain a good-quality recommendation while knowing only that the voting rule is a scoring rule with convex weights, which is our basic hypothesis. However, we observe that asking no questions to the chair does not permit to reach $\MMR\!=\!0$. The strategy, indeed, obtains full knowledge of the profile after an average of 500 questions to the agents but never reaches zero.
+
+\section{Conclusions}  
+\label{sec:conclusions}
+In this paper we have considered a social choice setting with partial information about the agent preferences and voting rule.
+We have proposed the use of minimax regret both as a means of robust winner determination and as a guide to the process of simultaneous elicitation of preferences and voting rule.
+Our experimental results %on randomly generated and real world datasets 
+suggest that regret-based elicitation is effective and allows to quickly reduce worst-case regret significantly. They also show that, in our setting, good quality (low regret) recommendations can be achieved short of having full knowledge of weights or profile.
+%regret, but they also show that starting with zero knowledge became a pretentious approach really quickly when increasing the size of the problem. Future works will therefore include the test of these strategies on partial specified profiles, ideally on real datasets. An other important direction is the extension to voting rules beyond scoring rules.
+%Regret-based elicitation allows to determine near-optimal winners using only few information about the agent preferences.
+
+As part of our contribution, an open-source library, to reproduce our experiments and perform many more, will be made publicly available. (URL not displayed for reasons of anonymity.)
+%and serve as a basis for further research
+
+Some directions for future works include developing new elicitation strategies, considering alternative heuristics; extending the elicitation to voting rules beyond scoring rules; eliciting preferences while restraining to concrete and easy questions.
+

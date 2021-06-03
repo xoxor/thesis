@@ -1,3 +1,4 @@
+\listfiles
 \documentclass[a4paper, 11pt]{book}
 
 \usepackage{psl-cover}
@@ -10,7 +11,6 @@
 \input{preamble/redac}
 \input{preamble/glossary}
 \input{preamble/acronyms}
-
 \title{Elicitation and explanation for voting rules}
 
 \author{Beatrice NAPOLITANO}
@@ -25,21 +25,20 @@
 % \otherinstitute{CEA Saclay}
 % \logootherinstitute{logo-institute}
 
-\jurymember{1}{Prénom NOM}{Titre, établissement}{Président}
-\jurymember{2}{Prénom NOM}{Titre, établissement}{Rapporteur}
-\jurymember{3}{Prénom NOM}{Titre, établissement}{Rapporteur}
-\jurymember{4}{Prénom NOM}{Titre, établissement}{Examinateur}
-\jurymember{5}{Prénom NOM}{Titre, établissement}{Examinateur}
-\jurymember{6}{Prénom NOM}{Titre, établissement}{Examinateur}
-\jurymember{7}{Prénom NOM}{Titre, établissement}{Examinateur}
-\jurymember{8}{Prénom NOM}{Titre, établissement}{Directeur de thèse}
+%\jurymember{7}{Prénom NOM}{Titre, établissement}{Président}
+\jurymember{1}{Olivier CAILLOUX}{MdC, Université Paris-Dauphine}{Examinateur}
+\jurymember{2}{Ayça EBRU GIRITLIGIL}{MdC, İstanbul Bilgi University}{Examinatrice}
+\jurymember{3}{Vincent MOUSSEAU}{Professeur, CentraleSupélec Université Paris-Saclay\vspace{0.3cm}}{Rapporteur}
+\jurymember{4}{İpek ÖZKAL SANVER}{Professeure, İstanbul Bilgi University}{Rapporteuse}
+\jurymember{5}{Remzi SANVER}{Directeur de recherche, CNRS Université Paris-Dauphine\vspace{0.3cm}}{Directeur de thèse}
+\jurymember{6}{Paolo VIAPPIANI}{Chargé de Recherche, Sorbonne Université\vspace{0.3cm}}{Examinateur}
 % \jurymember{9}{Prénom NOM}{Titre, établissement}{Invité}
 % \jurymember{10}{Prénom NOM}{Titre, établissement}{Invité}
 
 %moins de 1000 caractères
 %This is 1415
 \frabstract{
-  L'objectif de la thèse de doctorat est le développement de procédures pouvant aider un comité (ou une société) à choisir une règle de vote appropriée. Cela implique une analyse axiomatique des règles de vote, l'explication de ces axiomes en termes non-expert peut comprendre et privilégier les méthodes d'élicitation. Les règles de vote sont des moyens formels d'agréger les préférences d'un groupe d'électeurs dans une décision collective. Quelle règle à utiliser est une question difficile et cela dépend de la conception de la justice de la société ou du comité concerné. Aucune règle ne peut être considérée comme la meilleure indépendamment du contexte. Une règle de vote peut être caractérisée par un ensemble d'axiomes, et l'analyse axiomatique est une approche bien acceptée pour étudier les propriétés satisfaites par les règles de vote. Mais le choix des axiomes à satisfaire ne devrait pas être laissé aux scientifiques. Ainsi, des méthodes pour présenter des axiomes et leurs conséquences à des utilisateurs non experts doivent être mises en œuvre. De plus, nous ne pouvons pas simplement demander au comité quels axiomes il aime, car il est souvent impossible pour les utilisateurs non experts de voir les conséquences de l'acceptation d'un ensemble d'axiomes. Par conséquent, il existe des techniques d'élicitation qui peuvent capturer des préférences subjectives informelles dans des modèles formels.
+  L'objectif de la thèse est le développement de procédures pouvant aider un comité (ou une société) à choisir une règle de vote appropriée. Cela implique une analyse axiomatique des règles de vote, l'explication de ces axiomes en termes non-expert peut comprendre et privilégier les méthodes d'élicitation. Les règles de vote sont des moyens formels d'agréger les préférences d'un groupe d'électeurs dans une décision collective. Quelle règle à utiliser est une question difficile et cela dépend de la conception de la justice de la société ou du comité concerné. Aucune règle ne peut être considérée comme la meilleure indépendamment du contexte. Une règle de vote peut être caractérisée par un ensemble d'axiomes, et l'analyse axiomatique est une approche bien acceptée pour étudier les propriétés satisfaites par les règles de vote. Mais le choix des axiomes à satisfaire ne devrait pas être laissé aux scientifiques. Ainsi, des méthodes pour présenter des axiomes et leurs conséquences à des utilisateurs non experts doivent être mises en œuvre. De plus, nous ne pouvons pas simplement demander au comité quels axiomes il aime, car il est souvent impossible pour les utilisateurs non experts de voir les conséquences de l'acceptation d'un ensemble d'axiomes. Par conséquent, il existe des techniques d'élicitation qui peuvent capturer des préférences subjectives informelles dans des modèles formels.
 }
 
 %moins de 1000 caractères
@@ -62,13 +61,16 @@
 
 \begingroup
 \hypersetup{hidelinks}
+
 \tableofcontents
-\endgroup
 
 \listoffigures
 \addcontentsline{toc}{chapter}{List of Figures}
+
 \listoftables
 \addcontentsline{toc}{chapter}{List of Tables}
+
+\endgroup
 
 \printglossary[toctitle=List of Abbreviations,title=List of Abbreviations,type=\acronymtype]
 
@@ -76,48 +78,38 @@
 
 \part{Introduction} 
 
-\chapter{Introduction}
-\citet{Abreu1991}
-\index{Test!test}
-\lipsum{}
-\section{Research Questions}
-\section{Contributions}
-\section{Organization of the Thesis}
-
-
-\chapter{Preliminaries}
-\begin{table}
-	\label{table:Table1}
-	\caption{Table 1}
-\end{table}
-\index{Social Choice!SCR}
-\index{Social Choice!Voting Rule}
-\index{Social!SCR}
-\lipsum{}
-\section{Notation}
-\lipsum[1]
-\gls{scr}
-\index{Social Choice!Voting}
-\index{Social Choice!SCR}
-
-
-\chapter{Literature Review}
-
-
-\part{Incomplete Information}
+	\chapter{Introduction}
+		\section{Research Questions}
+		\section{Contributions}
+		\section{Organization of the Thesis}
+	
+	\chapter{Preliminaries}
+		%\index{Social Choice!SCR}
+		\section{Notation}
+	
+	\chapter{Literature Review}
 
 \part{Compromise}
-
-
-
+	\chapter{Introduction}
+	\chapter{Related Work}
+	\chapter{Compromising as an equal loss principle}
+		\input{chapters/compromise.tex}
+	
+\part{Incomplete Information}
+	\chapter{Introduction}
+	\chapter{Related Work}
+	\chapter[Simultaneous Elicitation of PSR and Agent Preferences]{Simultaneous Elicitation of Scoring Rule and Agent Preferences for Robust Winner Determination}
+		\chaptermark{Simultaneous Elicitation of PSR and Agent Preferences}
+		\input{chapters/minimax.tex}
+	\chapter{Majority Judgment}
+		\input{chapters/MJ.tex}
 
 \part{Conclusion}
-\chapter{Conclusion}
-\section{Contribution}
-\lipsum[2]
-\section{Future works}
-\lipsum[3]
-\gls{scr} (\acrshort{SCR})
+	\chapter{Conclusion}
+		\section{Contribution}
+		\section{Future works}
+
+
 
 
 \backmatter
@@ -125,13 +117,12 @@
 \bibliography{biblio}
 \addcontentsline{toc}{chapter}{Bibliography}
 
-\begingroup
-\hypersetup{hidelinks}
-\printindex
-\endgroup
+%\begingroup
+%\hypersetup{hidelinks}
+%\printindex
+%\endgroup
  
-
-\printglossary
+%\printglossary
 
 \chapter{Résumé long en français}
 
