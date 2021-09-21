@@ -5,7 +5,7 @@
 \usepackage[headheight=14.5pt]{geometry}
 \usepackage{imakeidx}
 \makeindex[title = List of Definitions, intoc, options=-s index.ist]
-
+\usepackage{epigraph}
 \input{preamble/packages}
 \input{preamble/math}
 \input{preamble/redac}
@@ -79,6 +79,7 @@
 \part{Introduction} 
 
 	\chapter{Introduction}
+		\input{chapters/introduction.tex}
 		\section{Research Questions}
 		\section{Contributions}
 		\section{Organization of the Thesis}
@@ -86,23 +87,25 @@
 	\chapter{Preliminaries}
 		%\index{Social Choice!SCR}
 		\section{Notation}
+		\subsection{Axioms}
+		\section{Voting Rules}
 	
 	\chapter{Literature Review}
-
-\part{Compromise}
-	\chapter{Introduction}
-	\chapter{Related Work}
-	\chapter{Compromising as an equal loss principle}
-		\input{chapters/compromise.tex}
+		\section{Incomplete Knowledge}
+		\section{Compromise}
+	
 	
 \part{Incomplete Information}
-	\chapter{Introduction}
-	\chapter{Related Work}
 	\chapter[Simultaneous Elicitation of PSR and Agent Preferences]{Simultaneous Elicitation of Scoring Rule and Agent Preferences for Robust Winner Determination}
 		\chaptermark{Simultaneous Elicitation of PSR and Agent Preferences}
-		\input{chapters/minimax.tex}
+	%	\input{chapters/minimax.tex}
+		\section{Implementation}
 	\chapter{Majority Judgment}
-		\input{chapters/MJ.tex}
+	%	\input{chapters/partial_MJ.tex}
+
+\part{Compromise}
+\chapter{Compromising as an equal loss principle}
+%	\input{chapters/compromise.tex}
 
 \part{Conclusion}
 	\chapter{Conclusion}
