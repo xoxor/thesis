@@ -1,0 +1,34 @@
+
+\begin{abstract}
+\acl{MJ} (\acs{MJ}) is a voting system where voters assign grades to candidates using an ordinal scale. The winner is the candidate with the highest majority-grade \textemdash which is the median of the grades received. This method has attracted increasing attention of french associations and political parties which have started to use \acs{MJ} for internal decisions or local elections. In particular LaPrimaire.org is a french association that uses \acs{MJ} to choose its candidate for the french presidential election. The vote is conducted in two rounds: in the first one the voters judge five candidates randomly picked; the five candidates with the highest medians pass at the second round as finalists and the voters are asked to judge them. Is the random selection of candidates a good elicitation technique? In this paper we explore the consequences of profile incompleteness and we question the elicitation of voters preferences.
+\end{abstract}
+
+\section{Introduction}
+\label{sec:intro}
+\acl{MJ} (\acs{MJ}) is a voting method proposed by \citet{Balinski2007,Balinski2011} to elect one out of $m$ candidates based on the judgments of $n$ voters. The latter express their preferences by assigning to each candidate one of the following adjectives: Excellent, Very good, Good, Average, Mediocre, Inadequate, To be rejected. Those adjectives represent a common language whose semantic is assumed to be a shared knowledge among the voters carrying thus an absolute meaning. For each candidate the median of the grades she received is computed, this is called \textit{majority-grade}. The candidate with the highest majority-grade is elected. Ties are broken by considering the majority-grade of first order: one vote associated with the majority-grade of each tied candidates is removed and their medians are recomputed. The candidate with the highest new median is elected. If there is still a tie the process is repeated until a unique winner is found. 
+
+Several authors studied the strengths and the weakness of this method \citep{Felsenthal2008,Laslier2018} and Balinski replied to most of the critics in an article written in french published on the Revue économique \citep{Balinski2019}. However, to the best of our knowledge, there are no works on elicitation of voter preferences under \acs{MJ}.
+
+In the last few years \acs{MJ} has being adopted by a progressively larger number of french political parties including: Le Parti Pirate, Génération(s), LaPrimaire.org, France Insoumise and La République en Marche.
+%https://www.lopinion.fr/edition/politique/en-marche-teste-elections-jugement-majoritaire-mode-scrutin-tres-201884
+"Mieux Voter" \citep{MV} is a french association that promotes the use of \acs{MJ} as voting method whenever a collective choice has to be selected: public administration, associations, companies. On their website it is possible to find all the citizens lists \textendash party lists that are not affiliated to any national political party \textemdash that used \acs{MJ} to rank their candidates during the local elections of 2020. In two cases, Bordeaux et Annecy, the candidate selected using \acs{MJ} was then elected as a mayor. 
+
+In particular, LaPrimaire.org \citep{LaPrimaire} is a french political initiative whose goal is to select an independent candidate for the french presidential election using \acs{MJ} as voting rule. The association Democratech implemented the platform for the first time in 2016 in view of the 2017 presidential elections. The number of voters who participated in the election was $10676$ during the first round (with $53383$ votes) and $32685$ during the second round (with $163425$ votes). Between May and October 2021 the process will be repeated to select the candidate who will run for the 2022 presidential elections \citep{LaPrimaire2022}.
+
+The procedure that they adopted consists of two rounds. In the first round each voter is asked to express her judgment, using \acs{MJ}, on five random candidates. At the end of this phase the five candidates with the highest medians are considered the finalists who qualify for the second round. In the second round each voter is asked to express her judgment, using \acs{MJ}, on all the five finalists. The candidate with the best median at the end of this phase is selected as representative for the presidential election.
+
+In this paper we analyse this elicitation process of voters preferences. In particular, we investigate the consequences of randomness when asking the voters to judge candidates. We then search for more efficient techniques both in terms of communication cost \textemdash which can be quantified as number of questions per voter \textemdash and of fairness for candidates \textemdash which reflects the idea that a potential winner should not loose for lack of information.
+
+
+\paragraph{Research questions}
+\begin{itemize}
+	\item Does expressing judgment on randomly selected candidates influence the result? \textemdash i.e. If we change the questions does the result change?
+	\item Does the number of questions influence the result? \textemdash i.e. If we change the number of questions does the result change?
+	\item What is the best trade-off between communication cost and optimal result? \textemdash i.e. Which is the ideal number of questions per voter?  
+	\item Consider $n$ voters and $m$ candidates and assume each voter judges a fraction $k$ of the $m$ candidates. What is the voting rule applied on the resulting incomplete profile? What are its properties?
+	\item The random selection of questions is fair in terms of probability of being asked about a certain candidate $i$, but is it fair in terms of $i$ being elected? \textemdash i.e. Is the distribution of grades received by each candidate in the incomplete profile similar to the one she would get having complete information?
+	\item Can we select the next question using a minimax regret notion instead of randomly selecting a candidate?
+	\item Suppose that the fraction $k$ of candidates that each voter judges is variable \textemdash i.e. voters can decide which, and how many, candidates to rank \textemdash how this rule differ from the previous one? Can a voter manipulate the result by judging only certain candidates?
+\end{itemize}
+
+

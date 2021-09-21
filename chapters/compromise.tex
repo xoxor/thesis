@@ -336,273 +336,273 @@ This condition imposes a very reasonable requirement on spread measures for larg
 	\item the Gini coefficient $\sigma_{G}(l)= \frac{\sum_{i=1}^{n}\sum_{j=1}^{n}|l_i-l_j|}{2 \cdot n \cdot \sum_{i=1}^{n} l_i}$.
 \end{itemize} 
 
-%\begin{remark}
-%	\label{prop:spreadMeas}
-%	We checked experimentally that $\sigma_{mad}$, $\sigma_{ad}$, $\sigma_{sd}$ and $\sigma_{G}$ all satisfy condition $C_{m,n}$, for $m \in \intvl{4,1000}$ and $n \in \intvl{b, 1000}$ where $b = \max\{4,m-1\}$.
-%\end{remark}
-
 \begin{remark}
 	\label{prop:spreadMeas}
-	$\sigma_{mad}$, $\sigma_{ad}$, $\sigma_{sd}$ and $\sigma_{G}$ all satisfy condition $C_{m,n}$, for $m \in \intvl{4,1000}$ and $n \in \intvl{b, 1000}$ where $b = \max\{4,m-1\}$.
+	We checked experimentally that $\sigma_{mad}$, $\sigma_{ad}$, $\sigma_{sd}$ and $\sigma_{G}$ all satisfy condition $C_{m,n}$, for $m \in \intvl{4,1000}$ and $n \in \intvl{b, 1000}$ where $b = \max\{4,m-1\}$.
 \end{remark}
 
-\begin{proof} for $\sigma_{mad}$. \\
-	\label{proof:sigmamad}
-	Recall that 
-	\[\sigma_{mad}(l)= \frac{1}{n^2} \sum_{i=1}^{n}\sum_{j=1}^{n}|l_i-l_j|.\]
-	Let us define $f_l(i)= \sum_{j}|l_i-l_j|$ and $s(l) = n^2 \smad(l)$. Thus $n^2 \sigma_{mad}(l) = s(l)= \sum_{i} f_l(i)$.
-	
-	Consider the two vectors $l_1=(m-3, m-1, m-2, \dots, m-2)$ (where $n-2$ terms are equal to $m-2$) and $l_2=\sigma(m-2, m-3, \dots, 1, 0, \dots, 0)$ (where $m-2$ terms go from $m-2$ to $1$, and $m-n+2$ terms are equal to $0$). 
-	The thesis is now that $s(l_1) < s(l_2)$.
-	
-	Let us consider $l_1$ first: 
-	\begin{align*}
-		&f_{l_1}(1)= 2+(n-2)=n \\
-		&f_{l_1}(2)= 2+(n-2)=n \\
-		&f_{l_1}(i)= 2 \quad \forall \ 3\leq i \leq n \\ 
-	\end{align*}
-	In fact, considering the first term of $l_1$ ($m-3$), the difference between itself and the second term of the vector ($m-1$) is $2$; the difference between itself and any of the other $n-2$ terms of the vector ($m-2$) is $1$. The sum of these differences is represented by $f_{l_1}(1)$. The same argument holds for the second term ($m-1$). Any of the remaining $n-2$ terms ($m-2$) has a difference $1$ with the first and the second term and a difference $0$ with the rest. Therefore 
-	\[s(l_1) =2(2+(n-2))+(n-2)\cdot2)= 4n-4\]
-	
-	To compute $s(l_2)$, let us distinguish the cases $1 ≤ i ≤ m - 2$ and $m - 1 ≤ i$.
-	
-	For $1 ≤ i ≤ m - 2$, 
-	\begin{align*}
-		f_{l_2}(i) &= \sum_{1 ≤ j ≤ i} |l_i - l_j| + \sum_{i < j ≤ m - 2} |l_i - l_j| + \sum_{m - 2 < j ≤ n} |l_i - l_j|\\
-		&= [(i - 1) + (i - 2) + … + 0] + [1 + … + (m - 2 - i)] \\
-		&\quad + (m - 1 - i) (n - m + 2)\\
-		%	[that’s i terms, then m - 2 - i terms, then n - m + 2 terms]
-		&= \frac{(i - 1) i}{2} + \frac{(m - 2 - i) (m - 1 - i)}{2} + (m - 1 - i) (n - m + 2)\\
-		&= i^2 / 2 - i / 2 + \frac{(m - 2) (m - 1) - i (m - 2 + m - 1) + i^2}{2} \\
-		&\quad + (m - 1) (n - m + 2) - i (n - m + 2)\\
-		&= i^2 - i \frac{1 + 2m - 3 + 2(n - m + 2)}{2} + (m - 1) \frac{m - 2 + 2 (n - m + 2)}{2}\\
-		&= i^2 - i (n + 1) + (m - 1) \frac{-m + 2n + 2}{2}.
-	\end{align*}
-	
-	For $m - 1 ≤ i$, $f_{l_2}(i) = m - 2 + m - 3 + … + 1 = \frac{(m - 2) (m - 1)}{2}$.
-	
-	Thus, 
-	\begin{align*}
-		s(l_2) &= \sum_{1 ≤ i ≤ m - 2}[i^2 - i (n + 1) + (m - 1) \frac{-m + 2n + 2}{2}] \\
-		&\quad + (n - (m - 2)) (m - 2) (m - 1) / 2\\
-		&= (m - 2) (m - 1) (2m - 3) / 6 - (n + 1) (m - 2) (m - 1) / 2 \\
-		&\quad + (m - 2) (m - 1) (- m + 2n + 2) / 2 \\
-		&\quad + (n - m + 2) (m - 2) (m - 1) / 2\\
-		%		&\quad + n (m - 2) (m - 1) / 2 - (m - 2)^2 (m - 1) / 2\\
-		&= (m - 2) (m - 1) \left(\frac{2m - 3}{6} - \frac{n + 1}{2} + \frac{- m + 2n + 2}{2} + \frac{n - m + 2}{2}\right)\\
-		%		&= (m - 2) (m - 1) \left(\frac{2m - 3}{6} + \frac{- 2m + 3 + 2n}{2}\right)\\
-		&= (m - 2) (m - 1) \left(\frac{-2m + 3}{3} + n\right).
-	\end{align*}
-	
-	Our thesis is now that 
-	\[4n - 4 < \frac{-2m + 3}{3} (m - 2) (m - 1) + n (m - 2) (m - 1)\]
-	or equivalently, that 
-	\[\frac{(2m - 3) (m - 2) (m - 1)}{3} - 4 < n [(m - 2) (m - 1) - 4].\]
-	
-	When $m = 4$, using the fact that $4 ≤ n$, the inequality holds: $5 (2) (3) / 3 - 4 < 4 [2] ≤ n [2]$.
-	
-	Now assume that $m ≥ 5$. Using the fact that $m - 1 ≤ n$, suffices to show that
-	$(2m - 3) (m - 2) (m - 1) / 3 - 4 < (m - 1) [(m - 2) (m - 1) - 4]$, or equivalently, that
-	$-12 < (m - 1) [3 (m - 2) (m - 1) - 12 - (2m - 3) (m - 2)]$.
-	Note that the right hand side equals $(m - 1) [(m - 2) (3 (m - 1) - (2m - 3)) - 12] = (m - 1) (m^2 - 2m - 12) = (m - 1) (m - 1 + \sqrt{13}) (m - 1 - \sqrt{13})$. As all multiplicands are positive when $m ≥ 5$, the inequality is true when $m ≥ 5$.
-\end{proof}		
-
-\begin{proof} for $\sigma_{ad}$. \\
-	Recall that 
-	\[\sigma_{ad}(l)= \frac{\sum_{i=1}^{n}|l_i-\bar{l}|}{n},\] 
-	where $\bar{l}=\frac{\sum_{i=1}^{n}l_i}{n}$.
-	Let us define $s(l)= \sum_{i}|l_i-\bar{l}|$, so that $s(l) = n \sigma_{ad}(l)$.
-	Consider the two vectors $l_1=(m-3, m-1, m-2, \dots, m-2)$ and $l_2=(m-2, m-3, \dots, 1, 0, \dots, 0)$. The thesis is now that $s(l_1) < s(l_2)$.
-	
-	For $l_1$, the arithmetic mean of its values is $m-2$, so 
-	\[s(l_1)=[|m-3-m+2|+|m-1-m+2|+ 0 + \dots + 0]= 2.\]
-	
-	For $l_2$, the arithmetic mean is 
-	\[\bar{l_2}=\frac{1}{n}\sum_{i=1}^{m-2}{i}= \frac{(m-2)(m-1)}{2n}.\]
-	Recall that 
-	\begin{align*}
-		\sum_{i=k}^{m}{i} &= \frac{(m+1-k)(m+k)}{2} \\
-	\end{align*}
-	We can write $s(l_2)$ as:
-	\begin{align*}
-		s(l_2)&= \sum_{i=1}^{m-2}{|i-\bltwo|}+(n-(m-2))|0-\bltwo|=\\
-		&= \sum_{i=1}^{m-2}{|i-\bltwo|}+(n-m+2)\bltwo=\\
-		&=\sum_{i=\fltwo+1}^{m-2}{(i-\bltwo)}-\sum_{i=1}^{\fltwo}{(i-\bltwo)} +(n-m+2)\bltwo=\\
-		&=\sum_{i=\fltwo+1}^{m-2}{i}-\sum_{i=\fltwo+1}^{m-2}{\bltwo}-\sum_{i=1}^{\fltwo}{i} +\sum_{i=1}^{\fltwo}{\bltwo}+(n-m+2)\bltwo=\\
-		&= -\frac{(\fltwo+1-m+2-1)(\fltwo+1+m-2)}{\fltwo}-(m-2-\fltwo-1+1)\bltwo\\ &-\frac{\fltwo(\fltwo+1)}{2}+\fltwo \bltwo + (n-m+2)\bltwo=\\
-		&=-\frac{(\fltwo-m+2)(\fltwo+m-1)}{2}-(m-2-\fltwo)\bltwo-\frac{\fltwo(\fltwo+1)}{2} \\
-		&+ \fltwo \bltwo + (n-m+2)\bltwo=\\
-		&=-\frac{(\fltwo)(\fltwo+m-1)}{2}+\frac{(m-2)(\fltwo+m-1)}{2} -(m-2)\bltwo+(\fltwo)\bltwo \\ &-\frac{\fltwo(\fltwo+1)}{2}+ \fltwo \bltwo + (n-m+2)\bltwo=\\
-		&=-\frac{(\fltwo)(\fltwo+m-1)}{2}+\frac{(m-2)\fltwo}{2}+\underbrace{\frac{(m-2)(m-1)}{2}}_{=n \bltwo} -(m-2)\bltwo \\ &-\frac{\fltwo(\fltwo+1)}{2}+ 2\fltwo \bltwo + (n-m+2)\bltwo=\\
-		&=\fltwo(-\frac{\fltwo+m-1}{2}+\frac{m-2}{2}-\frac{\fltwo +1}{2}+2\bltwo)+
-		2\bltwo(n-m+2)=\\
-		&=\fltwo(\frac{-\fltwo-m+1+m-2+4\bltwo-\fltwo-1}{2})+2\bltwo(n-m+2)=\\
-		&=\fltwo(\frac{4\bltwo-2\fltwo-2}{2})+2\bltwo(n-m+2)=\\
-		&=\fltwo(2\bltwo-\fltwo-1)+2\bltwo(n-m+2) \tag{1}\\
-	\end{align*}
-	\commentOC{Note that there must be an easier way of getting this result, or perhaps even a simpler one. Imagine I sum from 1 to 5 the distance to a value that would be $3.2$, I’d get $\abs{1 - 3.2} + \abs{2 - 3.2} + \abs{3 - 3.2} + \abs{4 - 3.2} + \abs{5 - 3.2} = 2.2 + 1.2 + 0.2 + 0.8 + 1.8$. Grouping the terms $1.2$ and $0.8$, and $0.2$ and $1.8$, I get $2.2 + 2 + 2$. That said, we do not absolutely need to obtain an easier development if we do not include it in our article, so you can leave this as is if you prefer. Just perhaps try to think a bit about it to see if it leads somewhere easily.}
-	
-	Define $\epsilon = \bar{l_2} - \floor{\bar{l_2}}$, thus $0 ≤ \epsilon < 1$. We can rewrite (1), by using the fact that $\floor{\bar{l_2}} = \bar{l_2} - \epsilon$, as:
-	\begin{align*}
-		(1)&= (\bltwo-\epsilon)(2\bltwo-(\bltwo-\epsilon)-1)+2\bltwo(n-m+2)=\\
-		&= (\bltwo-\epsilon)(\bltwo+\epsilon-1)+2\bltwo(n-m+2)=\\
-		&= (\bltwo-\epsilon)(\bltwo+\epsilon)-(\bltwo-\epsilon)+2\bltwo(n-m+2)=\\
-		&= \bltwo^2-\epsilon^2-\bltwo+\epsilon+2\bltwo n-2\bltwo m+4\bltwo=\\
-		&= \bltwo^2+2\bltwo n-2\bltwo m+3\bltwo+\epsilon-\epsilon^2\\
-	\end{align*}
-	\hfuzz=4cm
-	Define $\delta=\epsilon-\epsilon^2$ and recall that our thesis is now that $s(l_1)<s(l_2)$:
-	\begin{align*}
-		2&< \bltwo^2+2\bltwo n-2\bltwo m+3\bltwo+\delta\\
-		0&< \bltwo^2+2\bltwo n-2\bltwo m+3\bltwo+\delta-2\\
-		0&< \bltwo^2 n^2+2\bltwo n^3-2\bltwo m n^2+3\bltwo n^2+\delta n^2-2 n^2\\
-	\end{align*}
-	Define $p=\frac{(m-2)(m-1)}{2}=\bltwo n$, we can rewrite the inequality as: 
-	\begin{align*}
-		0&< p^2+2p n^2-2p m n+3p n+\delta n^2-2 n^2\\
-	\end{align*}
-	Because $0 \leq \delta < 1$ showing that the inequality holds for $\delta=0$ proves it for all $\delta$.
-	\begin{align*}
-		0&< p^2+2p n^2-2p m n+3p n-2 n^2\\
-		0&< n^2(2p-2)-n(2pm-3p)+p^2\\
-		0&< n^2((m-2)(m-1)-2)-n(2m-3)p+p^2\\
-		0&< n^2(m-3)m-n(m-3+m)p+p^2\\
-		0&< (mn-p)[(m-3)n-p]
-	\end{align*}
-	\commentOC{From here downwards, we are basically doing the same reasoning twice. It is enough to show that $(m - 3)n - p > 0$ as this is the smaller multiplicand among these two.}
-	\commentOC{Also, we could (almost) get rid of the special case $m = 4$. Just reason for when $n ≥ m - 1$ and afterwards, observe that when $m = 4$, then $n > m - 1$ (strictly) thus the inequality becomes strict.}
-	\commentOC{Or better, try out the following. Our thesis is $2(m - 3) n - (m - 2) (m - 1) > 0$. Define $n = (m - 1) + \alpha$. Observe that $\alpha ≥ 0$ and $\alpha > 0$ when $m = 4$. Divide by $m - 1$. I think that should be enough.}
-	When $m=4$, then $n\geq4$ and $p=3$ thus we have that $(4n-p)[(4-3)n-p]\geq(4 \cdot 4-3)[(4-3)4-3]=13>0$ \commentOC{“When $m=4$, then $n\geq4$” is confusing, because it reads as if we would know that $n ≥ 4$ because $m = 4$. But $n ≥ 4$ always holds, by hypothesis of our statement to be proven, it is not a consequence of $m = 4$. I suggest to write: When $m=4$, then $p=3$, thus, using the fact that $n ≥ 4$, we have that… And similarly for the next sentence.}. When $m\geq5$ then $n ≥ m - 1$ and we have that
-	\begin{align*}
-		(mn-p)[(m-3)n-p] \geq (m(m-1)-p)[(m-3)(m-1)-p]. 
-	\end{align*}
-	Consider the first multiplicand \commentOC{After the first line, just factor out $m - 1$ and obtain $(m - 1) (m - \frac{m - 2}{2})$, and I think you can jump to the conclusion.}:
-	\begin{align*}
-		m(m-1)-p &= m(m-1)-\frac{(m-2)(m-1)}{2}= \\
-		&=\frac{1}{2}(2m(m-1)-(m-2)(m-1))=\\
-		&=\frac{1}{2}((2m-m+2)(m-1))=\\
-		&=\frac{1}{2}(m+2)(m-1)
-	\end{align*}
-	which is always positive for $m\geq5$. Consider now the second term:
-	\begin{align*}
-		(m-3)(m-1)-p &= (m-3)(m-1)-\frac{(m-2)(m-1)}{2}= \\
-		&=\frac{1}{2}(2(m-3)(m-1)-(m-2)(m-1))\\
-		&=\frac{1}{2}(2m-6-m+2)(m-1)\\
-		&=\frac{1}{2}(m-4)(m-1)
-	\end{align*}
-	which is always positive for $m\geq5$. Therefore
-	\begin{align*}
-		(mn-p)[(m-3)n-p] \geq (m(m-1)-p)[(m-3)(m-1)-p] > 0 
-	\end{align*}
-	which concludes the proof.
-	
-\end{proof}
-
-\begin{proof} for $\sigma_{sd}$. \\
-	Recall that 
-	\[\sigma_{sd}(l)= \sqrt{\frac{\sum_{i=1}^{n}(l_i-\bar{l})^2}{n}}\]	
-	where $\bar{l}=\frac{\sum_{i=1}^{n}l_i}{n}$.
-	Let us define $s(l)= \sum_{i}^{n}(l_i-\bar{l})^2$, so that $s(l) = n \sigma_{sd}(l)^2$.
-	Consider the two vectors $l_1=(m-3, m-1, m-2, \dots, m-2)$ and $l_2=(m-2, m-3, \dots, 1, 0, \dots, 0)$. The thesis is now that $s(l_1) < s(l_2)$.
-	
-	For $l_1$, the arithmetic mean of its values is $m-2$ so $s(l_1)$: 
-	\[s(l_1)=(m-3-m+2)^2+(m-1-m+2)^2+ 0 + \dots + 0= 2\]
-	For $l_2$, the arithmetic mean is \commentOC{Please factor out the computation and results for $\bar{l_1}$ and $\bar{l_2}$, to avoid the repetition.}
-	\[\bar{l_2}=\frac{1}{n}\sum_{i=2}^{m-2}{i}= \frac{(m-2)(m-1)}{2n}.\]
-	Recall that 
-	\begin{align*}
-		\sum_{i=1}^{m}{i^2} &= \frac{m(m+1)(2m+1)}{6}
-	\end{align*}
-	%	Recall that 
-	%	\begin{align}
-	%		\sum_{i=k}^{m}{x} &= (m-k+1)x \\
-	%		\sum_{i=1}^{m}{i} &= \frac{m(m+1)}{2}\\
-	%		\sum_{i=1}^{m}{i^2} &= \frac{m(m+1)(2m+1)}{6}
-	%	\end{align}
-	We can write $s(l_2)$ as:
-	\begin{align*}
-		s(l_2)&= \sum_{i=1}^{m-2}{(i-\bltwo)^2}+(n-(m-2))(0-\bltwo)^2=\\
-		&= \sum_{i=1}^{m-2}{(i^2-2i\bltwo+\bltwo^2)}+(n-m+2)\bltwo^2=\\
-		&= \sum_{i=1}^{m-2}{i^2}-\sum_{i=1}^{m-2}{2i\bltwo}+ \sum_{i=1}^{m-2}{\bltwo^2}+(n-m+2)\bltwo^2=\\
-		&=\frac{(m-2)(m-2+1)(2(m-2)+1)}{6}-2\bltwo\frac{(m-2)(m-2+1)}{2} \\
-		& +(m-2)\bltwo^2 +(n-m+2)\bltwo^2= \\
-		&=\frac{1}{6}(m-2)(m-1)(2m-3)-(m-2)(m-1)\bltwo+\bltwo^2(m-2+n-m+2)=\\
-		&=\frac{1}{6}(m-2)(m-1)(2m-3)-\frac{(m-2)^2(m-1)^2}{2n}+n\bltwo^2=\\
-		&=\frac{1}{6}(m-2)(m-1)(2m-3)-\frac{(m-2)^2(m-1)^2}{2n}+n\frac{(m-2)^2(m-1)^2}{4n^2}=\\
-		&=(m-2)(m-1)\left(\frac{1}{6}(2m-3)-\frac{(m-2)(m-1)}{2n}+\frac{1}{2}\frac{(m-2)(m-1)}{2n}\right)=\\
-		&=(m-2)(m-1)\left(\frac{1}{6}(2m-3)-\frac{1}{2}\frac{(m-2)(m-1)}{2n}\right)
-	\end{align*} 
-	
-	Recall that our thesis is that $s(l_1)<s(l_2)$:
-	\begin{align*}
-		2 &< \frac{1}{6}(m-2)(m-1)(2m-3)-\frac{(m-2)^2(m-1)^2}{4n}\\
-		\frac{(m-2)^2(m-1)^2}{4n} &< \frac{1}{6}(m-2)(m-1)(2m-3)-2 \\
-		(m-2)^2(m-1)^2 &< \frac{2}{3}n(m-2)(m-1)(2m-3)-8n
-	\end{align*} 
-	When $m=4$ then $2^2 \cdot 3^2 < \frac{2}{3}n\cdot2 \cdot3\cdot5-8n$, thus $36<12n$ which is true for $n\geq4$.
-	When $m\geq5$ then $n\geq m-1$:
-	\begin{align*}
-		&(m-2)^2(m-1)^2 < \frac{2}{3}(m-2)(m-1)^2(2m-3)-8(m-1)\\
-		&0 < \frac{2}{3}(m-2)(m-1)^2(2m-3)-(m-2)^2(m-1)^2-8(m-1)\\
-		&(m-1)[(m-2)(m-1)\left(\frac{2}{3}(2m-3)-(m-2)\right)-8]>0\\
-		&(m-1)[(m-2)(m-1)\left(\frac{4m-6-3m+6}{3}\right)-8]>0\\
-		&(m-1)[(m-2)(m-1)\left(\frac{m}{3}\right)-8]>0\\
-	\end{align*}
-	The first coefficient $(m-1)$ is always positive, so consider only the second term:
-	\begin{align*}
-		&(m-2)(m-1)\left(\frac{m}{3}\right)-8>0\\
-		&\frac{(m-2)(m-1)m}{3}>8\\
-		&(m-2)(m-1)m>24\\
-	\end{align*}
-	Since $m\geq5$ then $(m-2)(m-1)m\geq 3\cdot4\cdot5=60>24$ which concludes the proof.
-\end{proof}
-
-\begin{proof} for $\sigma_{G}$. \\
-	Recall that 
-	\[\sigma_{G}(l)= \frac{\sum_{i=1}^{n}\sum_{j=1}^{n}|l_i-l_j|}{2 \cdot n \cdot \sum_{i=1}^{n} l_i}.\]	
-	Let us define $s(l)= \sum_{i=1}^{n}\sum_{j=1}^{n}|l_i-l_j|$, $t(l)=\sum_{i=1}^{n} l_i$ and $g(l)=s(l)/t(l)$. Consider the two vectors $l_1=(m-3, m-1, m-2, \dots, m-2)$ and $l_2=(m-2, m-3, \dots, 1, 0, \dots, 0)$. The thesis is now that $g(l_1) < g(l_2)$.
-	Note that $s(l)$ corresponds to the one computed for $\sigma_{mad}$ in \cref{proof:sigmamad} and recall that:
-	\begin{align*}
-		s(l_1)&=4n-4\\
-		s(l_2)&= (m - 2) (m - 1) \left(\frac{-2m + 3}{3} + n\right).
-	\end{align*}
-	Consider now $t(l)$. For $l_1$ the sum corresponds to the sum of the first two terms $m-3$, $m-1$ and $n-2$ times the term $m-2$, $t(l_1)=(m-3)+(m-1)+(n-2)(m-2)=n(m-2)$.
-	\begin{align*}
-		t(l_1)&=(m-3)+(m-1)+(n-2)(m-2)=\\
-		&=m-3+m-1-2m-4+n(m-2)=n(m-2)
-	\end{align*}
-	For $l_2$ it suffices to sum the terms from $1$ to $m-2$ because the $n-(m-2)$ terms left are $0$. Thus $t(l_2)=\sum_{i=1}^{n} l_2(i)=\sum_{i=1}^{m-2} l_2(i)=\frac{(m-2)(m-1)}{2}$.
-	Therefore we have:
-	\begin{align*}
-		g(l_1)&=\frac{4n-4}{n(m-2)};\\
-		g(l_2)&=(m - 2) (m - 1) \left(\frac{-2m + 3}{3} + n\right)\frac{2}{(m - 2) (m - 1)}=\\
-		&=\frac{-4m + 6}{3} + 2n.
-	\end{align*}
-	The thesis is now that $g(l_1) < g(l_2)$, so
-	\begin{align*}
-		\frac{4n-4}{n(m-2)}<&\frac{-4m + 6}{3} + 2n \\
-		3(4n-4)<&(-4m+6+6n)n(m-2)\\
-		12(n-1)<&2(-2m+3+3n)n(m-2)\\
-		6(n-1)<&n(-2m+3+3n)(m-2)\\
-	\end{align*}
-	For $m=4$ then:
-	\begin{align*}
-		&6(n-1)<n(-8+3+3n)(4-2)\\
-		&6(n-1)<2n(-8+3+3n)\\
-		&3(n-1)<-8n+3n+3n^2\\
-		&-5n+3n^2-3n+3>0\\
-		&3n^2-8n+3>0\\
-	\end{align*}
-	since $n\geq4$ then $3n^2-8n+3\geq 3 \cdot 16 - 8 \cdot 4+3 =43 > 0$.
-	For $m\geq5$ then $n\geq m-1$, so it suffices to prove it for $n=m-1$:
-	\begin{align*}
-		&6(m-1-1)<(m-1)(-2m+3+3m-3)(m-2)\\
-		&6(m-2)<(m-1)m(m-2)\\
-		&(m-1)m(m-2)-6(m-2)>0\\
-		&(m-2)((m-1)m-6)>0\\
-	\end{align*}
-	Since $m\geq5$ the first term is always positive, consider then $(m-1)m-6>0$ or $(m-1)m>6$ which is always true for $m\geq5$. Which concludes the proof.
-\end{proof}
+%\begin{remark}
+%	\label{prop:spreadMeas}
+%	$\sigma_{mad}$, $\sigma_{ad}$, $\sigma_{sd}$ and $\sigma_{G}$ all satisfy condition $C_{m,n}$, for $m \in \intvl{4,1000}$ and $n \in \intvl{b, 1000}$ where $b = \max\{4,m-1\}$.
+%\end{remark}
+%
+%\begin{proof} for $\sigma_{mad}$. \\
+%	\label{proof:sigmamad}
+%	Recall that 
+%	\[\sigma_{mad}(l)= \frac{1}{n^2} \sum_{i=1}^{n}\sum_{j=1}^{n}|l_i-l_j|.\]
+%	Let us define $f_l(i)= \sum_{j}|l_i-l_j|$ and $s(l) = n^2 \smad(l)$. Thus $n^2 \sigma_{mad}(l) = s(l)= \sum_{i} f_l(i)$.
+%	
+%	Consider the two vectors $l_1=(m-3, m-1, m-2, \dots, m-2)$ (where $n-2$ terms are equal to $m-2$) and $l_2=\sigma(m-2, m-3, \dots, 1, 0, \dots, 0)$ (where $m-2$ terms go from $m-2$ to $1$, and $m-n+2$ terms are equal to $0$). 
+%	The thesis is now that $s(l_1) < s(l_2)$.
+%	
+%	Let us consider $l_1$ first: 
+%	\begin{align*}
+%		&f_{l_1}(1)= 2+(n-2)=n \\
+%		&f_{l_1}(2)= 2+(n-2)=n \\
+%		&f_{l_1}(i)= 2 \quad \forall \ 3\leq i \leq n \\ 
+%	\end{align*}
+%	In fact, considering the first term of $l_1$ ($m-3$), the difference between itself and the second term of the vector ($m-1$) is $2$; the difference between itself and any of the other $n-2$ terms of the vector ($m-2$) is $1$. The sum of these differences is represented by $f_{l_1}(1)$. The same argument holds for the second term ($m-1$). Any of the remaining $n-2$ terms ($m-2$) has a difference $1$ with the first and the second term and a difference $0$ with the rest. Therefore 
+%	\[s(l_1) =2(2+(n-2))+(n-2)\cdot2)= 4n-4\]
+%	
+%	To compute $s(l_2)$, let us distinguish the cases $1 ≤ i ≤ m - 2$ and $m - 1 ≤ i$.
+%	
+%	For $1 ≤ i ≤ m - 2$, 
+%	\begin{align*}
+%		f_{l_2}(i) &= \sum_{1 ≤ j ≤ i} |l_i - l_j| + \sum_{i < j ≤ m - 2} |l_i - l_j| + \sum_{m - 2 < j ≤ n} |l_i - l_j|\\
+%		&= [(i - 1) + (i - 2) + … + 0] + [1 + … + (m - 2 - i)] \\
+%		&\quad + (m - 1 - i) (n - m + 2)\\
+%		%	[that’s i terms, then m - 2 - i terms, then n - m + 2 terms]
+%		&= \frac{(i - 1) i}{2} + \frac{(m - 2 - i) (m - 1 - i)}{2} + (m - 1 - i) (n - m + 2)\\
+%		&= i^2 / 2 - i / 2 + \frac{(m - 2) (m - 1) - i (m - 2 + m - 1) + i^2}{2} \\
+%		&\quad + (m - 1) (n - m + 2) - i (n - m + 2)\\
+%		&= i^2 - i \frac{1 + 2m - 3 + 2(n - m + 2)}{2} + (m - 1) \frac{m - 2 + 2 (n - m + 2)}{2}\\
+%		&= i^2 - i (n + 1) + (m - 1) \frac{-m + 2n + 2}{2}.
+%	\end{align*}
+%	
+%	For $m - 1 ≤ i$, $f_{l_2}(i) = m - 2 + m - 3 + … + 1 = \frac{(m - 2) (m - 1)}{2}$.
+%	
+%	Thus, 
+%	\begin{align*}
+%		s(l_2) &= \sum_{1 ≤ i ≤ m - 2}[i^2 - i (n + 1) + (m - 1) \frac{-m + 2n + 2}{2}] \\
+%		&\quad + (n - (m - 2)) (m - 2) (m - 1) / 2\\
+%		&= (m - 2) (m - 1) (2m - 3) / 6 - (n + 1) (m - 2) (m - 1) / 2 \\
+%		&\quad + (m - 2) (m - 1) (- m + 2n + 2) / 2 \\
+%		&\quad + (n - m + 2) (m - 2) (m - 1) / 2\\
+%		%		&\quad + n (m - 2) (m - 1) / 2 - (m - 2)^2 (m - 1) / 2\\
+%		&= (m - 2) (m - 1) \left(\frac{2m - 3}{6} - \frac{n + 1}{2} + \frac{- m + 2n + 2}{2} + \frac{n - m + 2}{2}\right)\\
+%		%		&= (m - 2) (m - 1) \left(\frac{2m - 3}{6} + \frac{- 2m + 3 + 2n}{2}\right)\\
+%		&= (m - 2) (m - 1) \left(\frac{-2m + 3}{3} + n\right).
+%	\end{align*}
+%	
+%	Our thesis is now that 
+%	\[4n - 4 < \frac{-2m + 3}{3} (m - 2) (m - 1) + n (m - 2) (m - 1)\]
+%	or equivalently, that 
+%	\[\frac{(2m - 3) (m - 2) (m - 1)}{3} - 4 < n [(m - 2) (m - 1) - 4].\]
+%	
+%	When $m = 4$, using the fact that $4 ≤ n$, the inequality holds: $5 (2) (3) / 3 - 4 < 4 [2] ≤ n [2]$.
+%	
+%	Now assume that $m ≥ 5$. Using the fact that $m - 1 ≤ n$, suffices to show that
+%	$(2m - 3) (m - 2) (m - 1) / 3 - 4 < (m - 1) [(m - 2) (m - 1) - 4]$, or equivalently, that
+%	$-12 < (m - 1) [3 (m - 2) (m - 1) - 12 - (2m - 3) (m - 2)]$.
+%	Note that the right hand side equals $(m - 1) [(m - 2) (3 (m - 1) - (2m - 3)) - 12] = (m - 1) (m^2 - 2m - 12) = (m - 1) (m - 1 + \sqrt{13}) (m - 1 - \sqrt{13})$. As all multiplicands are positive when $m ≥ 5$, the inequality is true when $m ≥ 5$.
+%\end{proof}		
+%
+%\begin{proof} for $\sigma_{ad}$. \\
+%	Recall that 
+%	\[\sigma_{ad}(l)= \frac{\sum_{i=1}^{n}|l_i-\bar{l}|}{n},\] 
+%	where $\bar{l}=\frac{\sum_{i=1}^{n}l_i}{n}$.
+%	Let us define $s(l)= \sum_{i}|l_i-\bar{l}|$, so that $s(l) = n \sigma_{ad}(l)$.
+%	Consider the two vectors $l_1=(m-3, m-1, m-2, \dots, m-2)$ and $l_2=(m-2, m-3, \dots, 1, 0, \dots, 0)$. The thesis is now that $s(l_1) < s(l_2)$.
+%	
+%	For $l_1$, the arithmetic mean of its values is $m-2$, so 
+%	\[s(l_1)=[|m-3-m+2|+|m-1-m+2|+ 0 + \dots + 0]= 2.\]
+%	
+%	For $l_2$, the arithmetic mean is 
+%	\[\bar{l_2}=\frac{1}{n}\sum_{i=1}^{m-2}{i}= \frac{(m-2)(m-1)}{2n}.\]
+%	Recall that 
+%	\begin{align*}
+%		\sum_{i=k}^{m}{i} &= \frac{(m+1-k)(m+k)}{2} \\
+%	\end{align*}
+%	We can write $s(l_2)$ as:
+%	\begin{align*}
+%		s(l_2)&= \sum_{i=1}^{m-2}{|i-\bltwo|}+(n-(m-2))|0-\bltwo|=\\
+%		&= \sum_{i=1}^{m-2}{|i-\bltwo|}+(n-m+2)\bltwo=\\
+%		&=\sum_{i=\fltwo+1}^{m-2}{(i-\bltwo)}-\sum_{i=1}^{\fltwo}{(i-\bltwo)} +(n-m+2)\bltwo=\\
+%		&=\sum_{i=\fltwo+1}^{m-2}{i}-\sum_{i=\fltwo+1}^{m-2}{\bltwo}-\sum_{i=1}^{\fltwo}{i} +\sum_{i=1}^{\fltwo}{\bltwo}+(n-m+2)\bltwo=\\
+%		&= -\frac{(\fltwo+1-m+2-1)(\fltwo+1+m-2)}{\fltwo}-(m-2-\fltwo-1+1)\bltwo\\ &-\frac{\fltwo(\fltwo+1)}{2}+\fltwo \bltwo + (n-m+2)\bltwo=\\
+%		&=-\frac{(\fltwo-m+2)(\fltwo+m-1)}{2}-(m-2-\fltwo)\bltwo-\frac{\fltwo(\fltwo+1)}{2} \\
+%		&+ \fltwo \bltwo + (n-m+2)\bltwo=\\
+%		&=-\frac{(\fltwo)(\fltwo+m-1)}{2}+\frac{(m-2)(\fltwo+m-1)}{2} -(m-2)\bltwo+(\fltwo)\bltwo \\ &-\frac{\fltwo(\fltwo+1)}{2}+ \fltwo \bltwo + (n-m+2)\bltwo=\\
+%		&=-\frac{(\fltwo)(\fltwo+m-1)}{2}+\frac{(m-2)\fltwo}{2}+\underbrace{\frac{(m-2)(m-1)}{2}}_{=n \bltwo} -(m-2)\bltwo \\ &-\frac{\fltwo(\fltwo+1)}{2}+ 2\fltwo \bltwo + (n-m+2)\bltwo=\\
+%		&=\fltwo(-\frac{\fltwo+m-1}{2}+\frac{m-2}{2}-\frac{\fltwo +1}{2}+2\bltwo)+
+%		2\bltwo(n-m+2)=\\
+%		&=\fltwo(\frac{-\fltwo-m+1+m-2+4\bltwo-\fltwo-1}{2})+2\bltwo(n-m+2)=\\
+%		&=\fltwo(\frac{4\bltwo-2\fltwo-2}{2})+2\bltwo(n-m+2)=\\
+%		&=\fltwo(2\bltwo-\fltwo-1)+2\bltwo(n-m+2) \tag{1}\\
+%	\end{align*}
+%	\commentOC{Note that there must be an easier way of getting this result, or perhaps even a simpler one. Imagine I sum from 1 to 5 the distance to a value that would be $3.2$, I’d get $\abs{1 - 3.2} + \abs{2 - 3.2} + \abs{3 - 3.2} + \abs{4 - 3.2} + \abs{5 - 3.2} = 2.2 + 1.2 + 0.2 + 0.8 + 1.8$. Grouping the terms $1.2$ and $0.8$, and $0.2$ and $1.8$, I get $2.2 + 2 + 2$. That said, we do not absolutely need to obtain an easier development if we do not include it in our article, so you can leave this as is if you prefer. Just perhaps try to think a bit about it to see if it leads somewhere easily.}
+%	
+%	Define $\epsilon = \bar{l_2} - \floor{\bar{l_2}}$, thus $0 ≤ \epsilon < 1$. We can rewrite (1), by using the fact that $\floor{\bar{l_2}} = \bar{l_2} - \epsilon$, as:
+%	\begin{align*}
+%		(1)&= (\bltwo-\epsilon)(2\bltwo-(\bltwo-\epsilon)-1)+2\bltwo(n-m+2)=\\
+%		&= (\bltwo-\epsilon)(\bltwo+\epsilon-1)+2\bltwo(n-m+2)=\\
+%		&= (\bltwo-\epsilon)(\bltwo+\epsilon)-(\bltwo-\epsilon)+2\bltwo(n-m+2)=\\
+%		&= \bltwo^2-\epsilon^2-\bltwo+\epsilon+2\bltwo n-2\bltwo m+4\bltwo=\\
+%		&= \bltwo^2+2\bltwo n-2\bltwo m+3\bltwo+\epsilon-\epsilon^2\\
+%	\end{align*}
+%	\hfuzz=4cm
+%	Define $\delta=\epsilon-\epsilon^2$ and recall that our thesis is now that $s(l_1)<s(l_2)$:
+%	\begin{align*}
+%		2&< \bltwo^2+2\bltwo n-2\bltwo m+3\bltwo+\delta\\
+%		0&< \bltwo^2+2\bltwo n-2\bltwo m+3\bltwo+\delta-2\\
+%		0&< \bltwo^2 n^2+2\bltwo n^3-2\bltwo m n^2+3\bltwo n^2+\delta n^2-2 n^2\\
+%	\end{align*}
+%	Define $p=\frac{(m-2)(m-1)}{2}=\bltwo n$, we can rewrite the inequality as: 
+%	\begin{align*}
+%		0&< p^2+2p n^2-2p m n+3p n+\delta n^2-2 n^2\\
+%	\end{align*}
+%	Because $0 \leq \delta < 1$ showing that the inequality holds for $\delta=0$ proves it for all $\delta$.
+%	\begin{align*}
+%		0&< p^2+2p n^2-2p m n+3p n-2 n^2\\
+%		0&< n^2(2p-2)-n(2pm-3p)+p^2\\
+%		0&< n^2((m-2)(m-1)-2)-n(2m-3)p+p^2\\
+%		0&< n^2(m-3)m-n(m-3+m)p+p^2\\
+%		0&< (mn-p)[(m-3)n-p]
+%	\end{align*}
+%	\commentOC{From here downwards, we are basically doing the same reasoning twice. It is enough to show that $(m - 3)n - p > 0$ as this is the smaller multiplicand among these two.}
+%	\commentOC{Also, we could (almost) get rid of the special case $m = 4$. Just reason for when $n ≥ m - 1$ and afterwards, observe that when $m = 4$, then $n > m - 1$ (strictly) thus the inequality becomes strict.}
+%	\commentOC{Or better, try out the following. Our thesis is $2(m - 3) n - (m - 2) (m - 1) > 0$. Define $n = (m - 1) + \alpha$. Observe that $\alpha ≥ 0$ and $\alpha > 0$ when $m = 4$. Divide by $m - 1$. I think that should be enough.}
+%	When $m=4$, then $n\geq4$ and $p=3$ thus we have that $(4n-p)[(4-3)n-p]\geq(4 \cdot 4-3)[(4-3)4-3]=13>0$ \commentOC{“When $m=4$, then $n\geq4$” is confusing, because it reads as if we would know that $n ≥ 4$ because $m = 4$. But $n ≥ 4$ always holds, by hypothesis of our statement to be proven, it is not a consequence of $m = 4$. I suggest to write: When $m=4$, then $p=3$, thus, using the fact that $n ≥ 4$, we have that… And similarly for the next sentence.}. When $m\geq5$ then $n ≥ m - 1$ and we have that
+%	\begin{align*}
+%		(mn-p)[(m-3)n-p] \geq (m(m-1)-p)[(m-3)(m-1)-p]. 
+%	\end{align*}
+%	Consider the first multiplicand \commentOC{After the first line, just factor out $m - 1$ and obtain $(m - 1) (m - \frac{m - 2}{2})$, and I think you can jump to the conclusion.}:
+%	\begin{align*}
+%		m(m-1)-p &= m(m-1)-\frac{(m-2)(m-1)}{2}= \\
+%		&=\frac{1}{2}(2m(m-1)-(m-2)(m-1))=\\
+%		&=\frac{1}{2}((2m-m+2)(m-1))=\\
+%		&=\frac{1}{2}(m+2)(m-1)
+%	\end{align*}
+%	which is always positive for $m\geq5$. Consider now the second term:
+%	\begin{align*}
+%		(m-3)(m-1)-p &= (m-3)(m-1)-\frac{(m-2)(m-1)}{2}= \\
+%		&=\frac{1}{2}(2(m-3)(m-1)-(m-2)(m-1))\\
+%		&=\frac{1}{2}(2m-6-m+2)(m-1)\\
+%		&=\frac{1}{2}(m-4)(m-1)
+%	\end{align*}
+%	which is always positive for $m\geq5$. Therefore
+%	\begin{align*}
+%		(mn-p)[(m-3)n-p] \geq (m(m-1)-p)[(m-3)(m-1)-p] > 0 
+%	\end{align*}
+%	which concludes the proof.
+%	
+%\end{proof}
+%
+%\begin{proof} for $\sigma_{sd}$. \\
+%	Recall that 
+%	\[\sigma_{sd}(l)= \sqrt{\frac{\sum_{i=1}^{n}(l_i-\bar{l})^2}{n}}\]	
+%	where $\bar{l}=\frac{\sum_{i=1}^{n}l_i}{n}$.
+%	Let us define $s(l)= \sum_{i}^{n}(l_i-\bar{l})^2$, so that $s(l) = n \sigma_{sd}(l)^2$.
+%	Consider the two vectors $l_1=(m-3, m-1, m-2, \dots, m-2)$ and $l_2=(m-2, m-3, \dots, 1, 0, \dots, 0)$. The thesis is now that $s(l_1) < s(l_2)$.
+%	
+%	For $l_1$, the arithmetic mean of its values is $m-2$ so $s(l_1)$: 
+%	\[s(l_1)=(m-3-m+2)^2+(m-1-m+2)^2+ 0 + \dots + 0= 2\]
+%	For $l_2$, the arithmetic mean is \commentOC{Please factor out the computation and results for $\bar{l_1}$ and $\bar{l_2}$, to avoid the repetition.}
+%	\[\bar{l_2}=\frac{1}{n}\sum_{i=2}^{m-2}{i}= \frac{(m-2)(m-1)}{2n}.\]
+%	Recall that 
+%	\begin{align*}
+%		\sum_{i=1}^{m}{i^2} &= \frac{m(m+1)(2m+1)}{6}
+%	\end{align*}
+%	%	Recall that 
+%	%	\begin{align}
+%	%		\sum_{i=k}^{m}{x} &= (m-k+1)x \\
+%	%		\sum_{i=1}^{m}{i} &= \frac{m(m+1)}{2}\\
+%	%		\sum_{i=1}^{m}{i^2} &= \frac{m(m+1)(2m+1)}{6}
+%	%	\end{align}
+%	We can write $s(l_2)$ as:
+%	\begin{align*}
+%		s(l_2)&= \sum_{i=1}^{m-2}{(i-\bltwo)^2}+(n-(m-2))(0-\bltwo)^2=\\
+%		&= \sum_{i=1}^{m-2}{(i^2-2i\bltwo+\bltwo^2)}+(n-m+2)\bltwo^2=\\
+%		&= \sum_{i=1}^{m-2}{i^2}-\sum_{i=1}^{m-2}{2i\bltwo}+ \sum_{i=1}^{m-2}{\bltwo^2}+(n-m+2)\bltwo^2=\\
+%		&=\frac{(m-2)(m-2+1)(2(m-2)+1)}{6}-2\bltwo\frac{(m-2)(m-2+1)}{2} \\
+%		& +(m-2)\bltwo^2 +(n-m+2)\bltwo^2= \\
+%		&=\frac{1}{6}(m-2)(m-1)(2m-3)-(m-2)(m-1)\bltwo+\bltwo^2(m-2+n-m+2)=\\
+%		&=\frac{1}{6}(m-2)(m-1)(2m-3)-\frac{(m-2)^2(m-1)^2}{2n}+n\bltwo^2=\\
+%		&=\frac{1}{6}(m-2)(m-1)(2m-3)-\frac{(m-2)^2(m-1)^2}{2n}+n\frac{(m-2)^2(m-1)^2}{4n^2}=\\
+%		&=(m-2)(m-1)\left(\frac{1}{6}(2m-3)-\frac{(m-2)(m-1)}{2n}+\frac{1}{2}\frac{(m-2)(m-1)}{2n}\right)=\\
+%		&=(m-2)(m-1)\left(\frac{1}{6}(2m-3)-\frac{1}{2}\frac{(m-2)(m-1)}{2n}\right)
+%	\end{align*} 
+%	
+%	Recall that our thesis is that $s(l_1)<s(l_2)$:
+%	\begin{align*}
+%		2 &< \frac{1}{6}(m-2)(m-1)(2m-3)-\frac{(m-2)^2(m-1)^2}{4n}\\
+%		\frac{(m-2)^2(m-1)^2}{4n} &< \frac{1}{6}(m-2)(m-1)(2m-3)-2 \\
+%		(m-2)^2(m-1)^2 &< \frac{2}{3}n(m-2)(m-1)(2m-3)-8n
+%	\end{align*} 
+%	When $m=4$ then $2^2 \cdot 3^2 < \frac{2}{3}n\cdot2 \cdot3\cdot5-8n$, thus $36<12n$ which is true for $n\geq4$.
+%	When $m\geq5$ then $n\geq m-1$:
+%	\begin{align*}
+%		&(m-2)^2(m-1)^2 < \frac{2}{3}(m-2)(m-1)^2(2m-3)-8(m-1)\\
+%		&0 < \frac{2}{3}(m-2)(m-1)^2(2m-3)-(m-2)^2(m-1)^2-8(m-1)\\
+%		&(m-1)[(m-2)(m-1)\left(\frac{2}{3}(2m-3)-(m-2)\right)-8]>0\\
+%		&(m-1)[(m-2)(m-1)\left(\frac{4m-6-3m+6}{3}\right)-8]>0\\
+%		&(m-1)[(m-2)(m-1)\left(\frac{m}{3}\right)-8]>0\\
+%	\end{align*}
+%	The first coefficient $(m-1)$ is always positive, so consider only the second term:
+%	\begin{align*}
+%		&(m-2)(m-1)\left(\frac{m}{3}\right)-8>0\\
+%		&\frac{(m-2)(m-1)m}{3}>8\\
+%		&(m-2)(m-1)m>24\\
+%	\end{align*}
+%	Since $m\geq5$ then $(m-2)(m-1)m\geq 3\cdot4\cdot5=60>24$ which concludes the proof.
+%\end{proof}
+%
+%\begin{proof} for $\sigma_{G}$. \\
+%	Recall that 
+%	\[\sigma_{G}(l)= \frac{\sum_{i=1}^{n}\sum_{j=1}^{n}|l_i-l_j|}{2 \cdot n \cdot \sum_{i=1}^{n} l_i}.\]	
+%	Let us define $s(l)= \sum_{i=1}^{n}\sum_{j=1}^{n}|l_i-l_j|$, $t(l)=\sum_{i=1}^{n} l_i$ and $g(l)=s(l)/t(l)$. Consider the two vectors $l_1=(m-3, m-1, m-2, \dots, m-2)$ and $l_2=(m-2, m-3, \dots, 1, 0, \dots, 0)$. The thesis is now that $g(l_1) < g(l_2)$.
+%	Note that $s(l)$ corresponds to the one computed for $\sigma_{mad}$ in \cref{proof:sigmamad} and recall that:
+%	\begin{align*}
+%		s(l_1)&=4n-4\\
+%		s(l_2)&= (m - 2) (m - 1) \left(\frac{-2m + 3}{3} + n\right).
+%	\end{align*}
+%	Consider now $t(l)$. For $l_1$ the sum corresponds to the sum of the first two terms $m-3$, $m-1$ and $n-2$ times the term $m-2$, $t(l_1)=(m-3)+(m-1)+(n-2)(m-2)=n(m-2)$.
+%	\begin{align*}
+%		t(l_1)&=(m-3)+(m-1)+(n-2)(m-2)=\\
+%		&=m-3+m-1-2m-4+n(m-2)=n(m-2)
+%	\end{align*}
+%	For $l_2$ it suffices to sum the terms from $1$ to $m-2$ because the $n-(m-2)$ terms left are $0$. Thus $t(l_2)=\sum_{i=1}^{n} l_2(i)=\sum_{i=1}^{m-2} l_2(i)=\frac{(m-2)(m-1)}{2}$.
+%	Therefore we have:
+%	\begin{align*}
+%		g(l_1)&=\frac{4n-4}{n(m-2)};\\
+%		g(l_2)&=(m - 2) (m - 1) \left(\frac{-2m + 3}{3} + n\right)\frac{2}{(m - 2) (m - 1)}=\\
+%		&=\frac{-4m + 6}{3} + 2n.
+%	\end{align*}
+%	The thesis is now that $g(l_1) < g(l_2)$, so
+%	\begin{align*}
+%		\frac{4n-4}{n(m-2)}<&\frac{-4m + 6}{3} + 2n \\
+%		3(4n-4)<&(-4m+6+6n)n(m-2)\\
+%		12(n-1)<&2(-2m+3+3n)n(m-2)\\
+%		6(n-1)<&n(-2m+3+3n)(m-2)\\
+%	\end{align*}
+%	For $m=4$ then:
+%	\begin{align*}
+%		&6(n-1)<n(-8+3+3n)(4-2)\\
+%		&6(n-1)<2n(-8+3+3n)\\
+%		&3(n-1)<-8n+3n+3n^2\\
+%		&-5n+3n^2-3n+3>0\\
+%		&3n^2-8n+3>0\\
+%	\end{align*}
+%	since $n\geq4$ then $3n^2-8n+3\geq 3 \cdot 16 - 8 \cdot 4+3 =43 > 0$.
+%	For $m\geq5$ then $n\geq m-1$, so it suffices to prove it for $n=m-1$:
+%	\begin{align*}
+%		&6(m-1-1)<(m-1)(-2m+3+3m-3)(m-2)\\
+%		&6(m-2)<(m-1)m(m-2)\\
+%		&(m-1)m(m-2)-6(m-2)>0\\
+%		&(m-2)((m-1)m-6)>0\\
+%	\end{align*}
+%	Since $m\geq5$ the first term is always positive, consider then $(m-1)m-6>0$ or $(m-1)m>6$ which is always true for $m\geq5$. Which concludes the proof.
+%\end{proof}
 
 %A \emph{spread measure} $\sigma: \alllosses → \R_{+}$ satisfies condition gamma iff  $\sigma (m-3,$ $m-1,m-2,...,$ $m-2)$ <$\sigma(m-2,$ $m-1,...1,$0, $\ 0)$.
 %			(\lambda_{P}(y))$ that associates a spread value to every possible loss
