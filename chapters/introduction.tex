@@ -6,61 +6,61 @@
 
 This chapter aims at presenting the theory behind collective decision-making processes: Social Choice Theory. Starting from the history of this field, we study its goals, challenges and evolution. In particular, we focus our attention on some of the problems of this theory and describe the questions that will be explored during the rest of the dissertation.
 
-Collective decision-making is a process in which individual preferences are aggregated to form a single group choice. This broad definition allows to consider instances that seem very different from each other. Some examples include \textit{fair allocation problems} \textemdash which address the problem of fairly dividing some resources among individuals who have different interests in such resources\textemdash \textit{matching problems} \textemdash which deal with the problem of matching individuals from two separate groups considering their preferences, e.g. students to schools, tenants to houses etc. \textemdash and \textit{judgment aggregation problems} \textemdash whose solutions try to group the beliefs of different individuals into a judgment that reflects the society as a single entity. However, despite its many applications, the main example of a collective decision-making problem is voting. 
-\commentOC{I do not understand this sentence: why despite, what is “its”?}\commentBN{Is this better?: However, despite the many applications involving a process of collective decision-making, the main example is voting.}
-Given a set of individuals who express their preferences over a given set of candidates, how do we select the \textit{best} candidate for the group? This is a very ancient dilemma that many brilliant minds faced during centuries and, as \citet{McLean1990} wrote, "the theory of voting is known to have been discovered three times and lost twice."
+Collective decision-making is a process in which individual preferences are aggregated to form a single group choice. This broad definition allows to consider instances that seem very different from each other. Some examples include \textit{fair allocation problems} \textemdash which address the problem of fairly dividing some resources among individuals who have different interests in such resources\textemdash \textit{matching problems} \textemdash which deal with the problem of matching individuals from two separate groups considering their preferences, e.g. students to schools, tenants to houses etc. \textemdash and \textit{judgment aggregation problems} \textemdash whose solutions try to group the beliefs of different individuals into a judgment that reflects the society as a single entity. Many applications involve a process of collective decision-making, in this thesis we will focus on voting. Given a set of individuals who express their preferences over a given set of candidates, how do we select the \textit{best} candidate for the group? This is a very ancient dilemma that many brilliant minds faced during centuries and, as \citet{McLean1990} wrote, \say{the theory of voting is known to have been discovered three times and lost twice}. Throughout this chapter, we will first discuss the history of classical social choice theory, which will serve as a starting point for describing the scope of this thesis: computational social choice. Then, we will introduce the problems tackled in this manuscript and a summary of the proposed solutions.
 
-The first records of collective choice problems can be traced back to ancient Greece (ca. 500 BC), where the word democracy itself has it origins from the greek dēmokratiā: dēmos \textit{people} and kratos \textit{rule}. \commentOC{where it has it origins from…?}\commentBN{ancient Greece ?}
-Many scholars, including Aristotle, have described in details the functioning of Athenian democratic institutions, however voting processes have never been formally analysed. This appears to be due to the fact that Athenian voters where asked to express their preferences over only two alternatives: the choices were often in the form of \textit{yes/no}, \textit{banish/not banish}. Today we know that most of the problems in social choice arise when at least three alternatives are considered. Exactly this reason brought Pliny the Younger, a magistrate of Ancient Rome, to write a letter to his jurist friend Titius Aristo (105 AD). In the letter, that can be found translated in \citet[Chapter 2]{McLeanUrken1995}, Pliny asks Titius advice about a problem emerged during a vote in the Senate. A consul had been found dead and his servants were suspected of his death, the Senate had to decide whether to free them, to banish them or to put them to death. For the first time they were facing a problem with more than two choices and, with it, its related issues. Pliny explains that the first option was acclaimed by the largest number of senators but not by the majority of them. Thus, he asked the Senate to consider the alternatives as three separate ones on the principle of huge disparity in punishments, and tried to arrange a series of binary votes among the three verdicts. Pliny was aware of his own attempt to manipulate the elections in favor of his top choice, freeing the slaves, but so was one of his adversary, supporter of the death penalty. The latter knew that the most lenient sentence would have won in binary votes against banishment and death taken separately, so he withdraw his proposal that could not have defeated any of the others. The supporters of death penalty then moved their support to banishment that easily won having now a strong majority. Note how by changing the way we aggregate the same set of preferences we can have completely different outcomes.
+\section{History of Classical Social Choice}
+
+The first records of collective choice problems can be traced back to ancient Greece (ca. 500 BC), and the word democracy itself originated from the greek dēmokratiā: dēmos \textit{people} and kratos \textit{rule}. Many scholars, including Aristotle, have described in details the functioning of Athenian democratic institutions, however voting processes have never been formally analysed. This appears to be due to the fact that Athenian voters where asked to express their preferences over only two alternatives: the choices were often in the form of \textit{yes/no}, \textit{banish/not banish}. Today we know that most of the problems in social choice arise when at least three alternatives are considered. Exactly this reason brought Pliny the Younger, a magistrate of Ancient Rome, to write a letter to his jurist friend Titius Aristo (105 AD). In the letter, that can be found translated in \citet[Chapter 2]{McLeanUrken1995}, Pliny asks Titius advice about a problem emerged during a vote in the Senate. A consul had been found dead and his servants were suspected of his death, the Senate had to decide whether to free them, to banish them or to put them to death. For the first time they were facing a problem with more than two choices and, with it, its related issues. Pliny explains that the first option was acclaimed by the largest number of senators but not by the majority of them. Thus, he asked the Senate to consider the alternatives as three separate ones on the principle of huge disparity in punishments, and tried to arrange a series of binary votes among the three verdicts. Pliny was aware of his own attempt to manipulate the elections in favor of his top choice, freeing the slaves, but so was one of his adversary, supporter of the death penalty. The latter knew that the most lenient sentence would have won in binary votes against banishment and death taken separately, so he withdraw his proposal that could not have defeated any of the others. The supporters of death penalty then moved their support to banishment that easily won having now a strong majority. Note how by changing the way we aggregate the same set of preferences we can have completely different outcomes.
 
 Pliny's concern shows how some desiderata of electoral protocols are not only restricted to modern society. The desire for a transparent system that was difficult to manipulate was present also in medieval elections. However, after Pliny, the democratic process did not find much room in the public discussion. The only two exceptions of abstract works on voting rules in the Middle Ages were the ones of Ramon Llull (ca. 1232-1316) and Nicolaus Cusanus (1401-1464). The lack of theoretic analysis led to the creation of overly complicated electoral processes in order to make manipulations so difficult as to be impossible in practice \citep{Uckelman2010}. For example, Venice's 1268 ordinance, which described the procedure to elect the Doge (the head of the state), involved nine stages from the elections of the first committee to the election of the Doge himself. The procedure, discussed in details by \citet{Lines1986, Coggins1998, Mowbray2007} can be summarized by this folk poem \citep{Doglioni1666}:
 
-\noindent
-\begin{minipage}[t]{.45\textwidth}
-	\centering
-\textit{	Trenta elegge il conseglio. \\ 
-	Di quei nove hanno il meglio; \\
-	Questi eleggon quaranta; \\
-	Ma chi di lor si vanta \\
-	Son dodici che fanno \\
-	Venticinque: ma stanno \\
-	Di questi solo nove \\
-	Che fan con le lor prove \\
-	Quarantacinque a ponto \\
-	De’ quali undici in conto, \\
-	Eleggon quarantuno, \\
-	Che chiusi tutti in uno, \\
-	Con venticinque almeno \\
-	Voti, fanno il sereno \\
-	Principe che corregge \\
-	Statuti,ordini e legge.}
-\end{minipage}%
-\begin{minipage}[t]{.45\textwidth}
-	\centering
-\textit{Thirty elects the board. \\ 
-	Of those nine have the best. \\
-	These elect forty.\\
-	But those who brags of them \\
-	Are twelve that make \\
-	Twenty-five: but they stand \\
-	Of these only nine \\
-	Who make with their evidence \\
-	Forty-five per account \\
-	Of whom eleven \\
-	Elect forty-one \\
-	Who all closed in one \\
-	with at least twenty-five \\
-	votes, make the serene \\
-	Prince who corrects \\
-	statutes, orders and laws. \\}
-\end{minipage}
-
+\begin{paracol}{2}
+	\begin{leftcolumn}
+		\centering
+		\textit{\say{Trenta elegge il conseglio. \\ 
+			Di quei nove hanno il meglio; \\
+			Questi eleggon quaranta; \\
+			Ma chi di lor si vanta \\
+			Son dodici che fanno \\
+			Venticinque: ma stanno \\
+			Di questi solo nove \\
+			Che fan con le lor prove \\
+			Quarantacinque a ponto \\
+			De’ quali undici in conto, \\
+			Eleggon quarantuno, \\
+			Che chiusi tutti in uno, \\
+			Con venticinque almeno \\
+			Voti, fanno il sereno \\
+			Principe che corregge \\
+			Statuti,ordini e legge.}}
+	\end{leftcolumn}
+	
+	\begin{rightcolumn}
+		\centering
+		\textit{\say{Thirty elects the board. \\ 
+			Of those nine have the best. \\
+			These elect forty.\\
+			But those who brags \\
+			Are twelve that make \\
+			Twenty-five: but they stand \\
+			Of these only nine \\
+			Who make with their evidence \\
+			Forty-five per account \\
+			Of whom eleven \\
+			Elect forty-one \\
+			Who all closed in one \\
+			with at least twenty-five \\
+			votes, make the serene \\
+			Prince who corrects \\
+			statutes, orders and laws.} \\}
+	\end{rightcolumn}
+\end{paracol}
+\vspace{2em}
 \citet{Wolfson1899} and \citet{Keller2014} describe more electoral processes in Italian communes. 
 
-As already mentioned, the first written analytical works on voting methods are the ones by Ramon Llull. In particular: \textit{Artifitium electionis personarum} [ca. 1274-83] (The method of the election of persons), \textit{En qual manera Natana fo eleta a abadessa} [ca. 1283] (In which way that Natana was elected abbess which corresponds to the 24th chapter of his novel \textit{Blaquerna}), and \textit{De arte eleccionis} [1299] (On the method of election). \cite{Hagele2001} present the original texts together with their English translation. Llull was a Catalan missionary and philosopher, and he was particularly interested in ecclesiastic elections. In the first two works we cited, Llull describes a precise schema of comparisons between each pair of candidates. The candidate winning the largest number of pairwise comparison was selected as a winner. The last method, described in \textit{De arte eleccionis}, is also based on pairwise comparisons but with a system of successive eliminations. The candidate winning the last comparison was selected as a winner. While the first two methods can be view as an equivalent of either a Condorcet's method or a Borda count depending on the interpretation of Llull's text \citep{McLean1990}, the third method is equivalent to Condorcet's procedure.
+At the end of the thirteenth century Ramon Llull designed and discussed two voting methods in his works: \textit{Artifitium electionis personarum} [ca. 1274-83] (The method of the election of persons), \textit{En qual manera Natana fo eleta a abadessa} [ca. 1283] (In which way that Natana was elected abbess which corresponds to the 24th chapter of his novel \textit{Blaquerna}), and \textit{De arte eleccionis} [1299] (On the method of election). \cite{Hagele2001} present the original texts together with their English translation. Llull was a Catalan missionary and philosopher, and he was particularly interested in ecclesiastic elections. In the first two works we cited, Llull describes a precise schema of comparisons between each pair of candidates. The candidate winning the largest number of pairwise comparison was selected as a winner. The last method, described in \textit{De arte eleccionis}, is also based on pairwise comparisons but with a system of successive eliminations. The candidate winning the last comparison was selected as a winner. While the first two methods can be view as an equivalent of either a Condorcet's method or a Borda count depending on the interpretation of Llull's text \citep{McLean1990}, the third method is equivalent to Condorcet's procedure.
 
-Unfortunately, his works have not received much attention, except from Nicolas Cusanus a German theologian and philosopher who studied Llull's \textit{De arte eleccionis}. However, Cusanus proposes his own voting procedure in \textit{De concordantia catholica} [ca. 1431-34] (Catholic concordance). 
-
+Unfortunately, his works have not received much attention, except from Nicolas Cusanus a German theologian and philosopher who studied Llull's \textit{De arte eleccionis}. He proposed his voting procedure in a chapter of his work \textit{De concordantia catholica} [ca. 1431-34] (Catholic concordance), which can be found in \citet[Chapter 4]{McLeanUrken1995}. Cusanus' main concern was to reduce manipulation and strategic voting and he recommend a Borda count method with secrete voting. We must say that we have no evidence that Cusanus was aware of the other two methods proposed by Llull, but only of Condorcet-like one. With this in mind, despite the fact that Llull also wanted to reduce manipulation their methods result quite different. This is probably due to the different contexts they were considering. Llull had in mind members of an abbey who had to select their own leader, so people who know and trust each other and will keep living together after the vote; Cusanus, on the other hand, wrote \textit{De concordantia catholica} while attending the Council of Basel, so voters that would meet only once to elect the new head of the Catholic Church and have their own interests and strategies. This underlines a very important point about voting methods: context matters. If we were to ask any social choice expert what their preferred voting procedure is, the first thing they would probably say is \say{to elect what?}.
 
 
 
