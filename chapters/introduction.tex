@@ -3,7 +3,7 @@
 \setlength\epigraphrule{0pt}
 \renewcommand{\textflush}{flushepinormal}
 %\renewcommand{\sourceflush}{flushright}
-\epigraph{\itshape Democracy is difficult, flawed and unstable. It involves barely distinguishable political parties taking part in lengthy, over-complicated and expensive decision-making processes. Trying to engage so many people with political issues seems to lead only to complexity and disagreement. So why bother?}{--- Michela Murgia, \textit{Istruzioni per diventare fascisti}\\ \scriptsize{(Trans. \textit{How to be a Fascist: A Manual} by Alex Valente)\\ \commentBN{I haven't found an explicit rule for quoting translated epigraphs.}}}
+\epigraph{\itshape Democracy is difficult, flawed and unstable. It involves barely distinguishable political parties taking part in lengthy, over-complicated and expensive decision-making processes. Trying to engage so many people with political issues seems to lead only to complexity and disagreement. So why bother?}{--- Michela Murgia, \textit{Istruzioni per diventare fascisti}\\ \scriptsize{(Trans. \textit{How to be a Fascist: A Manual} by Alex Valente)}}
 
 
 Collective decision-making is a process in which individual preferences are aggregated to form a single group choice. This broad definition allows to consider instances that seem very different from each other.
@@ -94,27 +94,54 @@ The year after the publication of Borda's method, the Marquis of Condorcet also 
 After the revolution, the Academy was reformed into the so-called \say{Institut de France} and Napoleon appointed a commission to study the voting mechanisms to be used within it. The commission chose Borda's method but after a while Napoleon took the unilateral decision to switch back to the use of plurality.
 
 Once again, all these works were ignored until the second half of the 20th century. One of the few noteworthy works is that of Charles Dogson, better known as Lewis Carroll. Although not aware of the studies of the Marquis of Condorcet, in 1876 he proposes a voting procedure that solves the paradox arising in the Condorcet method when cycles occur.
-In his proposition the winner is the only candidate that wins every pairwise comparison (Condorcet winner). If such a candidate does not exist then for each candidate we count the number of changes in the voters preferences required for they to be the Condorcet winner. The elected candidate is the one associated to the lowest number of changes.
+In his proposition the winner is the only candidate that wins every pairwise comparison (Condorcet winner). If such a candidate does not exist then for each candidate we count the number of changes in the voter preferences required for they to be the Condorcet winner. The elected candidate is the one associated to the lowest number of changes.
 
-This concludes a brief introduction to the start of voting theory which has so far been concerned with analysing procedures, and their related problems, on the basis of examples. From this point on, and especially since the publication of the Ph.D. thesis of Kenneth \citet{Arrow1951}, social choice theory emerges as a scientific discipline. Arrow, in fact, was the first to introduce axiomatic analysis of aggregation methods and to characterize classes of rules on the basis of the set of properties they satisfy. In his thesis, he also defines a small set of axioms that seem naturally desirable and then he proves that the only voting rule able to satisfy them all is the dictatorship. This opened the door to the research that followed over the next sixty years. 
+This concludes a brief introduction to the start of voting theory which has so far been concerned with analysing procedures, and their related problems, on the basis of examples. From this point on, and especially since the publication of the Ph.D. thesis of Kenneth \citet{Arrow1951}, social choice theory emerges as a scientific discipline. Arrow, in fact, was the first to introduce axiomatic analysis of aggregation methods and to characterize classes of rules on the basis of the set of properties they satisfy. In his thesis, he also defines a small set of axioms that seem naturally desirable and then he proves that the only voting rule able to satisfy them all is the dictatorship. This opened the door to the research that followed over the next sixty years.
 
-\vspace{3em}
+In the meantime, however, the aforementioned works were still unknown to the general public, until a few years later, when Duncan \citet{Black1958} published the book that soon became the basis of Social Choice Theory: \textit{The Theory of Committees and Elections}. From this point onwards, new axioms are recurrently proposed and new electoral rules analysed. We will describe the most relevant ones to this work in the next chapter.
 
+For reasons of space, and complexity of the topic, many authors who have worked on electoral procedures \textemdash e.g. Pufendorf, Daunou, LaPlace, Lhulier, Nanson, Galton, Scitovsky, Bergson, Samuelson etc.\textemdash have not been mentioned in this chapter. More details on the history of Social Choice Theory can be found in \citet{Black1958,McLeanUrken1995,McLean1990,Urken2004}. Some other excellent sources for approaching the study of this discipline are: \citet{Arrow2002,Arrow2011,Gaertner2006, Taylor2005, Nitzan2009}.
 
-TODO:
+Starting from the first traces of decision-making processes we have almost reached the present days. But we are still missing something to complete the picture. All rules mentioned so far never considered the computational cost of executing these procedures.
+Since Arrow, an aggregation method has been viewed as more or less reasonable on the basis of the axioms, the properties, it satisfies. However, the same rule may prove impractical in its use \citep{Bartholdi1989,Rothe2003,Hemaspaandra2005,Davenport2004}.
+Furthermore, most of the traditional rules require voters to express an order of preference over all alternatives. When the set of candidates is very large this comes at a huge cost, both from a cognitive and communicative point of view.
+If we were to decide where to have dinner, how would we expect all voters to order dozens, or even hundreds, of restaurants? What if some choices are not comparable \citep{Pini2007}? 
+Even assuming that voters are prepared to make such an effort, what is the cost of communicating all this information \citep{Lang2004,Conitzer2005}?
+It is from all these questions (and many others such as the cost of manipulability for example) that many computer scientists have become interested in problems previously restricted to social theory.
+The first time the term \textit{Computational Social Choice} was used to refer to this specific area of research was in 2006, during the first edition of the COMSOC workshop (Amsterdam).
+\textit{\say{The Handbook of Computational Social Choice}} brings together the main notions of all major research sub-areas related to this new field \citep{Comsoc2016}.
+
+\section{Research questions and contributions}
+Studying the history of aggregation methods, we realised that starting from a wide spectrum of procedures we can identify classes whose elements satisfy common properties. Given a method we can analyse the axioms it satisfies.
+The power of this is that we could also go the other way round: given some preferences about the properties that the rule must respect, we can help the decision-maker to define their desired aggregation method. 
+One of the points we will focus on is precisely this: 
 \begin{itemize}
-	\item Arrow \cite{Arrow1951}: start of formal social choice. Duncan Black \cite{Black1958}, \citet{Arrow2002,Arrow2011}
-	\item evolution to computational social choice \cite{Comsoc2016}
+	\item how can we help the decision-maker formally define an electoral rule on the basis of generic preferences about its properties?
 \end{itemize}
+In \Cref{ch:minimax} we will study a situation in which a committee of non-experts has to decide how to aggregate the preferences of voters. 
+Assume that the committee assigns a score to each position in the preference order of the voters. So, for example, the first ranked gets 10 points, the second 5 etc.
+Imagine now that the committee wishes the score of the best choice to be \say{much higher} than the one of the third best choice.
+How do we translate this \say{much higher} into a voting rule? What exactly does it mean?
+In this thesis we will focus on a particular class of rules, \textit{Positional Scoring Rules} \textemdash which we will describe in detail in \Cref{ch:preliminaries} \textemdash and develop a method for asking questions to the committee in terms of picking winners in an example profile. 
+So, we transform a complex question involving differences of weights between consecutive positions into questions more easily answerable by a human committee such as "who should win in this profile"? From the answer to this question we deduce the answer to the original question.
 
-REF:
-%Pufendorf, Daunou, LaPlace Lhulier, Nanson, Galton, Scitovsky, Bergson, Samuelson
-History \citet{McLeanUrken1995,McLean1990,Urken2004} 
-Basis \citet{Gaertner2006, Taylor2005, Nitzan2009}
+Note how an important concept that we encountered when discussing Llull and Cusanus returns here. Both wanted to solve the same problem by proposing two different methods. This because they were considering the problem within different contexts.
+Context is extremely important when defining a voting rule; there is no best rule that we can choose to apply in every case. This is why it makes sense to ask questions to the committee and really understand what it means in their context for an alternative to be ranked first rather than third. The answers could vary a lot depending on what kind of preferences are being aggregated and what is being elected.
+
+This brings us to \Cref{ch:compromise} for a moment. In fact, on the basis of the idea \say{different contexts, different definitions} we develop the grounds for our concept of compromise. In the literature, various notions of compromise have been proposed, and with them various voting rules that more or less attempt to implement these definitions.
+\begin{itemize}
+	\item But what does compromise mean? And what happens once these methods are applied? 
+\end{itemize}
+This is another question we address throughout this manuscript. In \Cref{ch:compromise} we propose our notion of compromise and analyse which of the existing rules, if any, satisfy this new definition. We will see that different definitions make sense in different contexts and that one is not necessarily better than the other.
+
+Another important problem \textemdash which we mentioned when introducing the field of Computational Social Choice\textemdash when deciding on a voting rule is its cost. This is a point that we also find in our first research question. 
+In that case it is represented by the cognitive cost for non-experts to formalize a voting rule on the basis of some generic preferences. But, as we know, the cost is also related to voters when they have to order a large set of preferences, and computational in transmitting all this information.
+This awareness leads us to study strategies of preference elicitation:
+\begin{itemize}
+	\item how can we acquire the most relevant information at the lowest cost?
+\end{itemize}
+We study this question for different voting rules (Positional Scoring Rules and Majority Judgment) in \Cref{part:info}. In particular, in \Cref{ch:minimax}, we combine this research question with the first one and we try to understand whether, in a context of zero information, interleaving the elicitation of voter preferences and the elicitation of the voting rule yields better result than a more linear approach.
 
 
-\commentBN{Now intro to the thesis: \\
-by narrowing down we can divide in classes and specify a method, we can also go the other way round to help the decision maker to define "what is their version of compromise" "what is the score of the 1st arrived"}
-
-\commentOC{The reader also expects that you return to your observation that context matters (we can’t choose once and for all the best rule, so it makes sense to ask the committee).}
-
+\section{Organization of the Thesis}
+\commentBN{TODO later when the rest of the thesis is defined.}
