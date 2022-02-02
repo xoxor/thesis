@@ -1,58 +1,98 @@
 
+In the introductory chapter we have mentioned different concepts like voting, preference aggregation processes, voting rules. All these terms are rather vague if we do not provide precise definitions.
+In this chapter we will present the main notions we will use throughout the course of the dissertation and assign them precise meanings.
+
 \section{Main concepts and definitions}
 
+A social choice setting consists of a set $\voters$ of individuals \textemdash or voters \textemdash who have preferences over a set $\alts$ of alternatives.
+A social choice problem deals with aggregating those preferences, through the use of a social choice rule, to obtain a common choice for the group.
+The preferences of individuals are represented by linear orders over the set of alternatives $A$.
+In general, a linear order $\prefeq$ on a set $X$ is a relation that is:
+\vspace{-0.6em}
+\begin{itemize}
+	\itemsep-0.5em 
+	\item reflexive: $a \prefeq a, \forall a \in X$
+	\item transitive: $a \prefeq b \land b \prefeq c \Rightarrow a \prefeq c, \forall a,b,c \in X$
+	\item complete: $a \prefeq b \lor b \prefeq a, \forall a \neq b \in X$
+	\item antisymmetric: $a \prefeq b \land b \prefeq a \Rightarrow a = b, \forall a,b \in X$
+\end{itemize} 
+\vspace{-0.6em}
+Note that thanks to the last property it is impossible to express indifference between different alternatives. Therefore, we will use the symbol $\pref$ to represent a linear order.
+$\linors$ denotes the set of all linear orders over $A$. A generic element $\prefi \in \linors$ stands for the \textit{preference ranking} of the individual $i\in N$.
+A \emph{profile} $\prof: N → \linors$ associates with each individual $i \in N$ a preference $\prof(i) = {\prefi}$.
+Given a set of alternatives $A=\{a,b,c\}$ and a set $N$ of four voters ($\#N=4$), we represent a profile $P$ as:
+\begin{center}
+	$
+	\begin{array}{ccc}
+		1 & 1 & 2 \\
+		a &	b & c \\
+		b &	c & a  \\
+		c &	a & b  \\
+	\end{array} \quad, 
+	$
+\end{center}
+where each column is the preference ranking associated to a certain number of voters. In this example one voter prefers the alternative a over b over c, one voter prefers b over c over a, two voters prefer c over a over b.
 
+A \emph{\acl{SCR}} (\acs{SCR}) is a mapping $f:\linors^{N}\rightarrow 2^{A} \setminus \{\emptyset \}$ that associates to each profile a set of (tied) winners.
+As we saw in \Cref{ch:intro}, scholars have realised that the most efficient way to define aggregation functions is through the formulation of desirable properties.
+These properties are called \textit{axioms} and they are helpful in dividing rules into classes whose elements satisfy the same set of axioms.
+Or, in the same way, one can prove that a given class is empty, i.e. that it is impossible to satisfy a set of axioms simultaneously.
+As we shall see, axioms that independently seem to be reasonable requirements, combined together can result in undesirable effects that are often difficult to detect without an axiomatic analysis.
+
+In what follows we will describe the most famous axioms in the literature, then we will present in detail the voting rules we mentioned in the introduction, and finally we will see which axioms each of them satisfies.
 
 \subsection{Axioms}
 
 	\subsubsection{Anonymity}
-	An SCF $f$ is anonymous if each pair of voters play interchangeable roles: $f(P)=f(P^{\ast})$ holds whenever $P^{\ast}$
-	is obtained from $P$ by swapping the ballots cast by two voters.
-	
-	\subsubsection{Neutrality}
-	An SCF $f$ is neutral if each pair of alternatives are
-	interchangeable: when $P^+$ is obtained from $P$ by swapping the positions of two alternatives in every ballot and $f(P^+)$ is obtained from $f(P)$ via a similar swap.
+	\vspace{-0.6em}
+	Given a profile $P\in\linors^{N}$, an \acs{SCR} $f$ is anonymous iff $f(P)=f(P')$ for each $P'$ obtained from $P$ by swapping the preference rankings of two voters. In other words, the identity of voters is irrelevant.
 	
 	\subsubsection{Nondictatoriality}
-	There does not exist a voter such that the rule simply always copies that voter’s ranking.
+	\vspace{-0.6em}
+	As a weak version of anonymity, an \acs{SCR} $f$ is nondictatorial if $f(P)$ does not always correspond to the best ranked alternative of some voter $i \in N$ for all profiles $P\in\linors^{N}$. In other words, if no voter acts as a dictator.
+		
+	\subsubsection{Neutrality}
+	\vspace{-0.6em}
+	Given a profile $P\in\linors^{N}$, an \acs{SCR} $f$ is neutral iff for each $P'$ obtained from $P$ by swapping the position of two alternatives in every preference rankings, we can obtain $f(P')$ from $f(P)$ via the same swap. In other words, the identity of alternatives is irrelevant.
 	
 	\subsubsection{Nonimposition}
-	There does not exist an alternative x that cannot be elected (for which it does not exist a profile P such that $f(P)={x}$).
+	\vspace{-0.6em}
+	As a weak version of neutrality, an \acs{SCR} $f$ is non-imposed iff given an alternative $a \in A$ there exists a profile $P\in\linors^{N}$ such that $f(P)=\{a\}$. In other words, there does not exist an alternative that cannot be elected.
 	
 	\subsubsection{Unanimity}
-	If all votes rank x first, then x should win.
+	\vspace{-0.6em}
+	Given a profile $P\in\linors^{N}$, an \acs{SCR} $f$ is unanimous if whenever an alternative $a \in A$ is the best ranked alternative of all voters $i \in N$, $f(P)=\{a\}$. In other words, if all voters rank the same alternative first, then that alternative should be the sole winner.
 	
 	\subsubsection{Pareto Property}
-	In P alternative x Pareto dominates alternative y if every voter ranks x over y; y is Pareto dominated if such an x exists. Then an SCF $f$ is \textbf{Pareto} (optimal) if $f(P)$ never contains a Pareto dominated alternative.
+	\vspace{-0.6em}
+	Given a profile $P\in\linors^{N}$ and any distinct $a,b\in A$, $a$ Pareto dominates $b$ at $P$ (or equivalently $b$ is Pareto dominated by $a$ at $P$) iff $a \prefi b,\forall i\in N$.
 	
-	\begin{theorem}[Moulin, 1983]
-		Let $m \geq 2$ be the number of alternatives and n be the number of voters. If n is divisible by any integer r with $1 < r \leq m$, then no neutral, anonymous and Pareto SCF is resolute (single valued).
-	\end{theorem}
+	We denote by $\paretopt(P)= \set{a \in A \suchthat \forall b \in A\setminus\{a\}, \exists i \in N \suchthat a \pref_i b}$ the set of Pareto optimal alternatives at $P$.
+	
+	An \acs{SCR} $f$ is Paretian iff $f(P)\subseteq\paretopt(P)$ $\forall P\in\linors^{N}$. In other words, $f$ is Paretian (or Pareto optimal) if $f(P)$ never contains Pareto dominated alternatives.
 	
 	\subsubsection{Condorcet consistency}
-	A candidate is the Condorcet winner if it wins all of its pairwise elections. Does not always exist but the Condorcet criterion says that if it does exist, it should win.
-	
-	An SCF is a Condorcet extension (or Condorcet consistent) if it selects the Condorcet winner alone, when it exists.
+	\vspace{-0.6em}
+	An alternative $a\in A$ is a Condorcet winner if $a$ beats every other alternatives in pairwise comparisons.
+	 
+	An \acs{SCR} $f$ is a Condorcet procedure if it elects a Condorcet winner whenever it exists.
 
-	\begin{example} \textbf{Plurality rule} does not satisfy it.
-		\begin{itemize}
-			\item[] b $>$ a $>$ c $>$ d
-			\item[] c $>$ a $>$ b $>$ d 
-			\item[] d $>$ a $>$ b $>$ c
-		\end{itemize}
-		a is the Condorcet winner, but it does not win under plurality.
-	\end{example}
-	
-	\textbf{Borda rule} does not satisfy it.
-	
-	\textbf{STV} does not satisfy it.
-	
-	The \textbf{Copeland} score of a Condorcet winner is $m-1$ and uniquely highest, thus is a Condorcet extension.
-	
-	\begin{theorem}[Condorcet’s voting paradox]
-		Problems are caused by majority cycles (e.g. a $>$ b, b $>$ c and c $>$ a). These are known as Condorcet’s voting paradox and relate to the intransitivity of $>$.
-	\end{theorem}
-	
+%	\begin{example} \textbf{Plurality rule} does not satisfy it.
+%		\begin{itemize}
+%			\item[] b $>$ a $>$ c $>$ d
+%			\item[] c $>$ a $>$ b $>$ d 
+%			\item[] d $>$ a $>$ b $>$ c
+%		\end{itemize}
+%		a is the Condorcet winner, but it does not win under plurality.
+%	\end{example}
+%	
+%	\textbf{Borda rule} does not satisfy it.
+%	
+%	\textbf{STV} does not satisfy it.
+%	
+%	The \textbf{Copeland} score of a Condorcet winner is $m-1$ and uniquely highest, thus is a Condorcet extension.
+\vspace{2em}
+TODO	
 	\subsubsection{Majority criterion}
 	If a candidate is ranked first by a majority of the votes, that candidate should win.
 	
@@ -98,6 +138,14 @@
 	
 	None of our rules satisfy this.
 
+	
+\begin{theorem}[Moulin, 1983]
+	Let $m \geq 2$ be the number of alternatives and n be the number of voters. If n is divisible by any integer r with $1 < r \leq m$, then no neutral, anonymous and Pareto SCF is resolute (single valued).
+\end{theorem}
+
+\begin{theorem}[Condorcet’s voting paradox]
+	Problems are caused by majority cycles (e.g. a $>$ b, b $>$ c and c $>$ a). These are known as Condorcet’s voting paradox and relate to the intransitivity of $>$.
+\end{theorem}
 
 \section{Voting rules}
 
