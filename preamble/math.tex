@@ -77,6 +77,26 @@
 \newtheorem{remark}{Remark}
 %\newtheorem{sketch}[proof]{Proof Sketch}
 
+%% generic theorem 
+
+\newtheorem*{nonamethmplain}{\nonamethmname}
+\theoremstyle{definition}
+\newtheorem*{nonamethmdefinition}{\nonamethmname}
+\theoremstyle{remark}
+\newtheorem*{nonamethmremark}{\nonamethmname}
+\newcommand{\nonamethmname}{}
+
+\NewDocumentEnvironment{genthm}{O{plain}m}
+{\vspace{0.2em}\renewcommand{\nonamethmname}{#2}\begin{nonamethm#1}}
+	{{\footnotesize\qed} \end{nonamethm#1}}
+\NewDocumentEnvironment{genthm*}{O{plain}mo}
+{\renewcommand{\nonamethmname}{#2}%
+	\IfNoValueTF{#3}
+	{\begin{nonamethm#1}\relax}%
+		{\begin{nonamethm#1}[#3]}%
+			\mbox{}}
+		{\end{nonamethm#1}}
+
 %--------minimax-----
 \DeclareMathOperator{\Regret}{Regret}
 \DeclareMathOperator{\SCORE}{Score}

@@ -1,83 +1,142 @@
+%!TeX root=thesis.tex
 
 In the introductory chapter we have mentioned different concepts like voting, preference aggregation processes, voting rules. All these terms are rather vague if we do not provide precise definitions.
 In this chapter we will present the main notions we will use throughout the course of the dissertation and assign them precise meanings.
 
 \section{Main concepts and definitions}
 
-A social choice setting consists of a set $\voters$ of individuals \textemdash or voters \textemdash who have preferences over a set $\alts$ of alternatives.
+A social choice setting consists of a set $\voters$ of $n$ individuals\textemdash or voters\textemdash who have preferences over a set $\alts$ of $m$ alternatives.
 A social choice problem deals with aggregating those preferences, through the use of a social choice rule, to obtain a common choice for the group.
 The preferences of individuals are represented by linear orders over the set of alternatives $A$.
-In general, a linear order $\prefeq$ on a set $X$ is a relation that is:
-\vspace{-0.6em}
+In general, a linear order $\mathbin{\pref}$ on a set $X$ is a relation that is:
+\vspace{-0.3em}
 \begin{itemize}
 	\itemsep-0.5em 
-	\item reflexive: $a \prefeq a, \forall a \in X$
-	\item transitive: $a \prefeq b \land b \prefeq c \Rightarrow a \prefeq c, \forall a,b,c \in X$
-	\item complete: $a \prefeq b \lor b \prefeq a, \forall a \neq b \in X$
-	\item antisymmetric: $a \prefeq b \land b \prefeq a \Rightarrow a = b, \forall a,b \in X$
+	\item irreflexive: $a \not\pref a, \forall a \in X$
+	\item transitive: $a \pref b \land b \pref c \Rightarrow a \pref c, \forall a,b,c \in X$
+	\item complete: $a \pref b \lor b \pref a, \forall a \neq b \in X$
 \end{itemize} 
-\vspace{-0.6em}
-Note that thanks to the last property it is impossible to express indifference between different alternatives. Therefore, we will use the symbol $\pref$ to represent a linear order.
-$\linors$ denotes the set of all linear orders over $A$. A generic element $\prefi \in \linors$ stands for the \textit{preference ranking} of the individual $i\in N$.
-A \emph{profile} $\prof: N → \linors$ associates with each individual $i \in N$ a preference $\prof(i) = {\prefi}$.
-Given a set of alternatives $A=\{a,b,c\}$ and a set $N$ of four voters ($\#N=4$), we represent a profile $P$ as:
-\begin{center}
-	$
-	\begin{array}{ccc}
-		1 & 1 & 2 \\
-		a &	b & c \\
-		b &	c & a  \\
-		c &	a & b  \\
-	\end{array} \quad, 
-	$
-\end{center}
-where each column is the preference ranking associated to a certain number of voters. In this example one voter prefers the alternative a over b over c, one voter prefers b over c over a, two voters prefer c over a over b.
+\vspace{-0.3em}
+We can also define a non-strict linear order $\mathbin{\prefeq}$ on a set $X$ as a relation that is transitive, complete, reflexive ($a \prefeq a, \forall a \in X$) and antisymmetric ($a \prefeq b \land b \prefeq a \Rightarrow a = b, \forall a,b \in X$).
+For each non-strict linear order $\prefeq$ there exists an associated linear order $\pref$ obtained by removing all pairs $a \prefeq a, \forall a \in X$. In other words, we have $a \pref b \iff a \prefeq b \land a \neq b, \forall a,b \in X$.
 
-A \emph{\acl{SCR}} (\acs{SCR}) is a mapping $f:\linors^{N}\rightarrow 2^{A} \setminus \{\emptyset \}$ that associates to each profile a set of (tied) winners.
+$\linors$ denotes the set of all linear orders over $A$. A generic element $\mathbin{\prefi} \in \linors$ stands for the \textit{preference ranking} of the individual $i\in N$.
+A \emph{profile} $\prof: N → \linors$ associates with each individual $i \in N$ a preference $\prof(i) =\mathbin{\prefi}$. We will use $\mathbin{\prefi}$ instead of $P(i)$ when the profile is clear from the context. $\linors^{N}$ denotes the set of all functions from $N$ to $\linors$, thus all possible profiles given $N$.
+\begin{example}
+	\label{ex:namedprofile}
+	Given a set of alternatives $A=\{a,b,c\}$ and a set $N=\{v_1,v_2,v_3,v_4\}$ of voters, we represent a profile $P$ as:
+	\begin{center}
+		$
+		\begin{array}{cccc}
+			v_1 & v_2 & v_3 & v_4\\
+			a &	b & c & c \\
+			b &	c & a & a \\
+			c &	a & b & b \\
+		\end{array} \quad, 
+		$
+	\end{center}
+	where each column is the preference ranking associated to a certain voter. In this example the voter $v_1$ prefers the alternative a over b over c, $v_2$ prefers b over c over a, and both $v_3$ and $v_4$ prefer c over a over b.
+\end{example}
+
+A \emph{\acl{SCR}} (\acs{SCR}) is a mapping $f:\linors^{N}\rightarrow 2^{A} \setminus \{\emptyset \}$ that associates to each profile a set of (tied) winners. 
 As we saw in \Cref{ch:intro}, scholars have realised that the most efficient way to define aggregation functions is through the formulation of desirable properties.
 These properties are called \textit{axioms} and they are helpful in dividing rules into classes whose elements satisfy the same set of axioms.
 Or, in the same way, one can prove that a given class is empty, i.e. that it is impossible to satisfy a set of axioms simultaneously.
-As we shall see, axioms that independently seem to be reasonable requirements, combined together can result in undesirable effects that are often difficult to detect without an axiomatic analysis.
+As we shall see, axioms that independently seem to be reasonable requirements, combined together can result in undesirable effects that are often difficult to detect without an systematical analysis.
 
 In what follows we will describe the most famous axioms in the literature, then we will present in detail the voting rules we mentioned in the introduction, and finally we will see which axioms each of them satisfies.
 
 \subsection{Axioms}
 
-	\subsubsection{Anonymity}
-	\vspace{-0.6em}
-	Given a profile $P\in\linors^{N}$, an \acs{SCR} $f$ is anonymous iff $f(P)=f(P')$ for each $P'$ obtained from $P$ by swapping the preference rankings of two voters. In other words, the identity of voters is irrelevant.
-	
-	\subsubsection{Nondictatoriality}
-	\vspace{-0.6em}
+	\begin{genthm}{Anonymity}
+	An \acs{SCR} $f$ is anonymous iff $f(P)=f(P')$ for any $P\in\linors^{N}$ and $P'$ obtained from $P$ by swapping the preference rankings of two voters. In other words, the identity of voters is irrelevant.
+	\end{genthm}
+
+	\begin{genthm}{Nondictatoriality}
 	As a weak version of anonymity, an \acs{SCR} $f$ is nondictatorial if $f(P)$ does not always correspond to the best ranked alternative of some voter $i \in N$ for all profiles $P\in\linors^{N}$. In other words, if no voter acts as a dictator.
-		
-	\subsubsection{Neutrality}
-	\vspace{-0.6em}
-	Given a profile $P\in\linors^{N}$, an \acs{SCR} $f$ is neutral iff for each $P'$ obtained from $P$ by swapping the position of two alternatives in every preference rankings, we can obtain $f(P')$ from $f(P)$ via the same swap. In other words, the identity of alternatives is irrelevant.
-	
-	\subsubsection{Nonimposition}
-	\vspace{-0.6em}
-	As a weak version of neutrality, an \acs{SCR} $f$ is non-imposed iff given an alternative $a \in A$ there exists a profile $P\in\linors^{N}$ such that $f(P)=\{a\}$. In other words, there does not exist an alternative that cannot be elected.
-	
-	\subsubsection{Unanimity}
-	\vspace{-0.6em}
-	Given a profile $P\in\linors^{N}$, an \acs{SCR} $f$ is unanimous if whenever an alternative $a \in A$ is the best ranked alternative of all voters $i \in N$, $f(P)=\{a\}$. In other words, if all voters rank the same alternative first, then that alternative should be the sole winner.
-	
-	\subsubsection{Pareto Property}
-	\vspace{-0.6em}
+	\end{genthm}
+
+	\begin{genthm}{Neutrality}
+	An \acs{SCR} $f$ is neutral iff for any $P\in\linors^{N}$ and for each $P'$ obtained from $P$ by swapping the position of two alternatives in every preference rankings, we can obtain $f(P')$ from $f(P)$ via the same swap. In other words, the identity of alternatives is irrelevant.	
+	\end{genthm}
+
+	\begin{genthm}{Nonimposition}
+	As a weak version of neutrality, an \acs{SCR} $f$ is non-imposed iff given an alternative $a \in A$ there exists a profile $P\in\linors^{N}$ such that $f(P)=\{a\}$. In other words, there does not exist an alternative that cannot be elected.	
+	\end{genthm}
+
+	\begin{genthm}{Unanimity}
+	An \acs{SCR} $f$ is unanimous if for any $P\in\linors^{N}$ whenever an alternative $a \in A$ is the best ranked alternative of all voters $i \in N$, $f(P)=\{a\}$. In other words, if all voters rank the same alternative first, then that alternative should be the sole winner.	
+	\end{genthm}
+
+	\begin{genthm}{Pareto Property}
 	Given a profile $P\in\linors^{N}$ and any distinct $a,b\in A$, $a$ Pareto dominates $b$ at $P$ (or equivalently $b$ is Pareto dominated by $a$ at $P$) iff $a \prefi b,\forall i\in N$.
 	
-	We denote by $\paretopt(P)= \set{a \in A \suchthat \forall b \in A\setminus\{a\}, \exists i \in N \suchthat a \pref_i b}$ the set of Pareto optimal alternatives at $P$.
+	We denote by $\paretopt(P)= \set{a \in A \suchthat \forall b \in A\setminus\{a\}, \exists i \in N, a \pref_i b}$ the set of Pareto optimal alternatives at $P$.
 	
-	An \acs{SCR} $f$ is Paretian iff $f(P)\subseteq\paretopt(P)$ $\forall P\in\linors^{N}$. In other words, $f$ is Paretian (or Pareto optimal) if $f(P)$ never contains Pareto dominated alternatives.
-	
-	\subsubsection{Condorcet consistency}
-	\vspace{-0.6em}
-	An alternative $a\in A$ is a Condorcet winner if $a$ beats every other alternatives in pairwise comparisons.
-	 
-	An \acs{SCR} $f$ is a Condorcet procedure if it elects a Condorcet winner whenever it exists.
+	An \acs{SCR} $f$ is Paretian iff $f(P)\subseteq\paretopt(P)$ $\forall P\in\linors^{N}$. In other words, $f$ is Paretian (or Pareto optimal) if $f(P)$ never contains Pareto dominated alternatives.	
+	\end{genthm}
 
-%	\begin{example} \textbf{Plurality rule} does not satisfy it.
+	Given a profile $P\in\linors^{N}$ and two alternatives $a,b\in A$, we define $\mu(a,b)=|\{\mathbin{\prefi}, i \in N \suchthat a\prefi b\}|$ as the number of preference rankings for which $a$ is preferred to $b$. 
+
+	\begin{genthm}{Condorcet criterion}
+	Given a profile $P\in\linors^{N}$, an alternative $a\in A$ is the Condorcet winner iff $\mu(a,b)> \mu(b,a), \forall b\in{A\setminus{\{a\}}}$. In other words, if $a$ beats every other alternatives in pairwise comparisons. The Condorcet winner does not always exist but when it does it is unique.
+	
+	An \acs{SCR} $f$ is a Condorcet procedure if it elects the Condorcet winner whenever it exists.	
+	\end{genthm}
+
+	\begin{genthm}{Majority criterion}
+	Given a profile $P\in\linors^{N}$, an alternative $a\in A$ is the majority choice iff $\mu(a,b)> \ceil{\frac{n}{2}}, \forall b\in{A\setminus{\{a\}}}$. In other words, if the majority of voters prefers $a$ to any other alternative.
+	
+	An \acs{SCR} $f$ is majoritarian if it elects the majority choice.
+	\end{genthm}
+
+	\begin{genthm}{Manipulability}
+	An \acs{SCR} $f$ is manipulable iff there exist two profiles $P, P' \in\linors^{N}$ and a voter $j \in N$ such that $\mathbin{\pref}'_i=\mathbin{\prefi}, \forall i \in {N \setminus\{j\}}$ and $f(P') \pref_j f(P)$.
+	In other words, if there exist a voter who by changing her sincere preference ranking can change the outcome to something more appealing to her.
+	\end{genthm}
+
+	\begin{genthm}{Strategy-Proofness}
+		An \acs{SCR} $f$ is strategyproof iff it is not manipulable.
+	\end{genthm}
+
+	\begin{genthm}{Consistency (Reinforcement)}
+		An \acs{SCR} $f$ is consistent iff for each $X,Y \subset N$ such that $X \cap Y \neq \emptyset$ if $P \in\linors^{X}$, $P' \in\linors^{Y}$ we have that $f(P \cup P')=f(P)\cap f(P')$. In other words, if the common winning alternatives for the two disjoint sets of voters are equivalent to the ones selected for the union of these sets.
+	\end{genthm}
+
+	\begin{genthm}{Weak Monotonicity}
+		An \acs{SCR} $f$ is weakly monotone iff for each $P, P' \in\linors^{N}$ and $j \in N$ such that $\mathbin{\pref}'_i=\mathbin{\prefi}, \forall i \in {N \setminus\{j\}}$, if the voter $j$ ranks the alternative $f(P)$ in a higher position in $\mathbin{\pref}'_j$ than in $\mathbin{\pref}_j$, then $f(P)=f(P')$.
+		In other words, if a voter lifts the ranking of the winning alternative then the winner should remain unchanged. 
+	\end{genthm}
+
+	\begin{genthm}{Strong Monotonicity (Maskin)}
+	An \acs{SCR} $f$ is strongly monotone iff for each $P, P' \in\linors^{N}$, $j \in N$ and $b \in A$ such that $\mathbin{\pref}'_i=\mathbin{\prefi}, \forall i \in {N \setminus\{j\}}$, if both $f(P)\pref_j b$ and $f(P)\pref'_j b$ hold, then $f(P)=f(P')$.
+	In other words, if a voter lowers the ranking of an alternative originally already ranked below the winning alternative then the winner should remain unchanged. 
+	\end{genthm}
+
+	\begin{genthm}{\acl{IIA} (\acs{IIA})}
+	An \acs{SCR} $f$ is independent of irrelevant alternatives iff for each $P, P' \in\linors^{N}$, and $a,b \in A$ if we have that $a \prefi b$ iff $a \pref^{'}_{i} b$ and that $b \prefi a$ iff $b \pref^{'}_{i} a$, $\forall i \in N$ then $f(P)$ and $f(P')$ should order $a,b$ in the exact same way. 
+	In other words, the order between two alternatives should not depend on the addition of an irrelevant third alternative.
+	\end{genthm}
+	
+	\begin{example}
+		\label{ex:anonymousprofile}
+		With this set of axioms in mind we can rewrite \Cref{ex:namedprofile} by considering anonymity. In fact, if we are not interested in the identity of the voters, $P$ can be expressed as:
+		\begin{center}
+			$
+			\begin{array}{ccc}
+				1 & 1 & 2 \\
+				a &	b & c \\
+				b &	c & a \\
+				c &	a & b \\
+			\end{array} \quad, 
+			$
+		\end{center}
+		where each column represents the preference ranking associated to a certain number of voters. Here, one voter prefers the alternative a over b over c, one voter prefers b over c over a, and two voters prefer c over a over b. 
+		This way of denoting a profile will be used often throughout the dissertation.
+	\end{example}
+
+%Condorcet
+%	\begin{example} \textbf{Plurality rule} does not satisfy.
 %		\begin{itemize}
 %			\item[] b $>$ a $>$ c $>$ d
 %			\item[] c $>$ a $>$ b $>$ d 
@@ -91,79 +150,99 @@ In what follows we will describe the most famous axioms in the literature, then 
 %	\textbf{STV} does not satisfy it.
 %	
 %	The \textbf{Copeland} score of a Condorcet winner is $m-1$ and uniquely highest, thus is a Condorcet extension.
-\vspace{2em}
-TODO	
-	\subsubsection{Majority criterion}
-	If a candidate is ranked first by a majority of the votes, that candidate should win.
-	
-	\begin{example} \textbf{Borda rule} does not satisfy it.
-		\begin{itemize}
-			\item[] a $>$ b $>$ c $>$ d $>$ e
-			\item[] a $>$ b $>$ c $>$ d $>$ e
-			\item[] c $>$ b $>$ d $>$ e $>$ a
-		\end{itemize}
-		a is the majority winner, but it does not win under Borda.
-	\end{example}
 
-	\subsubsection{Manipulability}
-
-	\subsubsection{Reinforcement}
+%	\subsubsection{Majority criterion}
+%	
+%	\begin{example} \textbf{Borda rule} does not satisfy it.
+%		\begin{itemize}
+%			\item[] a $>$ b $>$ c $>$ d $>$ e
+%			\item[] a $>$ b $>$ c $>$ d $>$ e
+%			\item[] c $>$ b $>$ d $>$ e $>$ a
+%		\end{itemize}
+%		a is the majority winner, but it does not win under Borda.
+%	\end{example}
+%	
+%Weak Monotonicity}
+%		
+%		\begin{example} \textbf{STV} does not satisfy it.
+%			\begin{itemize}
+%				\item[] 7 votes b $>$ c $>$ a
+%				\item[] 7 votes a $>$ b $>$ c
+%				\item[] 6 votes c $>$ a $>$ b
+%			\end{itemize}
+%			c drops out first, its votes transfer to a, a wins.
+%			
+%			But if 2 votes b $>$ c $>$ a change to a $>$ b $>$ c, b drops out first, its 5 votes transfer to c, and c wins.
+%		\end{example}
+%
+%Strong Monotonicity}
+%		None of our rules satisfy this.
 	
-	\subsubsection{Monotonicity}
-	\begin{itemize}
-		\item[] \textbf{Weak Monotonicity}
-		If a candidate w wins for the current votes and we improve the position of w in some of the votes leaving everything else the same, then w should still win.
-		
-		\begin{example} \textbf{STV} does not satisfy it.
-			\begin{itemize}
-				\item[] 7 votes b $>$ c $>$ a
-				\item[] 7 votes a $>$ b $>$ c
-				\item[] 6 votes c $>$ a $>$ b
-			\end{itemize}
-			c drops out first, its votes transfer to a, a wins.
-			
-			But if 2 votes b $>$ c $>$ a change to a $>$ b $>$ c, b drops out first, its 5 votes transfer to c, and c wins.
-		\end{example}
-		\item[] \textbf{Strong Monotonicity}
-		If a candidate w wins for the current votes and we then change the votes in such a way that for each vote, if a
-		candidate c was ranked below w originally, c is still ranked below w in the new vote, then w should still win.
-		
-		None of our rules satisfy this.
-	\end{itemize}
-
-	\subsubsection{Strategy-Proofness}
-	
-	\subsubsection{Independence of Irrelevant Alternatives}
-	If the rule ranks a above b for the current votes and we change the votes but do not change which is ahead between a and b in each vote then a should still be ranked ahead of b.
-	
-	None of our rules satisfy this.
+%	\subsubsection{Independence of Irrelevant Alternatives}
+%	
+%	None of our rules satisfy this.
 
 	
-\begin{theorem}[Moulin, 1983]
-	Let $m \geq 2$ be the number of alternatives and n be the number of voters. If n is divisible by any integer r with $1 < r \leq m$, then no neutral, anonymous and Pareto SCF is resolute (single valued).
-\end{theorem}
-
-\begin{theorem}[Condorcet’s voting paradox]
-	Problems are caused by majority cycles (e.g. a $>$ b, b $>$ c and c $>$ a). These are known as Condorcet’s voting paradox and relate to the intransitivity of $>$.
-\end{theorem}
+%\begin{theorem}[Moulin, 1983]
+%	Let $m \geq 2$ be the number of alternatives and n be the number of voters. If n is divisible by any integer r with $1 < r \leq m$, then no neutral, anonymous and Pareto SCF is resolute (single valued).
+%\end{theorem}
+%
+%\begin{theorem}[Condorcet’s voting paradox]
+%	Problems are caused by majority cycles (e.g. a $>$ b, b $>$ c and c $>$ a). These are known as Condorcet’s voting paradox and relate to the intransitivity of $>$.
+%\end{theorem}
 
 \section{Voting rules}
 
-%\subsection{Majority}
-%
-%\subsection{Pairwise Majority}
-%Pairwise Majority Rule (PMR) declares the winning alternative to be the Condorcet winner and is undefined when a profile has no such winner.
-%
-%\subsection{Plurality}
-%
-%\subsection{Borda}
-%
-%\subsection{Copeland}
+\begin{genthm}{Majority}
+	
+\end{genthm}
+
+\begin{genthm}{Pairwise majority}
+	
+\end{genthm}
+
+\begin{genthm}{Plurality}
+	
+\end{genthm}
+
+\begin{genthm}{Anti-Plurality}
+	
+\end{genthm}
+
+\begin{genthm}{Lull-Borda}
+	
+\end{genthm}
+
+\begin{genthm}{k-Approval}
+	
+\end{genthm}
+
+\begin{genthm}{Lull-Copeland-Condorcet}
+	
+\end{genthm}
+
+\begin{genthm}{Dodgson}
+	
+\end{genthm}
+
+\begin{genthm}{Kemeny–Young}
+	
+\end{genthm}
+
+\begin{genthm}{BK compromises (Fall-back bargaining-Bucklin)}
+	
+\end{genthm}
+
+\begin{genthm}{\acl{PSR} (\acs{PSR})}
+	
+\end{genthm}
+
+\begin{genthm}{Majority judgment}
+	
+\end{genthm}
 
 
-
-
-
+TODO: a table with axioms and voting rules to indicate which SCR satisfies which axiom
 
 
 
