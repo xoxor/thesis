@@ -42,7 +42,9 @@ A \emph{\acl{SCR}} (\acs{SCR}) is a mapping $f:\linors^{N}\rightarrow 2^{A} \set
 As we saw in \Cref{ch:intro}, scholars have realised that the most efficient way to define aggregation functions is through the formulation of desirable properties.
 These properties are called \textit{axioms} and they are helpful in dividing rules into classes whose elements satisfy the same set of axioms.
 Or, in the same way, one can prove that a given class is empty, i.e. that it is impossible to satisfy a set of axioms simultaneously.
-As we shall see, axioms that independently seem to be reasonable requirements, combined together can result in undesirable effects that are often difficult to detect without an systematical analysis.
+As we shall see, axioms that independently seem to be reasonable requirements, combined together can result 
+\commentOC{I find “combined together” inelegant, I suggest: … requirements can result, when combined, in…}
+in undesirable effects that are often difficult to detect without an systematical analysis.
 
 In what follows we will describe the axioms and the voting rules that we will consider through the rest of this dissertation. In particular we will divide the ones based on preference rankings from the ones using judgments as ballots, and we will see which axioms each rule satisfies.
 
@@ -51,7 +53,7 @@ As already mentioned, an axiom formalises an appealing property of a voting rule
 A first intuitive desideratum is that the rule should not favour specific voters or candidates.
 In many real cases, when a committee has to make a decision, in case of a tie a member, usually the chair, has the power to break it at his discretion.
 Similarly, in many legislatures in case of a tie between approving a law or not, the status quo wins, highlighting an inequality between the alternatives.
-Ideally we would not want either of these behaviours. In what follows we present two axioms that promote equality among voters, \textit{anonymity}, and among candidates, \textit{neutrality}. 
+Ideally we would not want either of these behaviours \commentOC{I find this a bit too normative.}. In what follows we present two axioms that promote equality among voters, \textit{anonymity}, and among candidates, \textit{neutrality}. 
 
 	\begin{genthm}{Anonymity}
 	An \acs{SCR} $f$ is anonymous iff for any $i,j \in N$ and $P,P'\in\linors^{N}$ such that $\mathbin{\pref'_k}=\mathbin{\pref_k}, \forall k \in {N \setminus\{i,j\}}$ and $\mathbin{\pref'_i}=\mathbin{\pref_j}, \mathbin{\pref'_j}=\mathbin{\pref_i}$, we have that $f(P)=f(P')$. In other words, if the identity of voters is irrelevant.
@@ -79,10 +81,11 @@ Ideally we would not want either of these behaviours. In what follows we present
 		This way of denoting a profile will be used often throughout the dissertation.
 	\end{example}
 
-	We could also think at a weaker form of anonymity were the voters are not necessarily equals but which does not allow for a dictator\textemdash a specific voter whose preferred choice is always the outcome of the voting rule. 
+	We could also think at \commentOC{consider, or think about} a weaker form of anonymity were the voters are not necessarily equal but which does not allow for a dictator\textemdash a specific voter whose preferred choice is always the outcome of the voting rule. 
 
 	\begin{genthm}{Nondictatoriality}
 	An \acs{SCR} $f$ is nondictatorial iff $\forall i \in N$ there exists a profile $P \in\linors^{N}$ such that $\prefi(1) \not\in f(P)$; where $\prefi(1)$ is the first element of the linear order representing $i$ preferences. In other words, if no voter acts as a dictator.
+	\commentOC{The spacing of $(1)$ is wrong: $\prefi$ is used as a function here, not as a relational symbol, but \LaTeX{} is not aware of this.}
 	\end{genthm}
 
 %	\begin{genthm}{Nonimposition}
@@ -109,17 +112,20 @@ Ideally we would not want either of these behaviours. In what follows we present
 	
 	\begin{genthm}{Majority criterion}
 	Given a profile $P\in\linors^{N}$, an alternative $a\in A$ is the majority choice iff $\mu(a,b)> \ceil{\frac{n}{2}}, \forall b\in{A\setminus{\{a\}}}$. In other words, if the majority of voters prefers $a$ to any other alternative.
-		
+	\commentOC{If $n$ is odd, this seems too demanding: equality should suffice, intuitively, if rounding up (I don’t think rounding is useful here).}
+	
 	An \acs{SCR} $f$ is majoritarian iff it elects the majority choice whenever it exists.
 	\end{genthm}
 	
 	\begin{genthm}{Condorcet criterion}
 	Given a profile $P\in\linors^{N}$, an alternative $a\in A$ is the Condorcet winner iff $\mu(a,b)> \mu(b,a), \forall b\in{A\setminus{\{a\}}}$. In other words, if $a$ beats every other alternatives in pairwise comparisons. The Condorcet winner does not always exist but when it does it is unique.
+	\commentOC{This last sentence should not be part of the definition: it is a remark whose truth follows from the definition.}
 	
 	An \acs{SCR} $f$ is a Condorcet procedure if it elects the Condorcet winner whenever it exists.	
 	\end{genthm}
 
 	\commentBN{In our meeting we said the following:} Note that as the majority choice is also the Condorcet winner, then if a \acs{SCR} $f$ is majoritarian $f$ is also a Condorcet procedure.
+	\commentOC{In our meeting I tried to stress that the implication relationship goes, in general, in one way about the alternatives but in the converse way about the functions. But I agree that perhaps I got the implication direction wrong about the alternatives, I do not remember, as I might have had a different definition in mind about the majority criterion. Anyway, I do not understand, currently, the difference between these two definitions (apart from the question of rounding). An alternative being preferred to another one by a majority of voter is the same thing as an alternative being preferred to another one by more voters than conversely, when voters can’t abstain or be indifferent, right?}
 	\commentBN{But that's not true, it's the opposite. If $a\in A$ is the Condorcet winner then it's also a majority choice but not vice-versa.
 	Take the example:
 	\begin{center}
@@ -133,12 +139,13 @@ Ideally we would not want either of these behaviours. In what follows we present
 		$
 	\end{center}
 	"a" is the majority choice but not the condorcet winner. In this case I would present first majority then condorcet and add the following:}
-	
+	\commentOC{Here, $a$ is a Condorcet winner.}
 	Note that for an alternative $a \in A$ to be the Condorcet winner a plurality of voters must consider \textit{a} better than any other alternative, thus $\mu(a,b)) > \ceil{\frac{n}{2}}, \forall b\in{A\setminus{\{a\}}}$. Therefore, as the Condorcet winner, when it exists, is also the majority choice, if an \acs{SCR} $f$ is a Condorcet procedure then $f$ is also majoritarian.
 
 	\begin{genthm}{Manipulability}
 	An \acs{SCR} $f$ is manipulable iff there exist two profiles $P, P' \in\linors^{N}$ and a voter $j \in N$ such that $\mathbin{\pref'_i}=\mathbin{\prefi}, \forall i \in {N \setminus\{j\}}$ and $f(P') \pref_j f(P)$.
 	In other words, if there exists a voter who by changing her sincere preference ranking can change the outcome to something more appealing to her.
+	\commentOC{I’d remove “sincere” here. Perhaps you can add a short paragraph afterwards (or before) to observe that the idea is that the voter $j$ risks then to vote in a “non-sincere” way.}
 	\end{genthm}
 
 	\begin{genthm}{Strategy-Proofness}
@@ -149,6 +156,10 @@ Ideally we would not want either of these behaviours. In what follows we present
 		An \acs{SCR} $f$ is consistent iff $\forall X,Y \subset N, P \in\linors^{X}, P' \in\linors^{Y}$ such that $X \cap Y \neq \emptyset$ and $f(P)\cap f(P') \neq \emptyset$, then we have that $f(P \cup P')=f(P)\cap f(P')$. In other words, if the common winning alternatives for the two disjoint sets of voters are equivalent to the ones selected for the union of these sets.
 		The consistency axiom is also referred to as \say{reinforcement}.
 	\end{genthm}
+	\commentOC{You didn’t define $f$ as a rule operating on variable populations. 
+	In other words, $f$ is supposed to apply only on $N$-sized profiles.
+	So, there is a type problem about $f(P)$ and $f(P')$.
+	I suggest to drop this axiom if you don’t need it very much; or you’d have to introduce such kind of rules.}
 
 %	\begin{genthm}{Weak Monotonicity}
 %		An \acs{SCR} $f$ is weakly monotone iff for each $P, P' \in\linors^{N}$ and $j \in N$ such that $\mathbin{\pref'_i}=\mathbin{\prefi}, \forall i \in {N \setminus\{j\}}$, if the voter $j$ ranks the alternative $f(P)$ in a higher position in $\mathbin{\pref'_j}$ than in $\mathbin{\pref}_j$, then $f(P)=f(P')$.
@@ -266,7 +277,7 @@ Ideally we would not want either of these behaviours. In what follows we present
 \end{genthm}
 
 \commentBN{This is the table with the results but probably some are worth proving.}
-
+\commentOC{Nice overview. I wouldn’t spend much space about proofs, as these are known results (and proving everything that is non obvious would take much space, I suppose). Perhaps a few easy proofs could be useful to give the feeling to the reader of how this works. Anyway, references are certainly needed. The set “Condorcet” is a bit odd here, being (I suppose) the set of rules which, by definition, do satisfy the axiom, this is not informative. One or two specific Condorcet rules would be more welcome, I’d say.}
 \scalebox{0.8}{
 	\begin{tabular}{ccccccccccc}
 		&	Anon.	&	Neut.	&	Nondict.	&	Unan.	&	Pareto	&	Condorcet	&	Majority &	Manipul.	&	SP	&	Consist.	\\
