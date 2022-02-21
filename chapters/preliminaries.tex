@@ -81,11 +81,10 @@ Ideally we would not want either of these behaviours \commentOC{I find this a bi
 		This way of denoting a profile will be used often throughout the dissertation.
 	\end{example}
 
-	We could also think at \commentOC{consider, or think about} a weaker form of anonymity were the voters are not necessarily equal but which does not allow for a dictator\textemdash a specific voter whose preferred choice is always the outcome of the voting rule. 
+	We could also consider a weaker form of anonymity were the voters are not necessarily equal but which does not allow for a dictator\textemdash a specific voter whose preferred choice is always the outcome of the voting rule. 
 
 	\begin{genthm}{Nondictatoriality}
-	An \acs{SCR} $f$ is nondictatorial iff $\forall i \in N$ there exists a profile $P \in\linors^{N}$ such that $\prefi(1) \not\in f(P)$; where $\prefi(1)$ is the first element of the linear order representing $i$ preferences. In other words, if no voter acts as a dictator.
-	\commentOC{The spacing of $(1)$ is wrong: $\prefi$ is used as a function here, not as a relational symbol, but \LaTeX{} is not aware of this.}
+	An \acs{SCR} $f$ is nondictatorial iff $\forall i \in N$ there exists a profile $P \in\linors^{N}$ such that $\mathbin{\prefi}(1) \not\in f(P)$; where $\mathbin{\prefi}(1)$ is the first element of the linear order representing $i$ preferences. In other words, if no voter acts as a dictator.
 	\end{genthm}
 
 %	\begin{genthm}{Nonimposition}
@@ -95,7 +94,7 @@ Ideally we would not want either of these behaviours \commentOC{I find this a bi
 	Another fairly obvious property that might come to mind is that if all voters agree on an alternative then it must be selected as the winner.
 	
 	\begin{genthm}{Unanimity}
-	An \acs{SCR} $f$ is unanimous iff for any $P\in\linors^{N}$ and $a \in A$ such that $\prefi(1)=a \forall i \in N$ then $f(P)=\{a\}$. In other words, if all voters rank the same alternative first, then that alternative should be the sole winner.	
+	An \acs{SCR} $f$ is unanimous iff for any $P\in\linors^{N}$ and $a \in A$ such that $\mathbin{\prefi}(1)=a \forall i \in N$ then $f(P)=\{a\}$. In other words, if all voters rank the same alternative first, then that alternative should be the sole winner.	
 	\end{genthm}
 
 	This idea leads us to a more general consideration, if all voters prefer an alternative \textit{a} to another \textit{b} then this preference must be translated into the result: \textit{b} cannot be part of the winners.
@@ -111,15 +110,13 @@ Ideally we would not want either of these behaviours \commentOC{I find this a bi
 	Given a profile $P\in\linors^{N}$ and two alternatives $a,b\in A$, we define $\mu(a,b)=|\{\mathbin{\prefi}, i \in N \suchthat a\prefi b\}|$ as the number of preference rankings for which $a$ is preferred to $b$. 
 	
 	\begin{genthm}{Majority criterion}
-	Given a profile $P\in\linors^{N}$, an alternative $a\in A$ is the majority choice iff $\mu(a,b)> \ceil{\frac{n}{2}}, \forall b\in{A\setminus{\{a\}}}$. In other words, if the majority of voters prefers $a$ to any other alternative.
-	\commentOC{If $n$ is odd, this seems too demanding: equality should suffice, intuitively, if rounding up (I don’t think rounding is useful here).}
+	Given a profile $P\in\linors^{N}$, an alternative $a\in A$ is the majority choice iff $\mu(a,b)> \frac{n}{2}, \forall b\in{A\setminus{\{a\}}}$. In other words, if the majority of voters prefers $a$ to any other alternative.
 	
 	An \acs{SCR} $f$ is majoritarian iff it elects the majority choice whenever it exists.
 	\end{genthm}
 	
 	\begin{genthm}{Condorcet criterion}
-	Given a profile $P\in\linors^{N}$, an alternative $a\in A$ is the Condorcet winner iff $\mu(a,b)> \mu(b,a), \forall b\in{A\setminus{\{a\}}}$. In other words, if $a$ beats every other alternatives in pairwise comparisons. The Condorcet winner does not always exist but when it does it is unique.
-	\commentOC{This last sentence should not be part of the definition: it is a remark whose truth follows from the definition.}
+	Given a profile $P\in\linors^{N}$, an alternative $a\in A$ is the Condorcet winner iff $\mu(a,b)> \mu(b,a), \forall b\in{A\setminus{\{a\}}}$. In other words, if $a$ beats every other alternatives in pairwise comparisons.
 	
 	An \acs{SCR} $f$ is a Condorcet procedure if it elects the Condorcet winner whenever it exists.	
 	\end{genthm}
@@ -139,7 +136,7 @@ Ideally we would not want either of these behaviours \commentOC{I find this a bi
 		$
 	\end{center}
 	"a" is the majority choice but not the condorcet winner. In this case I would present first majority then condorcet and add the following:}
-	\commentOC{Here, $a$ is a Condorcet winner.}
+	\commentOC{Here, $a$ is a Condorcet winner.}\commentBN{You're right... I guess I got confused when I was reasoning about which axioms the rules satisfy (plurality satisfies majority but not condorcet). But indeed the problem is in the definition of the majority criterion.}
 	Note that for an alternative $a \in A$ to be the Condorcet winner a plurality of voters must consider \textit{a} better than any other alternative, thus $\mu(a,b)) > \ceil{\frac{n}{2}}, \forall b\in{A\setminus{\{a\}}}$. Therefore, as the Condorcet winner, when it exists, is also the majority choice, if an \acs{SCR} $f$ is a Condorcet procedure then $f$ is also majoritarian.
 
 	\begin{genthm}{Manipulability}
