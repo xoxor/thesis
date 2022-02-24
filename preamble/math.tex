@@ -97,6 +97,12 @@
 			\mbox{}}
 		{\end{nonamethm#1}}
 
+	
+\newtheoremstyle{indented}{3pt}{3pt}{\addtolength{\leftskip}{2.5em}}{}{\bfseries}{.}{\newline}{\thmname{#3}}
+\theoremstyle{indented}
+\newtheorem*{indented}{\nonamethmname}
+
+
 %--------minimax-----
 \DeclareMathOperator{\Regret}{Regret}
 \DeclareMathOperator{\SCORE}{Score}
