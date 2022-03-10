@@ -1,13 +1,29 @@
 %!TeX root= ../thesis.tex
 In the introductory chapter we have mentioned different concepts like voting, preference aggregation processes, voting rules. All these terms are rather vague if we do not provide precise definitions.
-In this chapter we will present the main notions we will use throughout the course of the dissertation and assign them precise meanings.\commentBN{Precise that we focus on rankings as ballot but be aware that more exist and we'll briefly speak about in sec 2.}
+In this chapter we will present the main notions we will use throughout the course of the dissertation and assign them precise meanings.
+
+It is worth specifying that when we talk about voting we imply an aggregation of votes expressed through a ballot. The term ballot comes from the ancient Italian \textit{ballotta}, a small ball used in medieval elections to cast a vote.
+We can already find references to golden or silver balls used by the members of the various committees in the long procedure of electing the Doge after Venice's ordinance \citep{Doglioni1666}.
+Over time, the term has assumed the generic meaning of a method to cast a vote (often secret).
+In this dissertation we mainly use linear orders of preferences as ballots, i.e. each voter specifies which candidate is her best choice, her second choice and so on. However, this representation is often blamed as the reason for the impossibility results described by \citet{Arrow1950}. 
+Other types of ballots have been proposed, for example \citet{Balinski2011} consider voters' judgments on candidates rather than preferences. 
+To give an idea of the difference between these two representations we can imagine that in the case of ordered ballots a voter would say \say{I prefer alternative \textit{a} to alternative \textit{b}} while using judgments he would say \say{I consider alternative \textit{a} excellent and alternative \textit{b} mediocre}.
+The latter notion will be explored in \Cref{sec:judgmentballots} and further on in \Cref{ch:MJ}.
+
+A set of ballots constitutes the input of the aggregation function, since there are different representations of this object, this means that we can define different functions on different inputs. But what is the output?
+Here again, there is no single answer. One can consider \textit{resolute} functions, i.e. functions that return a unique winner. In such cases, whenever there are ties between candidates, mechanisms are designed to break them.
+However, this is not the assumption we will make in the course of this manuscript. The functions we will describe return the set of winning candidates.
+
+It is important to emphasise that since these functions can be defined on different inputs and outputs, they are different mathematical objects. If we define a desirable property of a function that uses ranked ballots it might not be possible to convert it into a property of a function that uses judgements, and vice-versa.
+
+%\commentBN{we can have different different input or different output and because they're different mathematical object they also satisfy different axioms}
 
 \section{Voting with ranked ballots}
 
 A social choice setting consists of a set $\voters$ of $n$ individuals\textemdash or voters\textemdash who have preferences over a set $\alts$ of $m$ alternatives.
 A social choice problem deals with aggregating those preferences, through the use of a social choice rule, to obtain a common choice for the group.
 The preferences of individuals are represented by linear orders over the set of alternatives $A$.
-In general, a linear order $\mathbin{\pref}$ on a set $X$ is a relation that is:
+In general, a linear order $\mathop{\pref}$ on a set $X$ is a relation that is:
 \vspace{-0.3em}
 \begin{itemize}
 	\itemsep-0.5em 
@@ -16,11 +32,11 @@ In general, a linear order $\mathbin{\pref}$ on a set $X$ is a relation that is:
 	\item complete: $a \pref b \lor b \pref a, \forall a \neq b \in X$
 \end{itemize} 
 \vspace{-0.3em}
-We can also define a non-strict linear order $\mathbin{\prefeq}$ on a set $X$ as a relation that is transitive, complete, reflexive ($a \prefeq a, \forall a \in X$) and antisymmetric ($a \prefeq b \land b \prefeq a \Rightarrow a = b, \forall a,b \in X$).
+We can also define a non-strict linear order $\mathop{\prefeq}$ on a set $X$ as a relation that is transitive, complete, reflexive ($a \prefeq a, \forall a \in X$) and antisymmetric ($a \prefeq b \land b \prefeq a \Rightarrow a = b, \forall a,b \in X$).
 For each non-strict linear order $\prefeq$ there exists an associated linear order $\pref$ obtained by removing all pairs $a \prefeq a, \forall a \in X$. In other words, we have $a \pref b \iff a \prefeq b \land a \neq b, \forall a,b \in X$.
 
-$\linors$ denotes the set of all linear orders over $A$. A generic element $\mathbin{\prefi} \in \linors$ stands for the \textit{preference ranking} of the individual $i\in N$.
-A \emph{profile} $\prof: N → \linors$ associates with each individual $i \in N$ a preference $\prof(i) =\mathbin{\prefi}$. We will use $\mathbin{\prefi}$ instead of $P(i)$ when the profile is clear from the context. $\linors^{N}$ denotes the set of all functions from $N$ to $\linors$, thus all possible profiles given $N$. 
+$\linors$ denotes the set of all linear orders over $A$. A generic element $\mathop{\prefi} \in \linors$ stands for the \textit{preference ranking} of the individual $i\in N$.
+A \emph{profile} $\prof: N → \linors$ associates with each individual $i \in N$ a preference $\prof(i) =\mathop{\prefi}$. We will use $\mathop{\prefi}$ instead of $P(i)$ when the profile is clear from the context. $\linors^{N}$ denotes the set of all functions from $N$ to $\linors$, thus all possible profiles given $N$. 
 %We write $r_{\prefi}(a)=\#\{b\in A \suchthat b \prefi a\}+1$ for the \emph{rank} of $a\in A$ at ${\prefi} \in \linors$. 
 \begin{example}
 	\label{ex:namedprofile}
@@ -51,10 +67,10 @@ As already mentioned, an axiom formalises an appealing property of a voting rule
 A first intuitive desideratum is that the rule should not favour specific voters or candidates.
 In many real cases, when a committee has to make a decision, in case of a tie a member, usually the chair, has the power to break it at his discretion.
 Similarly, in many legislatures in case of a tie between approving a law or not, the status quo wins, highlighting an inequality between the alternatives.
-Ideally we would not want either of these behaviours \commentOC{I find this a bit too normative.}. In what follows we present two axioms that promote equality among voters, \textit{anonymity}, and among candidates, \textit{neutrality}. 
+However, these behaviours are not always desired or accepted. In what follows we present two axioms that promote equality among voters, \textit{anonymity}, and among candidates, \textit{neutrality}. 
 
 	\begin{genthm}{Anonymity}
-	An \acs{SCR} $f$ is anonymous iff for any $i,j \in N$ and $P,P'\in\linors^{N}$ such that $\mathbin{\pref'_k}=\mathbin{\pref_k}, \forall k \in {N \setminus\{i,j\}}$ and $\mathbin{\pref'_i}=\mathbin{\pref_j}, \mathbin{\pref'_j}=\mathbin{\pref_i}$, we have that $f(P)=f(P')$. In other words, if the identity of voters is irrelevant.
+	An \acs{SCR} $f$ is anonymous iff for any $i,j \in N$ and $P,P'\in\linors^{N}$ such that $\mathop{\pref'_k}=\mathop{\pref_k}, \forall k \in {N \setminus\{i,j\}}$ and $\mathop{\pref'_i}=\mathop{\pref_j}, \mathop{\pref'_j}=\mathop{\pref_i}$, we have that $f(P)=f(P')$. In other words, if the identity of voters is irrelevant.
 	%$P'$ obtained from $P$ by swapping the preference rankings of two voters $f(P)=f(P')$. 
 	\end{genthm}
 
@@ -82,18 +98,18 @@ Ideally we would not want either of these behaviours \commentOC{I find this a bi
 	We could also consider a weaker form of anonymity were the voters are not necessarily equal but which does not allow for a dictator\textemdash a specific voter whose preferred choice is always the outcome of the voting rule. 
 
 	\begin{genthm}{Nondictatoriality}
-	An \acs{SCR} $f$ is nondictatorial iff $\forall i \in N$ there exists a profile $P \in\linors^{N}$ such that $\mathbin{\prefi}(1) \not\in f(P)$; where $\mathbin{\prefi}(1)$ is the first element of the linear order representing $i$ preferences. In other words, if no voter acts as a dictator.
+	An \acs{SCR} $f$ is nondictatorial iff $\forall i \in N$ there exists a profile $P \in\linors^{N}$ such that $\mathop{\prefi}(1) \not\in f(P)$; where $\mathop{\prefi}(1)$ is the first element of the linear order representing $i$ preferences. In other words, if no voter acts as a dictator.
 	\end{genthm}
 
 %	\begin{genthm}{Nonimposition}
 %	As a weak version of neutrality, an \acs{SCR} $f$ is non-imposed iff given an alternative $a \in A$ there exists a profile $P\in\linors^{N}$ such that $f(P)=\{a\}$. In other words, there does not exist an alternative that cannot be elected.	
 %	\end{genthm}
 
-	Another fairly obvious property that might come to mind is that if \textit{enough} voters agree on an alternative then it must be selected as the winner. To better define the concept of \textit{enough}, given a profile $P\in\linors^{N}$ and an alternative $a\in A$, we consider the number of preference rankings for which $a$ is ranked first: $\eta(a)=|\{\mathbin{\prefi}, i \in N \suchthat \mathbin{\prefi}(1)=a\}|$.
-	
-	\begin{genthm}{Unanimity}
-	An \acs{SCR} $f$ is unanimous iff for any $P\in\linors^{N}$ and $a \in A$ such that $\eta(a)=n$ then $f(P)=\{a\}$. In other words, if all voters rank the same alternative first, then that alternative should be the sole winner.	
-	\end{genthm}
+	Another fairly obvious property that might come to mind is that if \textit{enough} voters agree on an alternative then it must be selected as the winner. To better define the concept of \textit{enough}, given a profile $P\in\linors^{N}$ and an alternative $a\in A$, we consider the number of preference rankings for which $a$ is ranked first: $\eta(a)=|\{\mathop{\prefi}, i \in N \suchthat \mathop{\prefi}(1)=a\}|$.
+
+%	\begin{genthm}{Unanimity}
+%	An \acs{SCR} $f$ is unanimous iff for any $P\in\linors^{N}$ and $a \in A$ such that $\eta(a)=n$ then $f(P)=\{a\}$. In other words, if all voters rank the same alternative first, then that alternative should be the sole winner.	
+%	\end{genthm}
 
 	\begin{genthm}{Majority}
 	An \acs{SCR} $f$ is majoritarian iff for any $P\in\linors^{N}$ and $a \in A$ such that $\eta(a)> \frac{n}{2}$ then $f(P)=\{a\}$. In other words, if the majority of voters rank the same alternative first, then that alternative should be the sole winner.
@@ -101,14 +117,14 @@ Ideally we would not want either of these behaviours \commentOC{I find this a bi
 
 	This idea leads us to two more general considerations. First, if all voters prefer an alternative \textit{a} to another one \textit{b} then this preference must be translated into the result: \textit{b} cannot be part of the winners. 
 	Second, if a majority of voters prefer an alternative \textit{a} to any other, then \textit{a} should be the winner. 
-	To better define this last concept, given a profile $P\in\linors^{N}$ and two alternatives $a,b\in A$, we denote with $\mu(a,b)=|\{\mathbin{\prefi}, i \in N \suchthat a\prefi b\}|$ the number of preference rankings for which $a$ is preferred to $b$.
+	To better define this last concept, given a profile $P\in\linors^{N}$ and two alternatives $a,b\in A$, we denote with $\mu(a,b)=|\{\mathop{\prefi}, i \in N \suchthat a\prefi b\}|$ the number of preference rankings for which $a$ is preferred to $b$.
 
 	\begin{genthm}{Pareto Property}
 	Given a profile $P\in\linors^{N}$ and any distinct $a,b\in A$, $a$ Pareto dominates $b$ at $P$ (or equivalently $b$ is Pareto dominated by $a$ at $P$) iff $a \prefi b,\forall i\in N$.
 	
 	We denote by $\paretopt(P)= \set{a \in A \suchthat \forall b \in A\setminus\{a\}, \exists i \in N, a \pref_i b}$ the set of Pareto optimal alternatives at $P$.
 	
-	An \acs{SCR} $f$ is Paretian iff $f(P)\subseteq\paretopt(P)$ $\forall P\in\linors^{N}$. In other words, $f$ is Paretian (or Pareto optimal) if $f(P)$ never contains Pareto dominated alternatives.	
+	An \acs{SCR} $f$ is Paretian iff $f(P)\subseteq\paretopt(P)$ $\forall P\in\linors^{N}$. In other words, $f$ is Paretian if $f(P)$ never contains Pareto dominated alternatives.	
 	\end{genthm} 
 	
 	\begin{genthm}{Condorcet criterion}
@@ -117,8 +133,8 @@ Ideally we would not want either of these behaviours \commentOC{I find this a bi
 	An \acs{SCR} $f$ is a Condorcet procedure if it elects the Condorcet winner whenever it exists.	
 	\end{genthm}
 
-	Note that for an \acs{SCR} $f$ being majoritarian implies that there is an alternative $a \in A$ that is preferred to any other by a majority of the voters: $\mu(a,b)> \frac{n}{2}, \forall b\in{A\setminus{\{a\}}}$. This also means that $\mu(a,b)> \mu(b,a), \forall b\in{A\setminus{\{a\}}}$ so that $a$ is the Condorcet winner. Thus, if $f$ is majoritarian $f$ is also a Condorcet procedure.
-	The converse is not always true, if $a$ is the Condorcet winner then it is not necessarily the majority choice.
+	Note that for an \acs{SCR} $f$ being majoritarian implies that there is an alternative $a \in A$ that is preferred to any other by a majority of the voters: $\mu(a,b)> \frac{n}{2}, \forall b\in{A\setminus{\{a\}}}$. This also means that $\mu(a,b)> \mu(b,a), \forall b\in{A\setminus{\{a\}}}$ so that $a$ is the Condorcet winner.
+	The converse is not always true, if an alternative is the Condorcet winner then it is not necessarily the majority choice.
 	\begin{example}
 		\label{ex:condorcetMaj}
 		Consider the following profile $P$:
@@ -128,7 +144,7 @@ Ideally we would not want either of these behaviours \commentOC{I find this a bi
 				1 & 1 & 1 \\
 				a &	c & d \\
 				b &	b & b \\
-				c &	a & b \\
+				c &	a & a \\
 				d & d & c \\
 			\end{array} \quad, 
 			$
@@ -139,8 +155,9 @@ Ideally we would not want either of these behaviours \commentOC{I find this a bi
 			\mu(c,a)&=1, \quad && \mu(c,b)&&=1  \quad && \mu(c,d)&&=2  \quad.\\
 			\mu(d,a)&=1, \quad && \mu(d,b)&&=1  \quad && \mu(d,c)&&=1 
 		\end{alignat*}
-		$a$ is the Condorcet winner but it is not the majority choice.
+		$b$ is the Condorcet winner but it is not the majority choice.
 	\end{example}
+	We conclude that the Condorcet criterion is a stronger axiom and its satisfaction implies that of the majority criterion: if $f$ is a Condorcet procedure then $f$ is also majoritarian. 
 	
 	It is also worth to mention that the Condorcet winner does not always exist and that, with three or more alternatives, \textit{majority cycles} may occur.
 	\begin{example}
@@ -161,13 +178,13 @@ Ideally we would not want either of these behaviours \commentOC{I find this a bi
 			\mu(b,c)&=2, &&\mu(c,b)&&=1  \quad.\\
 			\mu(c,a)&=2, &&\mu(a,c)&&=1  
 		\end{alignat*}
-		Thus, $a$ is preferred to $b$, $b$ is preferred to $c$, but $c$ is preferred to $a$. Such cycle of preferences is also known as \textbf{Condorcet’s paradox}.
+		Thus, $a$ is preferred to $b$, $b$ is preferred to $c$, but $c$ is preferred to $a$, so there is no Condorcet winner. Such cycle of preferences is also known as \textbf{Condorcet’s paradox}.
 	\end{example}
 
 	In all properties considered so far we have assumed that voters report their sincere preferences. But what if a voter can achieve better results by casting an insincere ballot rather than expressing her true preferences?
 
 	\begin{genthm}{Manipulability}
-	An \acs{SCR} $f$ is manipulable iff there exist two profiles $P, P' \in\linors^{N}$ and a voter $j \in N$ such that $\mathbin{\pref'_i}=\mathbin{\prefi}, \forall i \in {N \setminus\{j\}}$ and $f(P') \pref_j f(P)$.
+	An \acs{SCR} $f$ is manipulable iff there exist two profiles $P, P' \in\linors^{N}$ and a voter $j \in N$ such that $\mathop{\pref'_i}=\mathop{\prefi}, \forall i \in {N \setminus\{j\}}$ and $f(P') \pref_j f(P)$.
 	In other words, if there exists a voter who by changing her preference ranking can change the outcome to something more appealing to her.
 	\end{genthm}
 
@@ -178,12 +195,12 @@ Ideally we would not want either of these behaviours \commentOC{I find this a bi
 
 
 %	\begin{genthm}{Weak Monotonicity}
-%		An \acs{SCR} $f$ is weakly monotone iff for each $P, P' \in\linors^{N}$ and $j \in N$ such that $\mathbin{\pref'_i}=\mathbin{\prefi}, \forall i \in {N \setminus\{j\}}$, if the voter $j$ ranks the alternative $f(P)$ in a higher position in $\mathbin{\pref'_j}$ than in $\mathbin{\pref}_j$, then $f(P)=f(P')$.
+%		An \acs{SCR} $f$ is weakly monotone iff for each $P, P' \in\linors^{N}$ and $j \in N$ such that $\mathop{\pref'_i}=\mathop{\prefi}, \forall i \in {N \setminus\{j\}}$, if the voter $j$ ranks the alternative $f(P)$ in a higher position in $\mathop{\pref'_j}$ than in $\mathop{\pref}_j$, then $f(P)=f(P')$.
 %		In other words, if a voter lifts the ranking of the winning alternative then the winner should remain unchanged. 
 %	\end{genthm}
 %
 %	\begin{genthm}{Strong Monotonicity (Maskin)}
-%	An \acs{SCR} $f$ is strongly monotone iff for each $P, P' \in\linors^{N}$, $j \in N$ and $b \in A$ such that $\mathbin{\pref'_i}=\mathbin{\prefi}, \forall i \in {N \setminus\{j\}}$, if both $f(P)\pref_j b$ and $f(P)\pref'_j b$ hold, then $f(P)=f(P')$.
+%	An \acs{SCR} $f$ is strongly monotone iff for each $P, P' \in\linors^{N}$, $j \in N$ and $b \in A$ such that $\mathop{\pref'_i}=\mathop{\prefi}, \forall i \in {N \setminus\{j\}}$, if both $f(P)\pref_j b$ and $f(P)\pref'_j b$ hold, then $f(P)=f(P')$.
 %	In other words, if a voter lowers the ranking of an alternative originally already ranked below the winning alternative then the winner should remain unchanged. 
 %	\end{genthm}
 %
@@ -252,18 +269,34 @@ Ideally we would not want either of these behaviours \commentOC{I find this a bi
 
 \subsection{Voting rules}
 
-\subsubsection*{Majority}
-Majority rule $f^m$ is a voting process that selects as winner the candidate $a\in A$ who is ranked first by the majority of voters, i.e. $f^m(P)=\{a\}$ iff $\eta(a)>\frac{n}{2}$.
+Having established desirable properties for aggregating preferences, we can now describe some methods designed for this purpose.
+Probably, one of the most intuitive approaches when a group of people get together and wish to find a common choice, is to elect the alternative supported by the majority of voters. The first thing we note is that this rule, as formulated, would not allow for the existence of multiple winners. Thus, while it might produce acceptable results with only two alternatives and an odd number of voters, in all other cases it would not always yield a winner.
+
+Nevertheless, let us step back from these considerations for a moment and assume that there is always a majority that agrees on the choice of the winner. What would the decision of the majority imply?
+In his rules for a open society, \citet[vol. 2, ch. 19]{Popper1945} writes:
+\textit{\say{Democracy cannot be the majority, although fully characterized as the rule of the institution of general elections is most important. For a majority might rule in a tyrannical way. (The majority of those who are less than 6 ft. high may decide that the minority of those over 6 ft. shall pay all taxes.)}}.
+Also thanks to his example, it is easy to imagine what Popper meant when he said that the majority can rule tyrannically.
+But one thing that is also very important to point out is that a sort of tyranny could also lie in the election itself, in the sense that the majority choice could be hated by the rest of the population.
+Imagine a situation where in a group of $100$ voters, $51$ of them have the following preference ranking $a\pref b \pref \dots \pref z$ and $49$ instead $z \pref y \pref \dots \pref a$. A majority of $51$ individuals would elect the candidate $a$ who is detested by the remaining $49$.
+
+This makes us realise that rather intuitive methods, which seem fair at a first glance, can actually have unintended implications.To mitigate this problem and analyse the properties of voting rules, we can make use of the axioms just described.
+
+The literature on voting rules is extensive and many have been proposed over the years, here we will present just a few examples of three particular categories: \textit{\acl{PSR}}, that are methods assigning points to positions and electing the candidate with the greatest cumulative score; \textit{Condorcet Procedures}, which are methods satisfying the Condorcet criterion, i.e. always electing the Condorcet winner whenever it exists; \textit{BK Compromises}, which is the term we use to refer to the generalisation of bargaining rules explored by \citet{Brams2001}, where, starting from the top choice of each voters, we fall back until one or more candidates have \textit{enough} support to be considered winner.
+
+Let us analyse these procedures in more detail.
+
+%\subsubsection*{Majority}
+%Majority rule $f^m$ is a voting process that selects as winner the candidate $a\in A$ who is ranked first by the majority of voters, i.e. $f^m(P)=\{a\}$ iff $\eta(a)>\frac{n}{2}$.
 
 \subsubsection*{\acl{PSR} (\acs{PSR})}
-The \acs{PSR} $f^{\w}$ is the voting rule defined by the \emph{scoring vector} $\w=(w_1, \dots, w_m)$ which associate weights $w_r \in \R$ to positions, with $w_1 ≥ w_2 ≥ … ≥ w_m$.
+The \acs{PSR} $f_{\w}$ is the voting rule defined by the \emph{scoring vector} $\w=(w_1, \dots, w_m)$ which associate weights $w_r \in \R$ to positions, with $w_1 ≥ w_2 ≥ … ≥ w_m$.
 Let $\alpha^{a}_r$ be the number of times that alternative $a$ was ranked in the $r$-th position, then the score of $a$ is defined by
 \begin{align}
 	\label{eq:srule}
-	s(a) = \sum_{i\in N} w_{\mathbin{\prefi}(x)}
+	s(a) = \sum_{i\in N} w_{\mathop{\prefi}(x)}
 	= \sum_{r=1}^{m} \alpha^{a}_r w_r\ .
 \end{align}
-The winners $f^{\w}(P)$ are the alternatives with highest score. 
+The winners $f_{\w}(P)=\{a\in A \suchthat s(a)\geq s(b), \forall b \in A \setminus\{a\} \}$ are the alternatives with highest score. 
 Different scoring vector $\w$ define different rules, here we describe three of them.
 
 \begin{indented}[Plurality]
@@ -279,30 +312,110 @@ Different scoring vector $\w$ define different rules, here we describe three of 
 \begin{indented}[k-Approval]
 	Plurality and Anti-Plurality can be seen as particular cases of a more general approval voting where each voter approves only one candidate and $m-1$ candidates respectively. For a generic $k \in \intvl{1,m-1}$, the vector defining k-approval rule is $\w=(\underbrace{1, \dots,1}_{k}, \underbrace{0,\dots, 0}_{m-k})$.
 \end{indented}
-
+\vspace{-1.2em}
 \begin{indented}[Borda]
 	The vector defining Borda rule is $\w=(m-1, m-2, \dots, 0)$. This means that, for each preference ranking, each candidate gets points inversely proportional to her ranking. The winners are the candidates with the highest score.
 	As we mentioned in \Cref{ch:intro}, the Borda count is also known as Lull's method.
 \end{indented}
 
-\noindent These are only few examples of scoring rules, but more can be defined by changing the vector: 
+\noindent These are only few examples of scoring rules, but more can be defined by changing the vector. In some instances of real applications: 
 \begin{itemize}
-	\item the Eurovision Song Contest uses a \acs{PSR} with scoring vector \\ $\w=(12,10,8,7,6,5,4,3,2,1,0, \dots,0)$;
-	\item the Formula One racing uses a \acs{PSR} with scoring vector \\ $\w=(25,18,15,12,10,8,6,4,2,1,0,\dots,0)$. \commentBN{talk about convexity}
+	\item the Eurovision Song Contest uses a \acs{PSR} with scoring vector $\w=(12,10,8,7,6,5,4,3,2,$ \\$1,0, \dots,0)$;
+	\item the Formula One racing uses a \acs{PSR} with scoring vector
+	$\w=(25,18,15,12,10,8,6,4,2,$\\$1,0,\dots,0)$
 \end{itemize}
 
 
 
 
 \subsubsection*{Condorcet Procedures}
+Any method satisfying the Condorcet criterion is a Condorcet procedure. As we saw in the previous section, however, the Condorcet winner does not always exist. In these cases different ways to solve this ambiguity have been used, resulting in different procedures. These rules proposed over the years are many and go beyond the scope of this thesis, here we will describe only two of them but, for more details, \citet{Fishburn1977} describes and compares nine famous Condorcet procedures.
 
-\cite{Fishburn1977}
-%Equivalent to Lull-Copeland
-\begin{indented}[Dodgson]
-\end{indented}
+Given a profile $P\in\linors^{N}$ and two alternatives $a,b\in A$, recall that $\mu(a,b)=|\{\mathop{\prefi}, i \in N \suchthat a\prefi b\}|$ represents the number of preference rankings for which $a$ is preferred to $b$.
+We denote with $\rhd$ a simple majority win, and we say that $a \rhd b$ iff $\mu(a,b)>\mu(b,a)$.
 
 \begin{indented}[Copeland]
+	Copeland's method \textemdash which was also proposed by Lull as we saw in \Cref{ch:intro} \textemdash is often considered to be an extension of Condorcet's method. 
+	In fact, the idea of this procedure is based on the fact that if a candidate whose pairwise wins are greater than anyone else is deserving of winning, then one whose number of pairwise wins minus pairwise losses is greater than everyone else is even more deserving.
+	Let us formalise this concept, we define with $\gamma(a)=|\{b \in A\setminus \{a\} \suchthat a \rhd b\}|- |\{b \in A\setminus \{a\} \suchthat b \rhd a\}|$ the number of simple majority wins of $a$ minus the number of simple majority losses of $a$.
+	The winners under the Copeland rule are the alternatives for which this value is the greatest $f_{C}(P)=\{a\in A \suchthat \gamma(a)\geq \gamma(b), \forall b \in A \setminus\{a\} \}$.
 \end{indented}
+
+\begin{indented}[Schwartz]
+	The idea behind the procedure proposed by \citet{Schwartz1972} is to identify the sets of alternatives such that every member in the set wins in simple majority all other alternatives outside the set. The union of all these sets represents the Schwartz set.
+	We say that $a$ Schwartz dominates $b$, $a \bot b$, iff $\exists x_1, \dots, x_k \in A \suchthat a \rhd x_1 \land x_1 \rhd x_2 \land \dots \land x_k\rhd b$ and  $\nexists y_1, \dots, y_l \in A \suchthat b \rhd y_1 \land y_1 \rhd y_2 \land \dots \land y_l\rhd a$. In other words, if there exists a path from $a$ to $b$ in the transitive closure of $\pref$ but not vice-versa \textemdash note that this represents the asymmetric transitive closure of $\pref$.
+	The members of the Schwartz set are all candidates who are not Schwartz dominated.
+	The winners are all the candidates in the Schwartz set, $f_{S}(P)=\{a\in A \suchthat  \nexists b \in A \setminus\{a\} \ s.t. \ b \bot a \}$.
+	
+\end{indented}
+
+\begin{theorem}
+	$f_{S}(P)$ is not Paretian.
+\end{theorem}
+\commentBN{It is not my result, should I consider it theorem?}
+\begin{proof}
+	\label{ex:schwartzPareto}
+	Consider the following profile $P$ \citep{Fishburn1977}:
+	\begin{center}
+		$
+		\begin{array}{ccc}
+			1 & 1 & 1 \\
+			a &	d & c \\
+			b &	a & d \\
+			c &	b & a \\
+			d & c & b \\
+		\end{array} \quad, 
+		$
+	\end{center}
+	Consider, for each pair of alternatives, the number of profiles that prefer one alternative to the other.
+	\begin{alignat*}{5}
+		\mu(a,b)&=3, \quad && \mu(a,c)&&=2  \quad && \mu(a,d)&&=1 \\ 
+		\mu(b,a)&=0, \quad && \mu(b,c)&&=2  \quad && \mu(b,d)&&=1  \\
+		\mu(c,a)&=1, \quad && \mu(c,b)&&=1  \quad && \mu(c,d)&&=2  \quad.\\
+		\mu(d,a)&=2, \quad && \mu(d,b)&&=2  \quad && \mu(d,c)&&=1 
+	\end{alignat*}
+	From this we deduce that $a$ Pareto dominates $b$ and, also, that the simple majority relations are $a \rhd b$, $a \rhd c$, $b \rhd c$, $c \rhd d$, $d \rhd a$, $d \rhd b$.
+	
+	For an alternative $a$ to be in the Schwartz set, there must not be an alternative $b$ for which there is a path from $b$ to $a$ in the transitive closure of $\pref$ but no path from $a$ to $b$.
+	If we represent the preferences with a graph in which each node is an alternative and the arcs correspond to the $\rhd$ relations, it is easy to see that from whichever node we start we can always reach any other node.
+
+	\begin{minipage}{.45\textwidth}
+	\raggedright
+		\scalebox{0.5}{
+			\begin{tikzpicture}
+				\node[shape=circle,draw=black,scale=2] (a) at (0,4) {a};
+				\node[shape=circle,draw=black,scale=2] (b) at (4,0) {b};
+				\node[shape=circle,draw=black,scale=2] (c) at (0,-4) {c};
+				\node[shape=circle,draw=black,scale=2] (d) at (-4,0) {d};
+				
+				\path [->](a) edge node[right] {} (b);
+				\path [->](b) edge node[right] {} (c);
+				\path [->](c) edge node[right] {} (d);
+				\path [->](d) edge node[right] {} (a);
+				\path [->](a) edge node[right] {} (c);
+				\path [->](d) edge node[right] {} (b);
+				%		\path [->](E) edge[bend right=60]  node[right] {$8$} (F);   
+			\end{tikzpicture}
+		}
+	\end{minipage}
+	\begin{minipage}{.45\textwidth}
+		\raggedleft
+	\begin{alignat*}{5}
+		&\mathbf{a} \rhd \mathbf{b} && \land \quad &&\mathbf{b} \rhd c \land c \rhd d \land d \rhd \mathbf{a}\\
+		&\mathbf{a} \rhd \mathbf{c} &&\land \ && \mathbf{c} \rhd d \land d \rhd \mathbf{a}\\
+		&\mathbf{a} \rhd c \land c \rhd \mathbf{d} \quad &&\land \ &&\mathbf{d} \rhd \mathbf{a} \\		
+		&\mathbf{b} \rhd \mathbf{c} &&\land \ &&\mathbf{c} \rhd d \land d \rhd \mathbf{b} \\
+		&\mathbf{b} \rhd c \land c \rhd \mathbf{d} &&\land \ &&\mathbf{d} \rhd \mathbf{b} \\	
+		&\mathbf{c} \rhd \mathbf{d} &&\land \ &&\mathbf{d} \rhd a \land a \rhd \mathbf{c}
+	\end{alignat*}
+\end{minipage}
+	
+	\vspace{2em}
+	\noindent
+	This means that the Schwartz set is equal to the set of all alternatives, thus that $f_S(P)=\{a,b,c,d\}$. But $b$ is a Pareto dominated alternative, thus the Schwartz rule does not satisfy the Pareto criterion.
+\end{proof}
+
+
 
 \subsubsection*{BK compromises}
 \begin{indented}[Fall-back bargaining (Bucklin)]
@@ -313,14 +426,14 @@ Different scoring vector $\w$ define different rules, here we describe three of 
 \commentBN{This is the table with the results but probably some are worth proving.}
 \commentOC{Nice overview. I wouldn’t spend much space about proofs, as these are known results (and proving everything that is non obvious would take much space, I suppose). Perhaps a few easy proofs could be useful to give the feeling to the reader of how this works. Anyway, references are certainly needed. The set “Condorcet” is a bit odd here, being (I suppose) the set of rules which, by definition, do satisfy the axiom, this is not informative. One or two specific Condorcet rules would be more welcome, I’d say.}
 \scalebox{0.8}{
-	\begin{tabular}{cccccccccc}
-		&	Anon.	&	Neut.	&	Nondict.	&	Unan.	&	Pareto	&	Condorcet	&	Majority &	Manipul.	&	SP	\\
-		Majority	&	$\checkmark$	&	$\checkmark$	&	$\checkmark$	&	$\checkmark$	&	$\checkmark$	&	$\bm{\times}$	&	$\checkmark$	&	$\checkmark$	&	$\bm{\times}$	\\
-		Plurality	&	$\checkmark$	&	$\checkmark$	&	$\checkmark$	&	$\checkmark$	&	$\checkmark$	&	$\bm{\times}$	&	$\checkmark$	&	$\checkmark$	&	$\bm{\times}$	\\
-		Anti-Plurality	&	$\checkmark$	&	$\checkmark$	&	$\checkmark$	&	$\checkmark$	&	$\bm{\times}$	&	$\bm{\times}$	&	$\bm{\times}$	&	$\checkmark$	&	$\bm{\times}$	\\
-		Borda	&	$\checkmark$	&	$\checkmark$	&	$\checkmark$	&	$\checkmark$	&	$\checkmark$	&	$\bm{\times}$	&	$\bm{\times}$	&	$\checkmark$	&	$\bm{\times}$	\\
-		Condorcet (TODO)	&	$\checkmark$	&	$\checkmark$	&	$\checkmark$	&	$\checkmark$	&	*	&	$\checkmark$	&	$\checkmark$	&	$\checkmark$	&	$\bm{\times}$	\\
-		BK Compromises	&	$\checkmark$	&	$\checkmark$	&	$\checkmark$	&	$\checkmark$	&	$\checkmark$	&	$\bm{\times}$	&	$\checkmark$	&	$\checkmark$	&	$\bm{\times}$	\\
+	\begin{tabular}{ccccccccc}
+		&	Anon.	&	Neut.	&	Nondict.	&	Pareto	&	Condorcet	&	Majority &	Manipul.	&	SP	\\
+		Majority	&	$\checkmark$	&	$\checkmark$	&	$\checkmark$	&	$\checkmark$	&	$\bm{\times}$	&	$\checkmark$	&	$\checkmark$	&	$\bm{\times}$	\\
+		Plurality	&	$\checkmark$	&	$\checkmark$	&	$\checkmark$	&	$\checkmark$	&	$\bm{\times}$	&	$\checkmark$	&	$\checkmark$	&	$\bm{\times}$	\\
+		Anti-Plurality	&	$\checkmark$	&	$\checkmark$	&	$\checkmark$	&	$\bm{\times}$	&	$\bm{\times}$	&	$\bm{\times}$	&	$\checkmark$	&	$\bm{\times}$	\\
+		Borda	&	$\checkmark$	&	$\checkmark$	&	$\checkmark$	&	$\checkmark$	&	$\bm{\times}$	&	$\bm{\times}$	&	$\checkmark$	&	$\bm{\times}$	\\
+		Condorcet (TODO)	&	$\checkmark$	&	$\checkmark$	&	$\checkmark$	&	*	&	$\checkmark$	&	$\checkmark$	&	$\checkmark$	&	$\bm{\times}$	\\
+		BK Compromises	&	$\checkmark$	&	$\checkmark$	&	$\checkmark$ &	$\checkmark$	&	$\bm{\times}$	&	$\checkmark$	&	$\checkmark$	&	$\bm{\times}$	\\
 		
 	\end{tabular}
 }
@@ -372,8 +485,8 @@ Different scoring vector $\w$ define different rules, here we describe three of 
 %with $q= \ceil{\frac{n}{2}}$ then $f(P1)=\{a,b\}, f(P2)=\{a\}, f(P1 \cup P2)=\{a,b\} \neq f(P1)\cap f(P2)=\{a\}$
 \subsection{Incompleteness}
 
-\section{Voting with other}
-\commentBN{we can have different different input or different output and because they're different mathematical object they also satisfy different axioms}
+\section{Voting with judgments ballots(?)}
+\label{sec:judgmentballots}
 \begin{genthm}{Majority judgment}
 	
 \end{genthm}
