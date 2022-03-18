@@ -19,7 +19,7 @@ It is important to emphasise that since these functions can be defined on differ
 %\commentBN{we can have different different input or different output and because they're different mathematical object they also satisfy different axioms}
 
 \section{Voting with ranked ballots}
-
+%\commentBN{ranked is the most used (Arrow, Handbook of COMSOC)}
 A social choice setting consists of a set $\voters$ of $n$ individuals\textemdash or voters\textemdash who have preferences over a set $\alts$ of $m$ alternatives.
 A social choice problem deals with aggregating those preferences, through the use of a social choice rule, to obtain a common choice for the group.
 The preferences of individuals are represented by linear orders over the set of alternatives $A$.
@@ -296,7 +296,7 @@ Let $\alpha^{a}_r$ be the number of times that alternative $a$ was ranked in the
 	s(a) = \sum_{i\in N} w_{\mathop{\prefi}(x)}
 	= \sum_{r=1}^{m} \alpha^{a}_r w_r\ .
 \end{align}
-The winners $f_{\w}(P)=\{a\in A \suchthat s(a)\geq s(b), \forall b \in A \setminus\{a\} \}$ are the alternatives with highest score. 
+The winners $f_{\w}(P)=\{a\in A \suchthat s(a)\geq s(b), \forall b \in A \setminus\{a\} \}$ are the alternatives with highest score, we will write this as $f_{\w}(P)=\argmax_{a\in A}s(a)$. 
 Different scoring vector $\w$ define different rules, here we describe three of them.
 
 \begin{indented}[Plurality]
@@ -310,7 +310,7 @@ Different scoring vector $\w$ define different rules, here we describe three of 
 \end{indented}
 
 \begin{indented}[k-Approval]
-	Plurality and Anti-Plurality can be seen as particular cases of a more general approval voting where each voter approves only one candidate and $m-1$ candidates respectively. For a generic $k \in \intvl{1,m-1}$, the vector defining k-approval rule is $\w=(\underbrace{1, \dots,1}_{k}, \underbrace{0,\dots, 0}_{m-k})$.
+	Plurality and Anti-Plurality can be seen as particular cases of a more general approval voting where each voter assigns a score of 1 to, respectively, only one candidate and $m-1$ candidates. For a generic $k \in \intvl{1,m-1}$, the vector defining k-approval rule is $\w=(\underbrace{1, \dots,1}_{k}, \underbrace{0,\dots, 0}_{m-k})$.
 \end{indented}
 \vspace{-1.2em}
 \begin{indented}[Borda]
@@ -331,6 +331,10 @@ Different scoring vector $\w$ define different rules, here we describe three of 
 \subsubsection*{Condorcet Procedures}
 Any method satisfying the Condorcet criterion is a Condorcet procedure. As we saw in the previous section, however, the Condorcet winner does not always exist. In these cases different ways to solve this ambiguity have been used, resulting in different procedures. These rules proposed over the years are many and go beyond the scope of this thesis, here we will describe only two of them but, for more details, \citet{Fishburn1977} describes and compares nine famous Condorcet procedures.
 
+We would like to warn the reader, that these two specific rules will not be mentioned again in the course of the thesis.
+The following material could be skipped (until the next set of BK rules) without compromising the understanding of the rest of the manuscript.
+However, it seems worthwhile to us to give an example of Condorcet procedures and, in particular, two methods which, as we shall see, do not satisfy the same axioms.
+
 Given a profile $P\in\linors^{N}$ and two alternatives $a,b\in A$, recall that $\mu(a,b)=|\{\mathop{\prefi}, i \in N \suchthat a\prefi b\}|$ represents the number of preference rankings for which $a$ is preferred to $b$.
 We denote with $\rhd$ a simple majority win, and we say that $a \rhd b$ iff $\mu(a,b)>\mu(b,a)$.
 
@@ -338,24 +342,26 @@ We denote with $\rhd$ a simple majority win, and we say that $a \rhd b$ iff $\mu
 	Copeland's method \textemdash which was also proposed by Lull as we saw in \Cref{ch:intro} \textemdash is often considered to be an extension of Condorcet's method. 
 	In fact, the idea of this procedure is based on the fact that if a candidate whose pairwise wins are greater than anyone else is deserving of winning, then one whose number of pairwise wins minus pairwise losses is greater than everyone else is even more deserving.
 	Let us formalise this concept, we define with $\gamma(a)=|\{b \in A\setminus \{a\} \suchthat a \rhd b\}|- |\{b \in A\setminus \{a\} \suchthat b \rhd a\}|$ the number of simple majority wins of $a$ minus the number of simple majority losses of $a$.
-	The winners under the Copeland rule are the alternatives for which this value is the greatest $f_{C}(P)=\{a\in A \suchthat \gamma(a)\geq \gamma(b), \forall b \in A \setminus\{a\} \}$.
+	The winners under the Copeland rule are the alternatives for which this value is the greatest $f_{C}(P)=\argmax_{a\in A}\gamma(a)$.
+	%$f_{C}(P)=\{a\in A \suchthat \gamma(a)\geq \gamma(b), \forall b \in A \setminus\{a\} \}$.
 \end{indented}
 
 \begin{indented}[Schwartz]
 	The idea behind the procedure proposed by \citet{Schwartz1972} is to identify the sets of alternatives such that every member in the set wins in simple majority all other alternatives outside the set. The union of all these sets represents the Schwartz set.
-	We say that $a$ Schwartz dominates $b$, $a \bot b$, iff $\exists x_1, \dots, x_k \in A \suchthat a \rhd x_1 \land x_1 \rhd x_2 \land \dots \land x_k\rhd b$ and  $\nexists y_1, \dots, y_l \in A \suchthat b \rhd y_1 \land y_1 \rhd y_2 \land \dots \land y_l\rhd a$. In other words, if there exists a path from $a$ to $b$ in the transitive closure of $\pref$ but not vice-versa \textemdash note that this represents the asymmetric transitive closure of $\pref$.
+	We say that $a$ Schwartz dominates $b$, $a \vdash b$, iff $\exists x_1, \dots, x_k \in A \suchthat a \rhd x_1 \land x_1 \rhd x_2 \land \dots \land x_k\rhd b$ and  $\nexists y_1, \dots, y_l \in A \suchthat b \rhd y_1 \land y_1 \rhd y_2 \land \dots \land y_l\rhd a$. In other words, if there exists a path from $a$ to $b$ in $\rhd$ but not vice-versa.
+%	\textemdash note that this is equivalent to check if a and be are connected in the asymmetric transitive closure of $\rhd$.
 	The members of the Schwartz set are all candidates who are not Schwartz dominated.
 	The winners are all the candidates in the Schwartz set, $f_{S}(P)=\{a\in A \suchthat  \nexists b \in A \setminus\{a\} \ s.t. \ b \bot a \}$.
 	
 \end{indented}
 
-\begin{theorem}
+
+\begin{theorem}[\citet{Fishburn1977}]
 	$f_{S}(P)$ is not Paretian.
 \end{theorem}
-\commentBN{It is not my result, should I consider it theorem?}
 \begin{proof}
 	\label{ex:schwartzPareto}
-	Consider the following profile $P$ \citep{Fishburn1977}:
+	Consider the following profile $P$:
 	\begin{center}
 		$
 		\begin{array}{ccc}
@@ -376,7 +382,7 @@ We denote with $\rhd$ a simple majority win, and we say that $a \rhd b$ iff $\mu
 	\end{alignat*}
 	From this we deduce that $a$ Pareto dominates $b$ and, also, that the simple majority relations are $a \rhd b$, $a \rhd c$, $b \rhd c$, $c \rhd d$, $d \rhd a$, $d \rhd b$.
 	
-	For an alternative $a$ to be in the Schwartz set, there must not be an alternative $b$ for which there is a path from $b$ to $a$ in the transitive closure of $\pref$ but no path from $a$ to $b$.
+	For an alternative $a$ to be in the Schwartz set, there must not be an alternative $b$ for which there is a path from $b$ to $a$ in $\rhd$ but no path from $a$ to $b$.
 	If we represent the preferences with a graph in which each node is an alternative and the arcs correspond to the $\rhd$ relations, it is easy to see that from whichever node we start we can always reach any other node.
 
 	\begin{minipage}{.45\textwidth}
@@ -401,12 +407,12 @@ We denote with $\rhd$ a simple majority win, and we say that $a \rhd b$ iff $\mu
 	\begin{minipage}{.45\textwidth}
 		\raggedleft
 	\begin{alignat*}{5}
-		&\mathbf{a} \rhd \mathbf{b} && \land \quad &&\mathbf{b} \rhd c \land c \rhd d \land d \rhd \mathbf{a}\\
-		&\mathbf{a} \rhd \mathbf{c} &&\land \ && \mathbf{c} \rhd d \land d \rhd \mathbf{a}\\
-		&\mathbf{a} \rhd c \land c \rhd \mathbf{d} \quad &&\land \ &&\mathbf{d} \rhd \mathbf{a} \\		
-		&\mathbf{b} \rhd \mathbf{c} &&\land \ &&\mathbf{c} \rhd d \land d \rhd \mathbf{b} \\
-		&\mathbf{b} \rhd c \land c \rhd \mathbf{d} &&\land \ &&\mathbf{d} \rhd \mathbf{b} \\	
-		&\mathbf{c} \rhd \mathbf{d} &&\land \ &&\mathbf{d} \rhd a \land a \rhd \mathbf{c}
+		&a \rhd b && \land \quad &&b \rhd c \land c \rhd d \land d \rhd a\\
+		&a \rhd c &&\land \ && c \rhd d \land d \rhd a\\
+		&a \rhd c \land c \rhd d \quad &&\land \ &&d \rhd a \\		
+		&b \rhd c &&\land \ &&c \rhd d \land d \rhd b \\
+		&b \rhd c \land c \rhd d &&\land \ &&d \rhd b \\	
+		&c \rhd d &&\land \ &&d \rhd a \land a \rhd c
 	\end{alignat*}
 \end{minipage}
 	
@@ -415,30 +421,45 @@ We denote with $\rhd$ a simple majority win, and we say that $a \rhd b$ iff $\mu
 	This means that the Schwartz set is equal to the set of all alternatives, thus that $f_S(P)=\{a,b,c,d\}$. But $b$ is a Pareto dominated alternative, thus the Schwartz rule does not satisfy the Pareto criterion.
 \end{proof}
 
-
+This example shows us that even "basic" properties like Pareto are worth verifying, because rules that seem reasonable may not satisfy them.
+And, to be fair, deviating a little, this may lead us to another consideration that will be useful later on: is Pareto really that basic and essential? \citet{Sen1970,Sen2004} thinks that this is not always the case. 
+In fact, he introduced the concept of \textit{Minimal Liberty}, according to which there should be at least a pair of alternatives $a,b$ such that if an individual prefers $a$ to $b$ then society prefers $a \pref b$.
+Considering all preference orders to be possible (\textit{Unrestricted Domain}), he showed that there is no way to aggregate preferences into a single common choice that simultaneously satisfies the Pareto criterion and Minimal Liberty.
+Sen suggests that one way to escape this paradox is to give up Paretian efficiency:
+\say{While the Pareto criterion has been thought to be an expression of individual liberty, it appears that in choices involving more than two alternatives it can have consequences that are, in fact, deeply illiberal.}\citep{Sen1970}
+In our quest to identify rules that could reflect a true compromise between voters (\Cref{ch:compromise}), we will come across a class of rules that we find reasonable in some contexts but which do not satisfy the Pareto criterion.
 
 \subsubsection*{BK compromises}
+
+In order to describe the next set of rules it is necessary to make a premise. We have decided to group under the umbrella name of Brams and Kilgour (BK) compromises, all those rules which, starting from everyone’s ideal alternative, fall back to the voters’ second, third and more generally $k$-\emph{th} best, until a certain quota of voters $q$ support one of the alternatives considered so far.
+
+This method, in its main idea, has been rediscovered several times over the years.
+%find a reference to Condorcet 1973
+
+%This \ac{SCR}, further analysed by \citet{Sertel1999}, is a rediscovery of a method suggested by James W. Bucklin at the beginning of the \nth{20} century \citep{Erdelyi2015}. Starting from everyone’s ideal alternative, it falls back to the voters’ second, third and more generally $k$-\emph{th} best, until one of the alternatives considered appears among the first $k$ best for a majority. \citet{Brams2001} generalise this concept and introduce a class of \acp{SCR} called $q$\emph{-approval fall-back bargaining}, where $q$ is the required quantity of support that can vary from a single voter up to unanimity. Different choices of $q$ lead to different \acp{SCR}. Considering $m$ alternatives, the choice of $q=1$ corresponds to the plurality rule, $q=\frac{m}{2}+1$ coincides with the majoritarian compromise and $q=m$ represents a bargaining procedure called \emph{fall-back bargaining}, which has been further analysed by \citet{Kibris2007} and \citet{Congar2012}. We will refer to these rules as Brams and Kilgour (BK) compromises with threshold q.
+
 \begin{indented}[Fall-back bargaining (Bucklin)]
 \end{indented}
 
+\Cref{tab:overview} shows an overview of the axioms satisfied by the rules described so far.
 
-
-\commentBN{This is the table with the results but probably some are worth proving.}
-\commentOC{Nice overview. I wouldn’t spend much space about proofs, as these are known results (and proving everything that is non obvious would take much space, I suppose). Perhaps a few easy proofs could be useful to give the feeling to the reader of how this works. Anyway, references are certainly needed. The set “Condorcet” is a bit odd here, being (I suppose) the set of rules which, by definition, do satisfy the axiom, this is not informative. One or two specific Condorcet rules would be more welcome, I’d say.}
+\begin{table}
+	\label{tab:overview}
 \scalebox{0.8}{
 	\begin{tabular}{ccccccccc}
 		&	Anon.	&	Neut.	&	Nondict.	&	Pareto	&	Condorcet	&	Majority &	Manipul.	&	SP	\\
-		Majority	&	$\checkmark$	&	$\checkmark$	&	$\checkmark$	&	$\checkmark$	&	$\bm{\times}$	&	$\checkmark$	&	$\checkmark$	&	$\bm{\times}$	\\
 		Plurality	&	$\checkmark$	&	$\checkmark$	&	$\checkmark$	&	$\checkmark$	&	$\bm{\times}$	&	$\checkmark$	&	$\checkmark$	&	$\bm{\times}$	\\
 		Anti-Plurality	&	$\checkmark$	&	$\checkmark$	&	$\checkmark$	&	$\bm{\times}$	&	$\bm{\times}$	&	$\bm{\times}$	&	$\checkmark$	&	$\bm{\times}$	\\
 		Borda	&	$\checkmark$	&	$\checkmark$	&	$\checkmark$	&	$\checkmark$	&	$\bm{\times}$	&	$\bm{\times}$	&	$\checkmark$	&	$\bm{\times}$	\\
-		Condorcet (TODO)	&	$\checkmark$	&	$\checkmark$	&	$\checkmark$	&	*	&	$\checkmark$	&	$\checkmark$	&	$\checkmark$	&	$\bm{\times}$	\\
+		Copeland	&	$\checkmark$	&	$\checkmark$	&	$\checkmark$	&	$\checkmark$	&	$\checkmark$	&	$\checkmark$	&	$\checkmark$	&	$\bm{\times}$	\\
+		Schwartz	&	$\checkmark$	&	$\checkmark$	&	$\checkmark$	&	$\bm{\times}$	&	$\checkmark$	&	$\checkmark$	&	$\checkmark$	&	$\bm{\times}$	\\
 		BK Compromises	&	$\checkmark$	&	$\checkmark$	&	$\checkmark$ &	$\checkmark$	&	$\bm{\times}$	&	$\checkmark$	&	$\checkmark$	&	$\bm{\times}$	\\
 		
 	\end{tabular}
-}
 
-*depends– Dogson does not
+}
+\caption{Some axioms satisfied by the rules described so far.}
+\end{table}
 
 % CONSISTENCY
 %	\begin{genthm}{Consistency}
@@ -485,7 +506,7 @@ We denote with $\rhd$ a simple majority win, and we say that $a \rhd b$ iff $\mu
 %with $q= \ceil{\frac{n}{2}}$ then $f(P1)=\{a,b\}, f(P2)=\{a\}, f(P1 \cup P2)=\{a,b\} \neq f(P1)\cap f(P2)=\{a\}$
 \subsection{Incompleteness}
 
-\section{Voting with judgments ballots(?)}
+\section{Voting with rated ballots}
 \label{sec:judgmentballots}
 \begin{genthm}{Majority judgment}
 	
