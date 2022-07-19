@@ -26,19 +26,23 @@ However, this did not last long. In France, for example, the first constitution 
 \end{displayquote}
 %
 It would seem at this point that we are straying a little from the topics treated in this thesis. However, this excursus on how the notion of compromise has been understood for centuries can help us to understand the reasons why in the history of social choice theory a compromise rule that prioritizes fairness has never been investigated.
+\commentOC{I’d say this deserves more than one sentence, as it is unclear what you mean exactly and seems like a strong statement. The authors of FB would certainly claim that it is a fair compromising rule.}
 
-Consider an example used by \cite{Luban1985}, Rich and Poor are offered $1000$ dollars which they can obtain provided they reach a compromise on how to divide this sum. 
+Consider an example used by \cite{Luban1985}, 
+\commentOC{I’d end the sentence here.}
+Rich and Poor are offered $1000$ dollars which they can obtain provided they reach a compromise on how to divide this sum. 
 Rich who knows to have leverage over Poor offers him $100$ dollars threatening to walk from the deal if he does not accept. Poor, who is in desperate need of money, accepts.
 Luban points out that this is considered a compromise because $1)$ it produces an agreement $2)$ the criterion of "equal satisfaction" is met if we imagine that $100$ dollars give Poor the same level of satisfaction that $900$ dollars give Rich. Most of us, however, would not consider this outcome as a compromise but, instead, as an outrageous bullying. 
 What is then the best compromise possible between Rich and Poor? There is no clear answer.
 If we were to read a Marx's essay on the redistribution of wealth then a fair solution would be for Rich to get $100$ dollars and Poor $900$ dollars.
+\commentOC{You should be more cautious about the opinions that you attribute to Marx; perhaps he has written detailed things on such case which would not lead to exactly that outcome. We see what you mean, but I’d be better to just refer more abstractly to equalitarian conceptions of fairness, or similar wording, than to specific thinkers.}
 However, if equality is an important social value, we would intuitively think that the only acceptable result is a $500/500$ split. That is, the result where, in the interpretation of compromise as "mutual concession", both parties concede equally.
 This consideration is the basis for our version of compromise rules presented in \Cref{ch:compromise}.
 
 It is important to point out, however, that the concepts of equality and fairness have very specific meanings depending on the considered literature. 
 In this manuscript we consider equality with respect to losses from one's ideal point. 
 We denote a compromise as a situation in which all parties are not only willing to concede, but that at the end of the process they all give up as equally as possible. 
-This equal-loss principle was first introduced by \citet[p. 396]{Mill1849} who, when discussing about fairness of taxation, wrote: \textit{\say{As a government ought to make no distinction of persons or classes in the strength of their claims on it, whatever sacrifices it requires from them should be made to bear as nearly as possible with the same pressure upon all, which, it must be observed, is the mode by which least sacrifice is occasioned on the whole. [...] Equality of taxation, therefore, as a maxim of politics, means equality of sacrifice.}} 
+This equal-loss principle was first introduced \commentOC{first introduced is a strong claim; it would be more prudent to write “was referred to”, or similar phrasing, to avoid taking a stance on who was the first to refer to this idea. Altetrnatively, give a reference to someone authorized (ideally, an expert in economic history) to back up your claim.} by \citet[p. 396]{Mill1849} who, when discussing about fairness of taxation, wrote: \textit{\say{As a government ought to make no distinction of persons or classes in the strength of their claims on it, whatever sacrifices it requires from them should be made to bear as nearly as possible with the same pressure upon all, which, it must be observed, is the mode by which least sacrifice is occasioned on the whole. [...] Equality of taxation, therefore, as a maxim of politics, means equality of sacrifice.}} 
 Since then, the equal-loss principle has received a lot of attention, especially in the problems of taxation \citep{Edgeworth1897,Young1987} and bankruptcy \citep{Herrero2001, Aumann1985}, and there has been much discussion about the interpretation of sacrifice, which is ultimately a very subjective concept. \citet{Chun1988} was the first to apply the equal loss principle to bargaining theory. This new bargaining solution, called the equal-loss solution, aims at equalizing across agents the losses from their ideal point.
 
 Following \citet{Nash1950} description, a bargaining problem is a pair $(S,d)$ where $S$ is the set of feasible agreements and $d$ is the disagreement point or status quo, i.e. what each agent gets in case an agreement is not reached. A solution, defined on a class of problems, is a function that maps each problem $(S,d)$ to a point in $S$ representing the agreement reached.
@@ -49,9 +53,11 @@ The latter solution is similar in its idea to the concept of \textit{compromise}
 Both of those approaches are in accordance with Rawls' idea of fairness \citep{Rawls1958,Rawls1967}, whose approach to inequalities is to increase the welfare level of the worst-off individual as much as possible. In other words, a maximin procedure.
 
 To return to the equal-loss solution, \citet{Chun1988} himself mentions the analogies with Kalay's solution and he points out that it is a variant of Yu's solution, but he offers a true characterization of it.
+\commentOC{The word “true” is odd here.}
 Given a problem $(S,d)$, the ideal point, $a(S,d)$, corresponds to the maximal utility level each agent could obtain provided that all agents obtain at least what they would get in case of disagreement. That is, for each agent $i$, $a_i(S,d)=\max\{x_i|x\in S, x\geq d\}$.
 The equal-loss solution is defined as the maximal point $x\in S$ with $a_i(S,d)-x_i=a_j(S,d)-x_j$ for all agents $i, j$. As we already mention, the idea is to equalize across agents the losses from the ideal point.
-Although this sounds very appealing, one of the first criticisms of maximin is that it does not satisfy the Pareto criterion. 
+Although this sounds very appealing, one of the first \commentOC{main} criticisms of maximin is that it does not satisfy the Pareto criterion. 
+\commentOC{You seem to mix Chun’s solution with maximin, these are two different things, AFAICS, as illustrated by the lack of disagreement point in \cref{ex:sen}.}
 
 \begin{example}[\citet{Sen2017} pp.194-195]\label{ex:sen}
 	Consider two individuals $i,j$ and two states $a$ and $b$ with the following welfare levels:
@@ -74,8 +80,9 @@ First, a lexicographic order is defined on the domain of the feasible outcomes, 
 
 We have put \say{solve this problem} in quotes because we do not believe the failure to satisfy the Pareto criterion to be a problem.
 Consider again \Cref{ex:sen}, agent j is indifferent to the two states as she would get the same utility in both cases, but agent i clearly prefers a to b. The state a is therefore the Pareto optimal alternative. Nevertheless, let us imagine that a and b represent different distributions of money within a society. If we wanted to pursue an ideal of social justice and reduce inequalities immediately the alternative b seems the most appealing.
-Sen also makes a criticism of the Pareto criterion [\cite[Chapter 6]{Sen2017}]. While he acknowledges that it is not always satisfied in literature, he notes that the Pareto criterion is always treated as a missed opportunity. Sen, however, observes that it is not a criterion that is so obviously desirable. In fact, he shows that even a weak Pareto condition conflicts with a weak condition of individual freedom [\cite[Theorem 6*3]{Sen2017}].
+Sen also makes a criticism of the Pareto criterion [\cite[Chapter 6]{Sen2017}]. While he acknowledges that it is not always satisfied in literature, he notes that the Pareto criterion is always treated as a missed opportunity. Sen, however, observes that it is not a criterion that is so obviously desirable. In fact, he shows that even a weak Pareto condition conflicts with a weak condition of individual freedom [\cite[Theorem 6*3]{Sen2017}]. \commentOC{You got too enthusiastic about brackets here.}
 Following his illustration, we can rethink \Cref{ex:sen} in his terms. Let us imagine that agents i and j have to decide who reads a given somewhat scandalous book. Agent i is what is considered a prude, he would not want to read that book, but he would rather be the one to read it than have the impressionable agent j read it. For agent j it is indifferent because he would like to read it, but he would be just as happy with agent i reading it. If we consider "a" to be the state in which the book is read by i and "b" to be the state in which it is read by j, we obtain the utilities of the example in question.
+\commentOC{Well, we could obtain them with some supplementary hypothesis about the agents. Your story is also compatible with other utilities (e.g. i gets 1 and 0). This is not a problem with your overall angle, but I’d use a less deductive phrasing here, something about the example being compatible with this story.}
 Again, "a" is the Pareto optimal alternative but only because i has the presumption of wanting to decide for others. Sen argues that it is not only important to know the preferences of individuals but also why individuals have that preference.
 \say{Preferences based on excessive nosiness about what is good for others, should be, it could be argued, ignored.}
 
