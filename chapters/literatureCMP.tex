@@ -1,0 +1,160 @@
+%!TeX root= ../thesis.tex
+
+\section{Compromise}
+
+After having described voting rules as procedures designed to aggregate a set of preferences into a common choice, we could say that each one of these mechanism reflects some sort of compromise. In fact, reaching a collective choice by unanimous accord is a fairly rare situation, especially in elections with a large number of voters. In all other cases, someone has to give up their top preference in favor of a second, or third etc., choice. Yet, can we call this a compromise? What do we mean when we talk about this notion?
+
+One way of approaching the analysis of a concept is to start from the etymology of the word itself. The word compromise comes from the Latin \textit{compromissus}, past participle of \textit{compromittere}: com \textit{together} and promittere \textit{to promise}.
+The idea of compromise can indeed be found in texts dating back to Roman times, where two disputing parties who wished to submit their contention to arbitration, would appoint a third party (an arbitrator) and make the mutual promise to abide by the latter's unquestionable judgment. If either party broke this promise, it would have had to pay a penalty.
+In a fragment of a letter written by Proculus, which is reported by \citet[p.529]{Zimmermann1996}, it is clear that the two disputants agreed to give the arbitrator unlimited powers in his decision. No appeal was possible against the final award, which was binding no matter how unjust and unequal it was. This idea of compromise as a mere arbitration process seems very different from the notion we have of it today. Let us consider the definitions of the two verbs in a modern dictionary: to arbitrate "to settle a dispute between two people or groups after hearing the arguments and opinions of both" \citep{Arbitration}; to compromise "to come to agreement by mutual concession" \citep{Compromise}.
+The mutual concession is the element that immediately makes us think of a compromise and it is precisely the missing factor in the description of the Roman compromise and modern arbitration. Quoting \citet{Braybrooke1982} \say{It is simply a bad joke to speak of someone's being a party to a compromise when she has got nothing out of it.}.
+
+However, Roman society is not the first one to use mechanisms of compromise; we find references to use of arbitration and selection of arbitrators in Aristotle’s Constitution of the Athenians [53.2–4]. %considered to be written between 328 BC and 322 BC; official arbiters were appointed from among men older than 59
+Moreover, Aristotle is the first to associate the concept of fairness with that of arbitration:
+%
+\begin{displayquote}
+\textit{\say{Fairness, for example, seems to be just; but fairness is justice that goes beyond the written law.}}\citet{OnRhetoric}[1.13.13]
+\textit{\say{And it is fair to want to go into arbitration rather than to court; for the arbitrator sees what is fair, but the jury looks to the law, and for this reason arbitrators have been invented, that fairness may prevail.}}\citet{OnRhetoric}[1.13.19]
+\end{displayquote}
+%
+Throughout history, however, compromise has been intended in its Roman meaning: the resolution of a dispute by a third party whose judgment individuals agree to abide by.
+The use of arbitration as a mean of compromise continued until the end of the Middle Ages, only to be overshadowed by the advent of absolute monarchies, like the one of Louis XIV, that tended to centralize all powers in a single strong figure.\citep{Zappala2018}
+However, this did not last long. In France, for example, the first constitution approved after the revolution, in 1791, defended the right of arbitration:
+%
+\begin{displayquote}
+\textit{\say{Chapitre V. Article 5. - Le droit des citoyens, de terminer définitivement leurs contestations par la voie de l'arbitrage, ne peut recevoir aucune atteinte par les actes du Pouvoir législatif.}}\citep{Constitution1791}
+\end{displayquote}
+%
+It would seem at this point that we are straying a little from the topics treated in this thesis. However, this excursus on how the notion of compromise has been understood for centuries can give us insights on how compromise has been approached in the history of social choice theory. In fact, as \Cref{ex:CompromiseGEQ3,ex:CompromiseEQ2} in \Cref{sec:BK} show, the best-known voting rules grouped under the name of compromise rules start with the intention of seeking a compromise among voters, however they do not ensure that the outcome of the procedure represents a mutual concession.
+
+Consider an example used by \cite{Luban1985}. Rich and Poor are offered $1000$ dollars which they can obtain provided they reach a compromise on how to divide this sum. 
+Rich who knows to have leverage over Poor offers him $100$ dollars threatening to walk from the deal if he does not accept. Poor, who is in desperate need of money, accepts.
+Luban points out that this is considered a compromise because $1)$ it produces an agreement $2)$ the criterion of "equal satisfaction" is met if we imagine that $100$ dollars give Poor the same level of satisfaction that $900$ dollars give Rich. Most of us, however, would not consider this outcome as a compromise but, instead, as an outrageous bullying. 
+What is then the best compromise possible between Rich and Poor? There is no clear answer.
+If we were to value equity as a fundamental concept of wealth redistribution, then an equitable solution would be for Rich to get $100$ dollars and Poor $900$ dollars.
+However, if equality is an important social value, we would intuitively think that the only acceptable result is a $500/500$ split. That is, the result where, in the interpretation of compromise as "mutual concession", both parties concede equally.
+This consideration is the basis for our version of compromise rules presented in \Cref{ch:compromise}.
+
+It is important to point out, however, that the concepts of equality and fairness have very specific meanings depending on the considered literature. 
+In this manuscript we consider equality with respect to losses from one's ideal point. 
+We denote a compromise as a situation in which all parties are not only willing to concede, but that at the end of the process they all give up as equally as possible. 
+One of the first author to refer to the equal-loss principle was \citet[p. 396]{Mill1849} who, when discussing about fairness of taxation, wrote: \textit{\say{As a government ought to make no distinction of persons or classes in the strength of their claims on it, whatever sacrifices it requires from them should be made to bear as nearly as possible with the same pressure upon all, which, it must be observed, is the mode by which least sacrifice is occasioned on the whole. [...] Equality of taxation, therefore, as a maxim of politics, means equality of sacrifice.}} 
+Since then, the equal-loss principle has received a lot of attention, especially in the problems of taxation \citep{Edgeworth1897,Young1987} and bankruptcy \citep{Herrero2001, Aumann1985}, and there has been much discussion about the interpretation of sacrifice, which is ultimately a very subjective concept. \citet{Chun1988} was the first to apply the equal loss principle to bargaining theory. This new bargaining solution, called the equal-loss solution, aims at equalizing across agents the losses from their ideal point.
+
+Following \citet{Nash1950} description, a bargaining problem is a pair $(S,d)$ where $S$ is the set of feasible agreements and $d$ is the disagreement point or status quo, i.e. what each agent gets in case an agreement is not reached. A solution, defined on a class of problems, is a function that maps each problem $(S,d)$ to a point in $S$ representing the agreement reached.
+Nash proposed to analyze solutions based on the properties, axioms, they satisfy. His solution consists of each agent getting at least what they would get if they disagreed, plus a share of the benefit the group would get if they cooperated. The outcome of this procedure satisfies certain desirable properties including Pareto optimality. It is important to mention that the Nash model is based on a two individuals bargain, but an extension to n individuals can be formulated. Nash's equilibrium, however, has been criticized for several reasons. \citet[177-180]{Sen2017} points out that his solution relies too much on the bargaining power of individuals.
+Even assuming that the outcome of a bargaining procedure is better than what each agent would have gotten in case of disagreement, it does not make such outcome fair or desirable. To support this thesis, Sen makes an example where some unemployed workers may accept extremely low wages and unfair employments treatments just because in the absence of agreement they may starve. He argues that although this outcome is a Nash equilibrium, the workers were exploited due to their poor bargaining power.
+Other solutions have been proposed, for example \citet{Kalai1975} focused on equalizing the gains of each player relative to their maximum possible gain, and \citet{Kalai1977} introduced the \textit{egalitarian bargaining solution} which equalizes the gains of the agents from the disagreement points. 
+The latter solution is similar in its idea to the concept of \textit{compromise} advanced by \citet{Yu1973} which, instead, equalizes the losses of the agents from the ideal point.
+Both of those approaches are in accordance with Rawls' idea of fairness \citep{Rawls1958,Rawls1967}, whose approach to inequalities is to increase the welfare level of the worst-off individual as much as possible. In other words, a maximin procedure.
+
+To return to the equal-loss solution, \citet{Chun1988} himself mentions the analogies with Kalay's solution and he points out that it is a variant of Yu's solution, but he offers a characterization of it.
+Given a problem $(S,d)$, the ideal point, $a(S,d)$, corresponds to the maximal utility level each agent could obtain provided that all agents obtain at least what they would get in case of disagreement. That is, for each agent $i$, $a_i(S,d)=\max\{x_i|x\in S, x\geq d\}$.
+The equal-loss solution is defined as the maximal point $x\in S$ with $a_i(S,d)-x_i=a_j(S,d)-x_j$ for all agents $i, j$. As we already mention, the idea is to equalize across agents the losses from the ideal point.
+Although this sounds very appealing, one of the main criticisms of Chun's solution is that it does not satisfy the Pareto criterion. 
+
+\begin{example}[Adapted from \citet{Sen2017} pp.194-195]\label{ex:sen}
+	Consider two individuals $i,j$ and three states $a$, $b$ and $c$ with the following welfare levels:
+	
+	\begin{center}
+		$
+		\begin{array}{ccc}
+			& i & j \\
+			a &	20 & 1 \\
+			b &	10 & 1 \\
+			c & 0 & 0 \\
+		\end{array} \quad, 
+		$
+	\end{center}
+	where c is the disagreement point.
+	Despite the state "a" being Pareto optimal, Chun's procedure would consider the states "a" and "b" indifferent. In fact, the worst off individual $j$ is not better off under "a" than under "b" (nor the converse).
+\end{example}
+
+Sen uses this example to criticize the failure of maximin rules to satisfy the Pareto criterion. We added the state c of disagreement in order for it to apply in the context studied by Chun.
+ 
+To \say{solve this problem}, a few years later, \citet{Chun1991} defined a lexicographic version of the equal-loss solution. 
+First, a lexicographic order is defined on the domain of the feasible outcomes, then the equal loss solution is applied: the maximal outcome in which the individuals suffer equal losses from the ideal point is chosen. If this outcome is not Pareto optimal then the next one in lexicographic order is taken until a Pareto optimal outcome is found. Other characterizations of lexicographic maximin solutions have been proposed by \citet{Sen2017} and \citet{Chang1999}.
+
+We have put \say{solve this problem} in quotes because we do not believe the failure to satisfy the Pareto criterion to be a problem.
+Consider again \Cref{ex:sen}, agent j is indifferent to the two states a and b as she would get the same utility in both cases, but agent i clearly prefers a to b. The state a is therefore the Pareto optimal alternative. Nevertheless, let us imagine that a and b represent different distributions of money within a society. If we wanted to pursue an ideal of social justice and reduce inequalities immediately the alternative b seems the most appealing.
+Sen also makes a criticism of the Pareto criterion \cite[Chapter 6]{Sen2017}. While he acknowledges that it is not always satisfied in literature, he notes that the Pareto criterion is always treated as a missed opportunity. Sen, however, observes that it is not a criterion that is so obviously desirable. In fact, he shows that even a weak Pareto condition conflicts with a weak condition of individual freedom \cite[Theorem 6*3]{Sen2017}.
+\Cref{ex:sen} can represent a variation of an illustration given by Sen himself to propose the rejection of the Pareto principle. Imagine that agents i and j have to decide who reads a given somewhat scandalous book. Agent i is what is considered a prude, she would not want to read that book, but she would rather be the one to read it than have the impressionable agent j read it. For agent j it is indifferent because she would like to read it, but she would be just as happy with agent i reading it. Consider "a" to be the state in which the book is read by i, "b" to be the state in which it is read by j and "c" to be the state in which none reads the book. We can use the utilities of the \Cref{ex:sen} to represent this situation.
+Again, "a" is the Pareto optimal alternative but only because i has the presumption of wanting to decide for others. Sen argues that it is not only important to know the preferences of individuals but also why individuals have that preference:
+\say{Preferences based on excessive nosiness about what is good for others, should be, it could be argued, ignored.} \cite[Chapter 6.5]{Sen2017}
+
+In \Cref{ch:compromise} we will introduce two different versions of our vision of compromise, in particular one that prioritizes equality at the expense of Pareto efficiency. Moreover, we consider the concept of equal-loss as the basis of any successful compromise in all situations where egalitarianism, in the sense of conceding equally, is a major concern.
+This is a novelty in the literature of social choice rules, which so far have only imposed willingness to compromise without actually ensuring that all parties concede something.
+The philosopher \citet{Day1989} attempts an explanation for this phenomenon, thinking that it stems from the negation of the adjective "uncompromising": 
+\textit{\say{An uncompromising person is one who is not disposed to make any concessions, so (it is erroneously inferred) a compromising person is one who is pliant and disposed to make concessions\textemdash regardless of whether he receives any concession in return. However this may be, one must insist, as it is generally agreed, that compromise necessarily involves mutual concessions.}}.
+This might explain why all voting rules that try to compromise actually settle for the will of the agents to compromise. 
+
+\cite{Merlin2019} discuss the most famous of these procedures proposing to gather them in the same class of \textit{compromise rules}.
+In \Cref{sec:BK} we already defined the \acl{MC}, introduced by \citet{Sertel1986} and further analyzed by \citet{Sertel1999}. Based on a revision of the Condorcet-Bucklin rule, this procedure starts from everyone’s ideal choice to find an alternative supported by the majority of voters. If no such alternative exists, then it falls back to the voters’ second, third and more generally $k$-\emph{th} best choice, until at least one of the alternatives considered appears among the first $k$ best for a majority.
+If instead of considering an agreement for the majority of voters we wish to select as winners the alternatives supported by the unanimity of voters, then the procedure corresponds to the \acl{FB} rule. 
+More generally, if we consider the support of a certain quota $q$ of voters we refer to the q-approval fallback bargaining rule \citep{Brams2001}.
+
+All these \acp{SCR} impose to voters a willingness to compromise, but we argue that they do not effectively ensure an outcome where the agents have, indeed, compromised. \Cref{ex:CompromiseGEQ3} motivates our view.
+
+\begin{example}
+	\label{ex:CompromiseGEQ3}
+	Consider the following preference profile with $n=100$:
+	\begin{center}
+		$
+		\begin{array}{cc}
+			\mathbf{49} & \mathbf{51} \\
+			c	&	a	\\
+			b	&	b	\\
+			a	&	c	\\
+		\end{array} \quad.
+		$
+	\end{center}
+	When $q\in \intvl{1,\frac{n}{2}+1} $, all BK compromises except for \acl{FB} pick "a". This outcome does not appear as a compromise as 51 voters obtain their best choice while the remaining 49 voters have to be contented with their worst one. Observe that "b" receives unanimous support when each voter falls back one step from her ideal point.
+\end{example}
+
+Although we will not study it in this context, it is interesting to mention that \citet{Merlin2019} also include the \acl{MJ} in the class of compromise rules. Introduced by \citet{Balinski2007,Balinski2011}, we defined this procedure in \Cref{sec:MJ} and we discuss it in more detail in \Cref{sec:litMJ}. In particular, the authors consider \acs{MJ} to be a compromise by transposing the possible grades into ranks of the preference orders, with the condition that each voters use the same grade only once. In this context the alternative with the median rank is the compromise. If more of such alternatives exist, the tie breaking mechanism proposed by \citet{Balinski2011} is used: one of the median rank is removed to each candidate winner until one of those will get the new highest median.
+
+Other mechanisms studied in different contexts may still fit into the classification of compromise rules. For example, if we consider only two voters, \citet{Clippel2014} analyze two methods for the selection of arbitrators: the \emph{\ac{VR}}\textemdash which is the most common procedure for assigning arbitrators \citep[Online Appendix]{Clippel2014}\textemdash and \emph{\ac{SL}}.
+Consider a list of $m$ (odd) alternatives (that are candidates to be arbitrators), and two voters (that are the two parties that must agree on an arbitrator). In the \acs{VR} procedure, both voters simultaneously veto their worst $\frac{m-1}{2}$ alternatives. The selected alternatives are the ones with the highest Borda score among the non-vetoed alternatives. 
+In the \acs{SL} procedure, one of the two parties starts by vetoing her worst $\frac{m-1}{2}$ alternatives, and then the second party chooses her best alternative out of the remaining ones. As the outcome of the procedure depends on the party that starts, symmetry among players is ensured by defining the solution as the union of the two outcomes where one and the other party starts.
+Another class of two voters rules based on the veto power is the one denoted as \emph{\ac{PV}} by \citet{Laslier2020}. The same class was also studied by \citet{Moulin1983}, who refers to it with the name of \textit{veto-core}, and by \citet{Abreu1991}. This procedure distribute a veto power of $v_1$ and $v_2$ alternatives to voters 1 and 2, respectively, with $v_1+v_2=m-1$. Both voters, $i=1,2$, simultaneously veto their worst $v_i$ alternatives. The selected alternatives are all the non-vetoed and Pareto optimal ones.
+Similar to the case $n\geq3$, \Cref{ex:CompromiseEQ2} motivates our argument in the case of two voters.
+
+\begin{example}
+	\label{ex:CompromiseEQ2}
+	Consider the following preference profile with $n=2$:
+	\begin{center}
+		$
+		\begin{array}{cc}
+			\mathbf{i_1} & \mathbf{i_2} \\
+			a	&	y_1	\\
+			x_1	&	y_2	\\
+			x_2	&	b \\
+			x_3	&	a \\
+			b	&	x_1	\\
+			y_1	&	x_2	\\
+			y_2	&	x_3	\\
+		\end{array} \quad.
+		$
+	\end{center}
+	All the rules aforementioned, except for \acs{PV} when $v_1 < v_2$, selects the alternative "a" as winner:
+	\begin{itemize}
+		\itemsep0em
+		\item[] \acs{FB}: "a" is the first alternative to reach unanimous consent;
+		\item[] \acs{VR}: both voters veto their $\frac{7-1}{2}=3$ worst alternatives so $i_1$ vetoes $\{b,y_1,y_2\}$ and $i_2$ vetoes $\{x_1,x_2,x_3\}$, the only alternative left is "a";
+		\item[] \acs{SL}: when $i_1$ starts she vetoes her $\frac{7-1}{2}=3$ worst alternatives thus $\{b,y_1,y_2\}$, then $i_2$ picks her best alternative among the remaining ones thus "a". When $i_1$ starts she vetoes $\{x_1,x_2,x_3\}$ and $i_2$ picks "a". The outcome of the \acs{SL} procedure is then "a";
+		\item[] \acs{PV}: when $v_1\geq v_2$ :
+		\begin{itemize}
+			\item $v_1=5, v_2=1$, $i_1$ vetoes $\{x_2,x_3,b,y_1,y_2\}$ and $i_2$ vetoes $\{x_3\}$ \acs{PV} selects "a";
+			\item $v_1=4, v_2=2$, $i_1$ vetoes $\{x_3,b,y_1,y_2\}$ and $i_2$ vetoes $\{x_3\}$ \acs{PV} selects "a";
+			\item $v_1=3, v_2=3$, $i_1$ vetoes $\{b,y_1,y_2\}$ and $i_2$ vetoes $\{x_2,x_3\}$ \acs{PV} selects "a".
+%			\item $v_1=2, v_2=2$, $i_1$ vetoes $\{y_1,y_2\}$ and $i_2$ vetoes $\{a,x_2,x_3\}$ \acs{PV} selects "b";
+%			\item $v_1=1, v_2=1$, $i_1$ vetoes $\{y_2\}$ and $i_2$ vetoes $\{b,a,x_2,x_3\}$ \acs{PV} selects "$y_1$";
+		\end{itemize}
+	\end{itemize}	
+\end{example}
+It is worth mentioning that \acs{PV} does not select "a" as the winner in this profile when the veto powers are $v1<v2$. However, this profile is extended as a desirable property of our notion of compromise that we will describe in more detail in \Cref{ch:compromise}. Generalizing this example we will show that \acs{PV}, whatever the distribution of veto power is, fails to select what would be for us the compromise outcome: "b".
+
+
+%---
+%compromise, a general technique for eliciting mutual consent \cite{Shapiro1979}
+%---
