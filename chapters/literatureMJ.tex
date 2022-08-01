@@ -1,0 +1,38 @@
+%!TeX root= ../thesis.tex
+\newpage
+\section{Majority Judgment}
+\label{sec:litMJ}
+\commentBN{Not completed.Do not read yet.}
+
+As discussed in \Cref{sec:MJ}, \ac{MJ} is a voting system where voters assign grades to candidates using an ordinal scale. The winner is the candidate with the highest majority-grade \textemdash which is the median of the grades received. This method has attracted increasing attention of french associations and political parties which have started to use \ac{MJ} for internal decisions or local elections. In particular LaPrimaire.org is a french association that uses \ac{MJ} to choose its candidate for the french presidential election. The vote is conducted in two rounds: in the first one the voters judge five candidates randomly picked; the five candidates with the highest medians pass at the second round as finalists and the voters are asked to judge them.
+
+%The authors describe an additional tie breaking procedure that uses the \textit{majority-gauge}, but \citet{Felsenthal2008} show that it does not always yield the same result as the iterative mechanism.
+
+The idea of using the median in voting is not new, the first use can be traced back to Galton's "middlemost" \citep{Galton1907a,Galton1907b}. More recently \citet{Bassett1999} proposed the median as a substitute for Borda's mean, advocating for its statistical robustness \textemdash which measures the sensitivity to departures from the hypothesized model.
+
+Numerous observers described the median grade as the highest level at which a candidate obtains the support of the majority of the voters. In other words, starting for the highest grade $h$ we check if the majority of the voters assigned at least $h$ to some candidate $c$. If this is not the case, we descend in the grading scale until such level $\hat{h}$ is found where a candidate $\hat{c}$ satisfies half population. The grade $\hat{h}$ is then the median of $\hat{c}$ grades, and, since it is the first level we stopped at, it corresponds to the best possible median. This method was proposed by James W. Bucklin in the early twentieth century \citep{Hoag1926} and it was rediscovered several times in literature for example under the names of \textit{Majoritarian Compromise} \citep{Sertel1986,Sertel1999} and \textit{Fallback Bargaining} \citep{Brams2001}. Note, also, that when the number of grades is equal to two (approve, disapprove) then \ac{MJ} is reduced to Approval Voting.
+
+%\paragraph{Pros}
+%\begin{itemize}
+%	\item It maximizes voter-expressiveness;
+%	\item it satisfies anonymity, neutrality, unanimity, monotonicity and independence from irrelevant alternatives;
+%	\item it is immune to candidate cloning;
+%	\item truth is a dominant strategy.
+%\end{itemize}
+%
+%\paragraph{Cons}
+% The monotonicity axiom holds only for a fixed population \citep{Felsenthal2008,Laslier2018}. This violates the participation criterion leading to the no show paradox \citep{Fishburn1983}: a voter can obtain a more desirable outcome if they do not participate in the election than the one they obtain by participating and voting sincerely. *\\
+%	* \citet{Balinski2011}(pp. 285-290) state that "in practice, the no-show paradox is simply not important."
+
+\ac{MJ} has being adopted by a progressively larger number of french political parties including: Le Parti Pirate, Génération(s), LaPrimaire.org, France Insoumise and La République en Marche.
+%https://www.lopinion.fr/edition/politique/en-marche-teste-elections-jugement-majoritaire-mode-scrutin-tres-201884
+"Mieux Voter" \citep{MV} is a french association that promotes the use of \ac{MJ} as voting method whenever a collective choice has to be selected: public administration, associations, companies. On their website it is possible to find all the citizens lists \textendash party lists that are not affiliated to any national political party \textemdash that used \ac{MJ} to rank their candidates during the local elections of 2020. In two cases, Bordeaux et Annecy, the candidate selected using \ac{MJ} was then elected as a mayor. 
+
+
+\subsection*{Case LaPrimaire.org}
+LaPrimaire.org \citep{LaPrimaire} is a french political initiative whose goal is to select an independent candidate for the french presidential election using \ac{MJ} as voting rule. All french citizens over 18 with rights to vote can participate as candidates or voters. The association Democratech implemented the platform for the first time in 2016 in view of the 2017 presidential elections. The number of voters who participated in the election was $10676$ during the first round (with $53383$ votes) and $32685$ during the second round (with $163425$ votes). Between May and October 2021 the process will be repeated to select the candidate who will run for the 2022 presidential elections.
+
+The procedure consists of several steps whose duration is defined by a calendar. In the first phase, any eligible candidate can submit her nomination to the platform and the voters can support one or multiple nominations. The candidacies that receive at least 500 supports pass to the next phase and represent the candidates for the first round of the election. In the first round each voter is asked to express her judgment, using \ac{MJ}, on five random candidates. At the end of this phase the five candidates with the highest medians are considered the finalists who qualify for the second round. In the second round each voter is asked to express her judgment, using \ac{MJ}, on all the five finalists. The candidate with the best median at the end of this phase is selected as representative for the presidential election.
+
+It is important to mention that the participation of this candidate to the actual election is not granted. In fact, by the french law a candidate must collect at least 500 signatures of elected officials in order to participate to the presidential election. The candidate selected by the voters of LaPrimaire.org in 2016 collected only 135 signatures and did not participate in the 2017 presidential elections.  
+
