@@ -14,7 +14,7 @@ A set of ballots constitutes the input of the aggregation function, since there 
 Here again, there is no single answer. One can consider \textit{resolute} functions, i.e. functions that return a unique winner. In such cases, whenever there are ties between candidates, mechanisms are designed to break them.
 However, this is not the assumption we will make in the course of this manuscript. The functions we will describe return the set of winning candidates.
 
-It is important to emphasise that since these functions can be defined on different inputs and outputs, they are different mathematical objects. If we define a desirable property of a function that uses ranked ballots it might not be possible to convert it into a property of a function that uses judgements, and vice-versa.
+It is important to emphasize that since these functions can be defined on different inputs and outputs, they are different mathematical objects. If we define a desirable property of a function that uses ranked ballots it might not be possible to convert it into a property of a function that uses judgments, and vice-versa.
 
 %\commentBN{we can have different different input or different output and because they're different mathematical object they also satisfy different axioms}
 
@@ -55,7 +55,7 @@ A \emph{profile} $\prof: N → \linors$ associates with each individual $i \in N
 \end{example}
 
 A \emph{\acl{SCR}} (\acs{SCR}) is a mapping $f:\linors^{N}\rightarrow 2^{A} \setminus \{\emptyset \}$ that associates to each profile a set of (tied) winners. 
-As we saw in \Cref{ch:intro}, scholars have realised that the most efficient way to define aggregation functions is through the formulation of desirable properties.
+As we saw in \Cref{ch:intro}, scholars have realized that the most efficient way to define aggregation functions is through the formulation of desirable properties.
 These properties are called \textit{axioms} and they are helpful in dividing rules into classes whose elements satisfy the same set of axioms.
 Or, in the same way, one can prove that a given class is empty, i.e. that it is impossible to satisfy a set of axioms simultaneously.
 As we shall see, axioms that independently seem to be reasonable requirements can result, when combined, in undesirable effects that are often difficult to detect without an systematical analysis.
@@ -63,11 +63,11 @@ As we shall see, axioms that independently seem to be reasonable requirements ca
 In what follows we will describe the axioms and the voting rules that we will consider through the rest of this dissertation. In particular we will divide the ones based on preference rankings from the ones using judgments as ballots, and we will see which axioms each rule satisfies.
 
 \subsection{Axioms}
-As already mentioned, an axiom formalises an appealing property of a voting rule.
-A first intuitive desideratum is that the rule should not favour specific voters or candidates.
+As already mentioned, an axiom formalizes an appealing property of a voting rule.
+A first intuitive desideratum is that the rule should not favor specific voters or candidates.
 In many real cases, when a committee has to make a decision, in case of a tie a member, usually the chair, has the power to break it at his discretion.
 Similarly, in many legislatures in case of a tie between approving a law or not, the status quo wins, highlighting an inequality between the alternatives.
-However, these behaviours are not always desired or accepted. In what follows we present two axioms that promote equality among voters, \textit{anonymity}, and among candidates, \textit{neutrality}. 
+However, these behaviors are not always desired or accepted. In what follows we present two axioms that promote equality among voters, \textit{anonymity}, and among candidates, \textit{neutrality}. 
 
 	\begin{genthm}{Anonymity}
 	An \acs{SCR} $f$ is anonymous iff for any $i,j \in N$ and $P,P'\in\linors^{N}$ such that $\mathop{\pref'_k}=\mathop{\pref_k}, \forall k \in {N \setminus\{i,j\}}$ and $\mathop{\pref'_i}=\mathop{\pref_j}, \mathop{\pref'_j}=\mathop{\pref_i}$, we have that $f(P)=f(P')$. In other words, if the identity of voters is irrelevant.
@@ -279,11 +279,11 @@ Also thanks to his example, it is easy to imagine what Popper meant when he said
 But one thing that is also very important to point out is that a sort of tyranny could also lie in the election itself, in the sense that the majority choice could be hated by the rest of the population.
 Imagine a situation where in a group of $100$ voters, $51$ of them have the following preference ranking $a\pref b \pref \dots \pref z$ and $49$ instead $z \pref y \pref \dots \pref a$. A majority of $51$ individuals would elect the candidate $a$ who is detested by the remaining $49$.
 
-This makes us realise that rather intuitive methods, which seem fair at a first glance, can actually have unintended implications.To mitigate this problem and analyse the properties of voting rules, we can make use of the axioms just described.
+This makes us realize that rather intuitive methods, which seem fair at a first glance, can actually have unintended implications.To mitigate this problem and analyze the properties of voting rules, we can make use of the axioms just described.
 
-The literature on voting rules is extensive and many have been proposed over the years, here we will present just a few examples of three particular categories: \textit{\acl{PSR}}, that are methods assigning points to positions and electing the candidate with the greatest cumulative score; \textit{Condorcet Procedures}, which are methods satisfying the Condorcet criterion, i.e. always electing the Condorcet winner whenever it exists; \textit{BK Compromises}, which is the term we use to refer to the generalisation of bargaining rules explored by \citet{Brams2001}, where, starting from the top choice of each voters, we fall back until one or more candidates have \textit{enough} support to be considered winner.
+The literature on voting rules is extensive and many have been proposed over the years, here we will present just a few examples of three particular categories: \textit{\acl{PSR}}, that are methods assigning points to positions and electing the candidate with the greatest cumulative score; \textit{Condorcet Procedures}, which are methods satisfying the Condorcet criterion, i.e. always electing the Condorcet winner whenever it exists; \textit{BK Compromises}, which is the term we use to refer to the generalization of bargaining rules explored by \citet{Brams2001}, where, starting from the top choice of each voters, we fall back until one or more candidates have \textit{enough} support to be considered winner.
 
-Let us analyse these procedures in more detail.
+Let us analyze these procedures in more detail.
 
 %\subsubsection*{Majority}
 %Majority rule $f^m$ is a voting process that selects as winner the candidate $a\in A$ who is ranked first by the majority of voters, i.e. $f^m(P)=\{a\}$ iff $\eta(a)>\frac{n}{2}$.
@@ -341,7 +341,7 @@ We denote with $\rhd$ a simple majority win, and we say that $a \rhd b$ iff $\mu
 \begin{indented}[Copeland]
 	Copeland's method \textemdash which was also proposed by Lull as we saw in \Cref{ch:intro} \textemdash is often considered to be an extension of Condorcet's method. 
 	In fact, the idea of this procedure is based on the fact that if a candidate whose pairwise wins are greater than anyone else is deserving of winning, then one whose number of pairwise wins minus pairwise losses is greater than everyone else is even more deserving.
-	Let us formalise this concept, we define with $\gamma(a)=|\{b \in A\setminus \{a\} \suchthat a \rhd b\}|- |\{b \in A\setminus \{a\} \suchthat b \rhd a\}|$ the number of simple majority wins of $a$ minus the number of simple majority losses of $a$.
+	Let us formalize this concept, we define with $\gamma(a)=|\{b \in A\setminus \{a\} \suchthat a \rhd b\}|- |\{b \in A\setminus \{a\} \suchthat b \rhd a\}|$ the number of simple majority wins of $a$ minus the number of simple majority losses of $a$.
 	The winners under the Copeland rule are the alternatives for which this value is the greatest $f_{C}(P)=\argmax_{a\in A}\gamma(a)$.
 	%$f_{C}(P)=\{a\in A \suchthat \gamma(a)\geq \gamma(b), \forall b \in A \setminus\{a\} \}$.
 \end{indented}
@@ -430,21 +430,72 @@ Sen suggests that one way to escape this paradox is to give up Paretian efficien
 In our quest to identify rules that could reflect a true compromise between voters (\Cref{ch:compromise}), we will come across a class of rules that we find reasonable in some contexts but which do not satisfy the Pareto criterion.
 
 \subsubsection*{BK compromises}
-
+\label{sec:BK}
 In order to describe the next set of rules it is necessary to make a premise. We have decided to group under the umbrella name of Brams and Kilgour (BK) compromises, all those rules which, starting from everyone’s ideal alternative, fall back to the voters’ second, third and more generally $k$-\emph{th} best, until a certain quota of voters $q$ support one of the alternatives considered so far.
 
-This method, in its main idea, has been rediscovered several times over the years.
-%find a reference to Condorcet 1973
+This method, in its main idea, has been rediscovered several times over the years. Its proposal can be traced back to \citet{Condorcet1789, Condorcet1793}, whose procedure, translated by \cite[pp. 249-250]{McLean1994}, reads: \say{If one candidate has the absolute majority of first votes, he will be elected. If one candidate has the absolute majority of first votes and second votes together, he will be elected. If several candidates obtain this majority, the one with the most votes will be preferred. If one candidate has the absolute majority of the three votes together, he will be elected, and if several candidates obtain this majority, the one with the most votes will be preferred.} 
 
-%This \ac{SCR}, further analysed by \citet{Sertel1999}, is a rediscovery of a method suggested by James W. Bucklin at the beginning of the \nth{20} century \citep{Erdelyi2015}. Starting from everyone’s ideal alternative, it falls back to the voters’ second, third and more generally $k$-\emph{th} best, until one of the alternatives considered appears among the first $k$ best for a majority. \citet{Brams2001} generalise this concept and introduce a class of \acp{SCR} called $q$\emph{-approval fall-back bargaining}, where $q$ is the required quantity of support that can vary from a single voter up to unanimity. Different choices of $q$ lead to different \acp{SCR}. Considering $m$ alternatives, the choice of $q=1$ corresponds to the plurality rule, $q=\frac{m}{2}+1$ coincides with the majoritarian compromise and $q=m$ represents a bargaining procedure called \emph{fall-back bargaining}, which has been further analysed by \citet{Kibris2007} and \citet{Congar2012}. We will refer to these rules as Brams and Kilgour (BK) compromises with threshold q.
+As \cite{Camps2014} point out, the same method was later analyzed by \cite{Lhuilier1793} and adopted in Geneva. Sometime after that, in the early 20th century, this procedure was promoted by the politician James W. Bucklin and adopted first in the municipality of Grand Junction (Colorado, USA) and then in many other cities of the United States \cite[p. 167]{Barber2000}. In 1986 it was proposed again by \citet{Sertel1986} and \citet{Sertel1999} under the name of Majoritarian Compromise. Later, \citet{Brams2001} generalize this concept and introduce a class of \acs{SCR} called $q$\emph{-approval fallback bargaining}, where $q$ is the required quantity of support that can vary from a single voter up to unanimity. Different choices of $q$ lead to different \acp{SCR}. Considering $n$ voters, the choice of $q=1$ corresponds to the plurality rule, $q=\ceil{\frac{n}{2}}$ is the quota used by the Majoritarian Compromise \commentBN{Previously the sentence was "$q=\ceil{\frac{n}{2}}$ coincides with the majoritarian compromise", this is false, see \cref{ex:BKvsMC}. This is written on out Compromise paper which we should correct as well.} and $q=n$ represents a bargaining procedure called \emph{Fallback bargaining}, which has been further analyzed by \citet{Kibris2007} and \citet{Congar2012}.
 
-\begin{indented}[Fall-back bargaining (Bucklin)]
-\end{indented}
+To describe these BK compromises, recall that we are considering a finite set $N$ of $n$ individuals and a finite set $A$ of $m$ alternatives. A \emph{profile} $P: N → \linors$ associates with each individual $i \in N$ a preference $P(i) = {\prefi}$.
+We write $r_{\prefi}(a)=\#\{b\in A \suchthat b \prefi a\}+1$ for the \emph{rank} of $a\in A$ at ${\prefi} \in \linors$.
 
-\Cref{tab:overview} shows an overview of the axioms satisfied by the rules described so far.
+Given any $ 1 \leq q \leq n$ and $1 \leq d \leq m$, consider the compromise set, i.e. the set of alternatives that are ranked among the top d by at least q voters $\text{CS}^{q}_{d}=\{a \in A \suchthat \#\{r_{\prefi}(a) \leq d, \forall i \in N\} \geq q \}$.
+The q-approval fallback bargaining depth, $d_{q}^{*}$, is the smallest value that makes this set nonempty: $d_{q}^{*}=\min\{d \suchthat \text{CS}^{q}_{d} \neq \emptyset\}$.
 
-\begin{table}
-	\label{tab:overview}
+The \acs{SCR} \textbf{q-approval fallback bargaining} is defined as the set of all alternatives that are ranked $d_{q}^{*}$ for at least q bargainers: $f_{\text{BK}}^{q}=CS^{q}_{d}$ where $d=d_{q}^{*}$. 
+\commentBN{I wrote this description before realizing we have defined it on pag. 9 of the Compromise paper. However if it's not too much confusion I would like to leave this description 1) I think it's easier to read because I use less symbols and the same of those used by the original authors; 2) I think the one in the paper is wrong for the same reason of my previous comment. We write $f_{q}(P)=\{x\in A \suchthat n_{\rho _{q}(P)}(x,P)\geq n_{\rho _{q}(P)}(y,P)$ $\forall y\in A\}$ where $n_{\rho _{q}(P)}(x,P)$ represents the support of $x$ in P at $d^*$ but this is not the definition of the q-approval fallback bargaining. Unless I'm mistaken, it should be $f_{q}(P)=\{x\in A \suchthat n_{\rho _{q}(P)}(x,P)\geq q\}$. }
+\Cref{ex:BK} shows how different quotas lead to different results.
+
+\begin{example}[\cite{Brams2001}]
+	\label{ex:BK}
+	Consider the following profile $P$:
+	\begin{center}
+		$
+		\begin{array}{cccc}
+			1 & 1 & 1 & 1 \\
+			a &	a & a & d \\
+			b &	c & d & b \\
+			c &	b & b & c \\
+			d &	d & c & a \\
+		\end{array} \quad, 
+		$
+	\end{center}
+	\begin{itemize}
+		\itemsep0em
+		\item [] when $q=1$ then $d_{1}^{*}=1$ and $f_{\text{BK}}^{1}=\{a,d\}$;
+		\item [] when $q=2$ then $d_{2}^{*}=1$ and $f_{\text{BK}}^{2}=\{a\}$;
+		\item [] when $q=3$ then $d_{3}^{*}=1$ and $f_{\text{BK}}^{3}=\{a\}$;
+		\item [] when $q=4$ then $d_{4}^{*}=3$ and $f_{\text{BK}}^{4}=\{b\}$.
+	\end{itemize}
+\end{example}
+
+When $q=n$ this rule is referred to as \textbf{\acl{FB}} (\acs{FB}).
+
+When $q=\ceil{\frac{n}{2}}$ this rule is closely related, but not identical, to the \textbf{\acl{MC}} (\acs{MC}). In fact, the sole difference is that in case the compromise set contains more alternatives, \acs{MC} chooses the ones with the greatest support. We can define $q_{d}^{*}=\max\{q \suchthat \text{CS}^{q}_{d} \neq \emptyset\}$. Then $f_{\text{MC}}=\text{CS}^{q}_{d}$ where $d=d_{q}^{*}$ and $q=q_{d}^{*}$. \Cref{ex:BKvsMC} shows a profile where the two sets of outcomes $f_{\text{MC}}$ and $f_{\text{BK}}^{\ceil{\frac{n}{2}}}$ do not coincide.
+
+\begin{example}[\cite{Sertel1999} and \cite{Brams2001}]
+	\label{ex:BKvsMC}
+	Consider the following profile $P$:
+	\begin{center}
+		$
+		\begin{array}{ccc}
+			1 & 1 & 1 \\
+			a &	c & b \\
+			c &	a & c \\
+			b &	b & a \\
+		\end{array} \quad, 
+		$
+	\end{center}
+	and $q=\ceil{\frac{n}{2}}=2$. Therefore, $d_{2}^{*}=2$ and the two \acp{SCR} return $f_{\text{BK}}^{2}=\{a,c\}$ and $f_{\text{MC}}=\{c\}$.
+\end{example}
+
+%It is generally more important to be sure of electing men who are worthy of holding office than to have a small probability of electing the worthiest man. - Condorcet
+
+
+To conclude this section we show in \Cref{tab:overview} an overview of which of the axioms described is satisfied by the rules discussed so far.
+
+\begin{table}[h]
 \scalebox{0.8}{
 	\begin{tabular}{ccccccccc}
 		&	Anon.	&	Neut.	&	Nondict.	&	Pareto	&	Condorcet	&	Majority &	Manipul.	&	SP	\\
@@ -458,8 +509,11 @@ This method, in its main idea, has been rediscovered several times over the year
 	\end{tabular}
 
 }
-\caption{Some axioms satisfied by the rules described so far.}
+\caption{Axioms satisfied by the voting rules described.}
+\label{tab:overview}
 \end{table}
+
+\commentBN{In the compromise paper we discuss some voting rules for the 2 voters case: Pareto-and-Veto rules, Veto-Rank mechanism and Shortlisting. I don't think I should add them here. It may result in a much heavier section for a little benefit. We discuss them only for a particular case in one paper so I propose to introduce them in the compromise section of the literature review. What do you think?}
 
 % CONSISTENCY
 %	\begin{genthm}{Consistency}
@@ -506,10 +560,12 @@ This method, in its main idea, has been rediscovered several times over the year
 %with $q= \ceil{\frac{n}{2}}$ then $f(P1)=\{a,b\}, f(P2)=\{a\}, f(P1 \cup P2)=\{a,b\} \neq f(P1)\cap f(P2)=\{a\}$
 \subsection{Incompleteness}
 
+
+
 \section{Voting with rated ballots}
 \label{sec:judgmentballots}
 \begin{genthm}{Majority judgment}
-	
+	\label{sec:MJ}
 \end{genthm}
 
 
