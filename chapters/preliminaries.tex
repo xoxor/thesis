@@ -559,17 +559,67 @@ To conclude this section we show in \Cref{tab:overview} an overview of which of 
 %\end{center}
 %with $q= \ceil{\frac{n}{2}}$ then $f(P1)=\{a,b\}, f(P2)=\{a\}, f(P1 \cup P2)=\{a,b\} \neq f(P1)\cap f(P2)=\{a\}$
 \subsection{Incompleteness}
-
+\commentBN{Not sure whether to introduce here the incompleteness or not. I have the feeling that this chapter is already heavy.}
 
 
 \section{Voting with rated ballots}
 \label{sec:judgmentballots}
-\begin{genthm}{Majority judgment}
+TODO: intro about voting with judgments
+\subsection*{Majority judgment}
 	\label{sec:MJ}
-\end{genthm}
+	\acrlong{MJ} (\ac{MJ}) is a voting method proposed by \citet{Balinski2007,Balinski2011} to elect one out of $m$ candidates based on the judgments of $n$ voters. The latter express their preferences by assigning to each candidate one of the following adjectives: Excellent, Very good, Good, Average, Mediocre, Inadequate, To be rejected. Those adjectives represent a common language whose semantic is assumed to be a shared knowledge among the voters carrying thus an absolute meaning. For each candidate the median of the grades she received is computed, this is called \textit{majority-grade}. The candidate with the highest majority-grade is elected. Ties are broken by considering the majority-grade of first order: one vote associated with the majority-grade of each tied candidates is removed and their medians are recomputed. The candidate with the highest new median is elected. If there is still a tie the process is repeated until a unique winner is found.
+	
+	In order to formalize this description, consider a finite set $N$ of voters (or judges) with $\#N=n$ and a finite set $A$ of alternatives (or competitors) with $\#A=m$. 
+	A \textit{common language} $\triangle = \{ \delta_1, \delta_2, \dots , \delta_7\}$ is a set of strictly ordered grades. The notation $\delta_1 \geq \delta_2$ indicates that $\delta_1$ is a better or equivalent grade than $\delta_2$. Here $\delta_1$ corresponds to Excellent, $\delta_2$ to Very good etc.
+	
+	A profile $P : A\times N \rightarrow \triangle$ is a $m$ by $n$ matrix of grades $P \in \triangle^{A \times N}$.
+	
+	The operator $\rho: \triangle^{N} \rightarrow \triangle^{\card{N}}$ defines an ordering function that given a vector of grades $P_i$ returns the vector ordered by decreasing grades.
+	
+	We define $f: \triangle^{N} \rightarrow \triangle$ a function that assigns to any vector of grades a final grade. A grading function $f^A: \triangle^{A \times N} \rightarrow \triangle^A$ returns a vector of final grades by applying $f$ to every alternative in $A$.
+	
+	The \emph{majority-grade}, $f_\text{maj}$, is the function that associates to a vector of grades $q \in \triangle^{N}$ its median grade value: $f_\text{maj}(q) = \rho(q)_{\floor{\frac{\card{q}}{2}} + 1}$. Note that in case $\card{q}$ is even two medians could be used, but in \citet{Balinski2011} definition the lower grade is picked. By applying $f_\text{maj}$ to all vectors of grades associated to the alternatives in $A$ we obtain the corresponding grading function $f^A_\text{maj}$. Formally, $f^A_\text{maj}(P)_i = f^A_\text{maj}(P_i)$. The $i$-\emph{th} element of the resulting vector is the median of the ordered vector of grades associated to the $i$-\emph{th} alternative. 
+	
+	The \ac{MJ} function $F_\text{maj}:\triangle^{A \times N} \rightarrow A$	is a function that selects the alternative with the highest median grade as winner. We can define it as $F_\text{maj}(P) = \argmax_{i\in A}\rho(P_i)_{\floor{\frac{n}{2}}+ 1}$ assuming it is a singleton. Consider the case when it is not a singleton, this means that two or more alternatives are associated with the same highest median grade $h=\max_{i\in A}\rho(P_i)_{\floor{\frac{n}{2}} + 1}$. In this case ties are broken by removing one $h$ grade from the vectors of grades of each tied alternative, recomputing the new median grade and repeating the process until one unique winner is found or there are no more grades to remove. When $n$ is odd, this is equivalent to take the next element after the median, i.e. the one at index $(\floor{\frac{n}{2}} + 1) +1$, if there is still a tie we then look at the previous element before the median, i.e. the one at index $(\floor{\frac{n}{2}} + 1) -1$, and keep alternating until the tie is broken or there are no more elements in the vector. When $n$ is even the process is similar but we alternate starting from the element before the median, $\floor{\frac{n}{2}}$, then the one after, $\floor{\frac{n}{2}} + 2$, and so on. If after applying the mechanism there are still ties we break them using an arbitrary ordering defined on all alternatives, e.g. lexicographical order.
+	
+	Considering the axioms aforementioned, \ac{MJ} satisfies anonymity, neutrality, nondictatoriality but it fails manipulability and it does not satisfy the majority criterion.
+	\begin{example}[\citet{Laslier2018}]
+		\label{ex:MJfailsMajority}
+		To show that \ac{MJ} is not majoritarian, consider the following profile formed by three voters $i_1, i_2, i_3$ and two candidates $a, b$. Suppose the voters assign to candidates a grade between 0 and 20.
+		\begin{center}
+			$
+			\begin{array}{cccc}
+				&\mathbf{i_1} & \mathbf{i_2} & \mathbf{i_3} \\
+				a \quad &20&9&9\\
+				b \quad &11&0&10\\
+			\end{array}\quad .
+			$
+		\end{center}
+		The median of $a$ is $9$ and the median of $b$ is $10$, thus $b$ is elected although only one voter slightly prefers $b$ to $a$. This example can be reproduced with \ac{MJ} grades and with a larger number of voters:
+		\begin{center}
+			$
+			\begin{array}{cccc}
+				&\mathbf{50} & \mathbf{50} & \mathbf{1} \\
+				a \quad &\text{Excellent}&\text{Mediocre}&\text{Mediocre}\\
+				b \quad &\text{Good}&\text{To be rejected}&\text{Average}\\
+			\end{array}\quad .
+			$
+		\end{center}
+	\end{example}
 
+	Is it worth mentioning that the same example is also studied by \citet[p. 281]{Balinski2011}, where the authors stress the fact that is very unlikely that the last voter would associate a different grade to 9 and 10. In a large electorate the distinction would be too fine to make a significant difference between 20 and 19 or 10 and 9, so they affirm that the example would more realistically translate to: 
+	\begin{center}
+		$
+		\begin{array}{cccc}
+			&\mathbf{50} & \mathbf{50} & \mathbf{1} \\
+			a \quad &\text{Excellent}&\text{Mediocre}&\text{Mediocre}\\
+			b \quad &\text{Average}&\text{To be rejected}&\text{Mediocre}\\
+		\end{array}\quad .
+		$
+	\end{center}
+	And $a$ would be preferred.
 
-
+	Regarding manipulability, \ac{MJ} is manipulable to the extent that voters can exaggerate by excess the judgments of their top choices and by defect those of their worst choices. It must be mentioned that \citet{Bassett1999} proved that the high breakdown property of the median\textemdash which is the sensitivity to outlying observations \textemdash makes difficult for a minority to manipulate the ranking. However, \citet{Gehrlein2003} studied that the probability of being subject to manipulation is just slightly smaller than other methods like Borda and Copeland.
 
 
 
