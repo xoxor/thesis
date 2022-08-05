@@ -292,7 +292,6 @@ Let us analyze these procedures in more detail.
 The \acs{PSR} $f_{\w}$ is the voting rule defined by the \emph{scoring vector} $\w=(w_1, \dots, w_m)$ which associate weights $w_r \in \R$ to positions, with $w_1 ≥ w_2 ≥ … ≥ w_m$.
 Let $\alpha^{a}_r$ be the number of times that alternative $a$ was ranked in the $r$-th position, then the score of $a$ is defined by
 \begin{align}
-	\label{eq:srule}
 	s(a) = \sum_{i\in N} w_{\mathop{\prefi}(x)}
 	= \sum_{r=1}^{m} \alpha^{a}_r w_r\ .
 \end{align}
@@ -433,9 +432,9 @@ In our quest to identify rules that could reflect a true compromise between vote
 \label{sec:BK}
 In order to describe the next set of rules it is necessary to make a premise. We have decided to group under the umbrella name of Brams and Kilgour (BK) compromises, all those rules which, starting from everyone’s ideal alternative, fall back to the voters’ second, third and more generally $k$-\emph{th} best, until a certain quota of voters $q$ support one of the alternatives considered so far.
 
-This method, in its main idea, has been rediscovered several times over the years. Its proposal can be traced back to \citet{Condorcet1789, Condorcet1793}, whose procedure, translated by \cite[pp. 249-250]{McLean1994}, reads: \say{If one candidate has the absolute majority of first votes, he will be elected. If one candidate has the absolute majority of first votes and second votes together, he will be elected. If several candidates obtain this majority, the one with the most votes will be preferred. If one candidate has the absolute majority of the three votes together, he will be elected, and if several candidates obtain this majority, the one with the most votes will be preferred.} 
+This method, in its main idea, has been rediscovered several times over the years. Its proposal can be traced back to \citet{Condorcet1789, Condorcet1793}, whose procedure, translated by \citet[pp. 249-250]{McLean1994}, reads: \say{If one candidate has the absolute majority of first votes, he will be elected. If one candidate has the absolute majority of first votes and second votes together, he will be elected. If several candidates obtain this majority, the one with the most votes will be preferred. If one candidate has the absolute majority of the three votes together, he will be elected, and if several candidates obtain this majority, the one with the most votes will be preferred.} 
 
-As \cite{Camps2014} point out, the same method was later analyzed by \cite{Lhuilier1793} and adopted in Geneva. Sometime after that, in the early 20th century, this procedure was promoted by the politician James W. Bucklin and adopted first in the municipality of Grand Junction (Colorado, USA) and then in many other cities of the United States \cite[p. 167]{Barber2000}. In 1986 it was proposed again by \citet{Sertel1986} and \citet{Sertel1999} under the name of Majoritarian Compromise. Later, \citet{Brams2001} generalize this concept and introduce a class of \acs{SCR} called $q$\emph{-approval fallback bargaining}, where $q$ is the required quantity of support that can vary from a single voter up to unanimity. Different choices of $q$ lead to different \acp{SCR}. Considering $n$ voters, the choice of $q=1$ corresponds to the plurality rule, $q=\ceil{\frac{n}{2}}$ is the quota used by the Majoritarian Compromise \commentBN{Previously the sentence was "$q=\ceil{\frac{n}{2}}$ coincides with the majoritarian compromise", this is false, see \cref{ex:BKvsMC}. This is written on out Compromise paper which we should correct as well.} and $q=n$ represents a bargaining procedure called \emph{Fallback bargaining}, which has been further analyzed by \citet{Kibris2007} and \citet{Congar2012}.
+As \cite{Camps2014} point out, the same method was later analyzed by \cite{Lhuilier1793} and adopted in Geneva. Sometime after that, in the early 20th century, this procedure was promoted by the politician James W. Bucklin and adopted first in the municipality of Grand Junction (Colorado, USA) and then in many other cities of the United States \cite[p. 167]{Barber2000}. In 1986 it was proposed again by \citet{Sertel1986} and \citet{Sertel1999} under the name of Majoritarian Compromise. Later, \citet{Brams2001} generalize this concept and introduce a class of \acs{SCR} called $q$\emph{-approval fallback bargaining}, where $q$ is the required quantity of support that can vary from a single voter up to unanimity. Different choices of $q$ lead to different \acp{SCR}. Considering $n$ voters, the choice of $q=1$ corresponds to the plurality rule, $q=\ceil{\frac{n}{2}}$ is the quota used by the Majoritarian Compromise and $q=n$ represents a bargaining procedure called \emph{Fallback bargaining}, which has been further analyzed by \citet{Kibris2007} and \citet{Congar2012}.
 
 To describe these BK compromises, recall that we are considering a finite set $N$ of $n$ individuals and a finite set $A$ of $m$ alternatives. A \emph{profile} $P: N → \linors$ associates with each individual $i \in N$ a preference $P(i) = {\prefi}$.
 We write $r_{\prefi}(a)=\#\{b\in A \suchthat b \prefi a\}+1$ for the \emph{rank} of $a\in A$ at ${\prefi} \in \linors$.
@@ -443,8 +442,11 @@ We write $r_{\prefi}(a)=\#\{b\in A \suchthat b \prefi a\}+1$ for the \emph{rank}
 Given any $ 1 \leq q \leq n$ and $1 \leq d \leq m$, consider the compromise set, i.e. the set of alternatives that are ranked among the top d by at least q voters $\text{CS}^{q}_{d}=\{a \in A \suchthat \#\{r_{\prefi}(a) \leq d, \forall i \in N\} \geq q \}$.
 The q-approval fallback bargaining depth, $d_{q}^{*}$, is the smallest value that makes this set nonempty: $d_{q}^{*}=\min\{d \suchthat \text{CS}^{q}_{d} \neq \emptyset\}$.
 
-The \acs{SCR} \textbf{q-approval fallback bargaining} is defined as the set of all alternatives that are ranked $d_{q}^{*}$ for at least q bargainers: $f_{\text{BK}}^{q}=CS^{q}_{d}$ where $d=d_{q}^{*}$. 
-\commentBN{I wrote this description before realizing we have defined it on pag. 9 of the Compromise paper. However if it's not too much confusion I would like to leave this description 1) I think it's easier to read because I use less symbols and the same of those used by the original authors; 2) I think the one in the paper is wrong for the same reason of my previous comment. We write $f_{q}(P)=\{x\in A \suchthat n_{\rho _{q}(P)}(x,P)\geq n_{\rho _{q}(P)}(y,P)$ $\forall y\in A\}$ where $n_{\rho _{q}(P)}(x,P)$ represents the support of $x$ in P at $d^*$ but this is not the definition of the q-approval fallback bargaining. Unless I'm mistaken, it should be $f_{q}(P)=\{x\in A \suchthat n_{\rho _{q}(P)}(x,P)\geq q\}$. }
+The \acs{SCR} \textbf{q-approval fallback bargaining} is defined as the set of all alternatives that are ranked $d_{q}^{*}$ for at least q bargainers: $f_{\text{BK}}^{q}=\text{CS}^{q}_{d}$ where $d=d_{q}^{*}$.
+
+Consider the maximum support at depth $d$ as the biggest value that makes the compromise set nonempty: $q_{d}^{*}=\max\{q \suchthat \text{CS}^{q}_{d} \neq \emptyset\}$.
+We can define a revised version of the BK rule by adding an extra step. If multiple alternatives are ranked $d_{q}^{*}$ for at least q bargainers, the \textbf{revised q-approval fallback bargaining} returns the ones with the greatest support: $f_{\text{rBK}}^{q}= \text{CS}^{q}_{d}$ where $d=d_{q}^{*}$ and $q=q_{d}^{*}$. 
+Note that when CS is a singleton, or when all the alternatives in CS are supported by the same amount of voters then $f_{\text{BK}}^{q}=f_{\text{rBK}}^{q}$
 \Cref{ex:BK} shows how different quotas lead to different results.
 
 \begin{example}[\cite{Brams2001}]
@@ -463,16 +465,18 @@ The \acs{SCR} \textbf{q-approval fallback bargaining} is defined as the set of a
 	\end{center}
 	\begin{itemize}
 		\itemsep0em
-		\item [] when $q=1$ then $d_{1}^{*}=1$ and $f_{\text{BK}}^{1}=\{a,d\}$;
-		\item [] when $q=2$ then $d_{2}^{*}=1$ and $f_{\text{BK}}^{2}=\{a\}$;
-		\item [] when $q=3$ then $d_{3}^{*}=1$ and $f_{\text{BK}}^{3}=\{a\}$;
-		\item [] when $q=4$ then $d_{4}^{*}=3$ and $f_{\text{BK}}^{4}=\{b\}$.
+		\item [] when $q=1$ then $d_{1}^{*}=1$ and $f_{\text{BK}}^{1}=\{a,d\}$ and $f_{\text{rBK}}^{1}=\{a\}$;
+		\item [] when $q=2$ then $d_{2}^{*}=1$ and $f_{\text{BK}}^{2}=\{a\}$ and $f_{\text{rBK}}^{2}=\{a\}$;
+		\item [] when $q=3$ then $d_{3}^{*}=1$ and $f_{\text{BK}}^{3}=\{a\}$ and $f_{\text{rBK}}^{3}=\{a\}$;
+		\item [] when $q=4$ then $d_{4}^{*}=3$ and $f_{\text{BK}}^{4}=\{b\}$ and $f_{\text{rBK}}^{4}=\{b\}$.
 	\end{itemize}
 \end{example}
 
-When $q=n$ this rule is referred to as \textbf{\acl{FB}} (\acs{FB}).
+When $q=n$ the BK rule is referred to as \textbf{\acl{FB}} (\acs{FB}): $f_{\text{BK}}^{n}= f_{\text{FB}}$.
 
-When $q=\ceil{\frac{n}{2}}$ this rule is closely related, but not identical, to the \textbf{\acl{MC}} (\acs{MC}). In fact, the sole difference is that in case the compromise set contains more alternatives, \acs{MC} chooses the ones with the greatest support. We can define $q_{d}^{*}=\max\{q \suchthat \text{CS}^{q}_{d} \neq \emptyset\}$. Then $f_{\text{MC}}=\text{CS}^{q}_{d}$ where $d=d_{q}^{*}$ and $q=q_{d}^{*}$. \Cref{ex:BKvsMC} shows a profile where the two sets of outcomes $f_{\text{MC}}$ and $f_{\text{BK}}^{\ceil{\frac{n}{2}}}$ do not coincide.
+When $q=\ceil{\frac{n}{2}}$ the revised BK rule is denoted as \textbf{\acl{MC}} (\acs{MC}): 
+\\$f_{\text{rBK}}^{\ceil{\frac{n}{2}}}= f_{\text{MC}}$. 
+\Cref{ex:BKvsMC} shows a profile where the two sets of outcomes $f_{\text{MC}}$ and $f_{\text{BK}}^{\ceil{\frac{n}{2}}}$ do not coincide.
 
 \begin{example}[\cite{Sertel1999} and \cite{Brams2001}]
 	\label{ex:BKvsMC}
@@ -491,7 +495,6 @@ When $q=\ceil{\frac{n}{2}}$ this rule is closely related, but not identical, to 
 \end{example}
 
 %It is generally more important to be sure of electing men who are worthy of holding office than to have a small probability of electing the worthiest man. - Condorcet
-
 
 To conclude this section we show in \Cref{tab:overview} an overview of which of the axioms described is satisfied by the rules discussed so far.
 
@@ -513,7 +516,6 @@ To conclude this section we show in \Cref{tab:overview} an overview of which of 
 \label{tab:overview}
 \end{table}
 
-\commentBN{In the compromise paper we discuss some voting rules for the 2 voters case: Pareto-and-Veto rules, Veto-Rank mechanism and Shortlisting. I don't think I should add them here. It may result in a much heavier section for a little benefit. We discuss them only for a particular case in one paper so I propose to introduce them in the compromise section of the literature review. What do you think?}
 
 % CONSISTENCY
 %	\begin{genthm}{Consistency}
@@ -558,13 +560,22 @@ To conclude this section we show in \Cref{tab:overview} an overview of which of 
 %	$
 %\end{center}
 %with $q= \ceil{\frac{n}{2}}$ then $f(P1)=\{a,b\}, f(P2)=\{a\}, f(P1 \cup P2)=\{a,b\} \neq f(P1)\cap f(P2)=\{a\}$
-\subsection{Incompleteness}
-\commentBN{Not sure whether to introduce here the incompleteness or not. I have the feeling that this chapter is already heavy.}
+
+
+%\subsection{Incompleteness}
+%\commentBN{Add later if needed and time permitting.}
 
 
 \section{Voting with rated ballots}
 \label{sec:judgmentballots}
-TODO: intro about voting with judgments
+\commentBN{TODO}
+Some view the reliance on ranked ballots as a major error, and see the major theorems of the field (see
+Section 2.8, for example) more as artifacts of this mistake than as fundamental limitations on democracy. They
+advocate voting rules such as range voting (Smith, 2000), majority judgment (Balinski and Laraki, 2010), or
+approval voting (Brams and Fishburn, 2007) that use different ballot forms. For the argument in favor of ranked
+ballots, see Arrow (1950).
+
+
 \subsection*{Majority judgment}
 	\label{sec:MJ}
 	\acrlong{MJ} (\ac{MJ}) is a voting method proposed by \citet{Balinski2007,Balinski2011} to elect one out of $m$ candidates based on the judgments of $n$ voters. The latter express their preferences by assigning to each candidate one of the following adjectives: Excellent, Very good, Good, Average, Mediocre, Inadequate, To be rejected. Those adjectives represent a common language whose semantic is assumed to be a shared knowledge among the voters carrying thus an absolute meaning. For each candidate the median of the grades she received is computed, this is called \textit{majority-grade}. The candidate with the highest majority-grade is elected. Ties are broken by considering the majority-grade of first order: one vote associated with the majority-grade of each tied candidates is removed and their medians are recomputed. The candidate with the highest new median is elected. If there is still a tie the process is repeated until a unique winner is found.
