@@ -496,7 +496,7 @@ When $q=\ceil{\frac{n}{2}}$ the revised BK rule is denoted as \textbf{\acl{MC}} 
 
 %It is generally more important to be sure of electing men who are worthy of holding office than to have a small probability of electing the worthiest man. - Condorcet
 
-To conclude this section we show in \Cref{tab:overview} an overview of which of the axioms described is satisfied by the rules discussed so far.
+To conclude this section we show in \Cref{tab:overview} an overview of which of the axioms described is satisfied by the rules discussed so far. Note that we say that an axiom is satisfied by the class \acs{BK} Compromises if it is satisfied by every element in the class, and the converse if there is at least one element in the class for which it is not satisfied.
 
 \begin{table}[h]
 \scalebox{0.8}{
@@ -568,13 +568,24 @@ To conclude this section we show in \Cref{tab:overview} an overview of which of 
 
 \section{Voting with rated ballots}
 \label{sec:judgmentballots}
-\commentBN{TODO}
-Some view the reliance on ranked ballots as a major error, and see the major theorems of the field (see
-Section 2.8, for example) more as artifacts of this mistake than as fundamental limitations on democracy. They
-advocate voting rules such as range voting (Smith, 2000), majority judgment (Balinski and Laraki, 2010), or
-approval voting (Brams and Fishburn, 2007) that use different ballot forms. For the argument in favor of ranked
-ballots, see Arrow (1950).
 
+In the classical Arrovian framework for social choice a set of voters is assumed to give a complete preferences order over a set of alternatives \citep{Arrow1950}.
+When we think about it this is not so obvious to achieve, for example, often there are too many alternatives and the cost for the voters to provide a complete order is simply too high.
+In this situation, one could opt for an approval system, in which voters approve only the desired alternatives \citep{Brams2007}. Yet this does not resolve other criticisms raised against the system of ranked ballots: that of preference intensity. 
+Suppose that a slight majority of voters slightly prefer alternative $a$ to alternative $b$, these would appear in the preference rankings as $a \pref b$. Now consider that the remaining slight minority despises $a$, and strongly prefers $b$ to $a$. There is no way for any rule in the framework of ranked preferences to distinguish the difference in intensity between $a \pref b$ in the first group and $b \pref a$ in the second. How to decide what is the most desirable alternative for society?
+
+An alternative is to evaluate candidates according to a common language shared by society. Note that from the evaluation of candidates we can deduce a ranking, but the converse is not true. Thus, an evaluation is more informative than a ranking.
+However, we immediately see that we should define lower and upper bounds on the score a voter could assign to avoid problems of exaggeration.
+This describes the framework introduced by \citet{Smith2000}, and later analyzed by \citet{Pivato2014,Gaertner2012,Zahid2015}, when proposing his \textit{Range Voting} rule.
+Here the common language consists of a range of numerical scores, for example from 0 to 100, and the rule works as follows: each voter assigns a score to all or some alternatives, the one with the highest average score is elected. If more than one alternative has the same highest score than the tie is broken randomly.
+
+But a whole bunch of new questions arise. What is the right size for this scale? If it is too large it creates manipulation problems because voters may exaggerate their preferences; if it is not large enough it reduces expressiveness. Is it better to use a numerical scale or a more immediate language? Are there really benefits to using ratings instead of rankings? 
+Luckily for us, there is a vast literature of economists and psychologists who have addressed these questions, even sometimes arriving at very different answers. Unfortunately, to discuss this would go beyond the scope of this thesis, but for a (non-exhaustive) list of work on the subject one can read \citet{Cox1980,Sparling2011,Churchill1984,Preston2000,Maio1996}.
+
+\citet{Balinski2007} settle for a scale of seven expressions when defining their \textit{\acl{MJ}} rule: \textit{Excellent, Very Good, Good, Passable, Inadequate, Mediocre, Bad}. Each voters judges all the candidates and the one with the highest median is elected. We describe this rule in more detail in the next section.
+For now, we would like to conclude our introduction with a small anecdote, a piece from a 2012 interview with Arrow in which, when asked how he thought voting systems should be evaluated in the future, he replied: \say{I’m a little inclined to think that score systems where you categorize in maybe three or four classes probably (in spite of what I said about manipulation) is probably the best} \citep{PodcastArrow}.
+
+%https://voteupapp.com/
 
 \subsection*{Majority judgment}
 	\label{sec:MJ}
