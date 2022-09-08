@@ -264,8 +264,8 @@ Given any $k\in \intvl{1, m}$, we write $n_{k}(x,P)=\#\{i\in
 N\mid r_{\prefi}(x)\leq k\}$ for the \emph{$k$-support} that $x$ gets at $P$, that is, the number of individuals for whom the rank of alternative $x\in A$ is lower than or equal to $k$ in the profile $P \in \linors^N$.
 Note that $n_{k}(x,P)\in \intvl{1, n}$ is non-decreasing on $k$ and $n_{m}(x,P)=n.$ For each $q\in \intvl{1,n}$, we define $\rho_{q}(x,P)=\min \{k\in \intvl{1,m} \suchthat n_{k}(x,P)\geq q\}$ as the minimal rank $k$ at which the $k$-support that $x$ gets at $P$ is at least $q$. We
 write $\rho _{q}(P) = \min_{x \in A} \set{\rho_{q}(x, P)}$ for the minimal rank $k$ at which the $k$-support that some alternative gets at $P$ is at least $q$. A \emph{\ac{BK} compromise with threshold }$q$ is the
-\ac{SCR} $f_{q}$ defined for each $P\in \linors^N$ as $f_{q}(P)=\{x\in A \suchthat n_{\rho _{q}(P)}(x,P)\geq q\}$. \commentBN{Changed definition from this $f_{q}(P)=\{x\in A \suchthat n_{\rho _{q}(P)}(x,P)\geq n_{\rho _{q}(P)}(y,P)$ $\forall y\in A\}$ which instead will be called revised \acs{BK} compromise.}
-We can also define a revised version of the \acs{BK} compromise where among the winners only the alternatives with the greatest support are selected: $f'_{q}(P)=\{x\in A \suchthat n_{\rho _{q}(P)}(x,P)\geq n_{\rho _{q}(P)}(y,P), \forall y\in A\}$
+\ac{SCR} $f_{q}$ defined for each $P\in \linors^N$ as $f_{q}(P)=\{x\in A \suchthat n_{\rho _{q}(P)}(x,P)\geq q\}$. \commentBN{Changed definition from this $f_{q}(P)=\{x\in A \suchthat n_{\rho _{q}(P)}(x,P)\geq n_{\rho _{q}(P)}(y,P)$ $\forall y\in A\}$ which instead will be called tie breaking \acs{BK} compromise.}
+We can also define a tie breaking version of the \acs{BK} compromise where among the winners only the alternatives with the greatest support are selected: $f'_{q}(P)=\{x\in A \suchthat n_{\rho _{q}(P)}(x,P)\geq n_{\rho _{q}(P)}(y,P), \forall y\in A\}$
 
 We first consider the \acs{BK} compromise with threshold $q=n$, $f_n$, which corresponds to the rule also known as \textit{fallback bargaining} \citep{Brams2001}.
 
@@ -311,7 +311,7 @@ We first consider the \acs{BK} compromise with threshold $q=n$, $f_n$, which cor
 	\commentBN{Changed the proof after the new definition to catch the case $q=1$.}
 	When $q=1$ we have that $f_{1}(P)=\{a_1,a_3\}$ and when $q \in \intvl{2, n-1}$ we have that $f_{q}(P)=\{a_1\}$. Because $\sigma(\lambda_P(a_2)) = 0$ and $\sigma(\lambda_P(a_1)) > 0$ and $\sigma(\lambda_P(a_3)) > 0$, neither $\musigma$ nor $\mustar$ contain $a_1$ nor $a_3$ for any $\sigma \in \Sigma$. 
 
-	Note that for $q \in \intvl{1, n-1}$ we have that $f'_{q}(P)=\{a_1\}$ since the revised version of the \acs{BK} compromise selects the alternatives with the greatest support. This version of the rule was used in the proof for \Cref{th:BKthreshold} published by \citet{Cailloux2022}. \commentBN{To precise how it differs from the published version.}
+	Note that for $q \in \intvl{1, n-1}$ we have that $f'_{q}(P)=\{a_1\}$ since the tie breaking version of the \acs{BK} compromise selects the alternatives with the greatest support. This version of the rule was used in the proof for \Cref{th:BKthreshold} published by \citet{Cailloux2022}. \commentBN{To precise how it differs from the published version.}
 	%Remzi’s proof
 	%Take any $n\geq 3$ and $m\geq 3.$ Let $A=\left\{ a_{1},\text{ }a_{2,}...%
 	%\text{ }a_{m}\right\} $. Pick some $q\in \left\{ 1,...,n\right\} $ and
