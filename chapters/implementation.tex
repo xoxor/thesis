@@ -3,9 +3,10 @@
 
 The \ac{UML} is a standard language for modeling, building and documenting the design of a software system. It is often defined as the language in which the system's blueprint is written. In fact, various aspects of the system can be described by UML diagrams: use cases, interactions between different components, various logical and physical elements.
 In this chapter, we will describe the logical system of the preference elicitation software developed to accompany the article in \cref{ch:minimax}.
+\commentOC{Not sure that these explanations are useful (too summarized for someone who is not familiar with these concepts already and too basics for the developers out there). But ok, it doesn’t hurt also and you never know, someone could get something out of it.}
 In particular, we will illustrate the classes that constitute the various components of the system and the relationships between them.
 A class describes the attributes and the properties of a group of objects. An object is an instance of a class.
-Classes may inherit from other classes their actions and attributes. They can and implement abstract methods and add new functionality. Associations between classes represent these behaviors.
+Classes may inherit from other classes their actions and attributes. They can and \commentOC{Either there is one word too much here, or if you mean it, the sentence doesn’t seem grammatical to me.} implement abstract methods and add new functionality. Associations between classes represent these behaviors.
 
 A class is represented as follows:
 
@@ -16,6 +17,7 @@ A class is represented as follows:
 		}{ + equals(c : Class) : Boolean \\ + toString() : String \\ + hashCode() : Integer}
 	\end{tikzpicture}
 \end{center}
+\commentOC{Minor, but, I’d use the same representation (that is, the Papyrus style) for the example class and for the real ones.}
 
 As we can see, the description of a class is divided into three sections, in the first there is its name, in the second its attributes and in the third its methods or behaviors. Attributes and methods can be either private $(-)$ to the class itself, protected $(\#)$ to the class and its children, or public $(+)$ to every other class.
 
@@ -31,7 +33,7 @@ We described these three methods because they are basic methods that are automat
 \subsection{Preference Representation}
 
 \Cref{uml:preference} describes the basic elements of our elicitation software.
-The two basic elements are represented by the \textit{Alternative} and \textit{Voter} objects. A \textit{Preference} is a list of alternatives in which the order represents the preference order. Multiple alternatives can have the same rank but it is not possible to have the same alternative multiple times. Methods allow, for example, to know the alternative in a given rank or, conversely, to know the rank of a given alternative.
+The two basic elements are represented by the \textit{Alternative} and \textit{Voter} objects. A \textit{Preference} is a list of alternatives in which the order represents the preference order. Multiple alternatives can have the same rank but it is not possible to have the same alternative multiple times \commentOC{You mean that an alternative can’t have two ranks, or, be associated to different ranks? Or you could simply describe what it represents (a strict order or linear order depending on the term used elsewhere in this manuscript)}. Methods allow, for example, to know the alternative in a given rank or, conversely, to know the rank of a given alternative.
 A \textit{StrictPreference} is an extension of the Preference object. This means that it inherits all of its behaviors and attributes but can redefine a given mechanism. In particular, StrictPreference does not allow two alternatives to have the same rank.
 A \textit{VoterStrictPreference} links a Voter to her StrictPreference.
 A \textit{PrefGraph} is a graph of preferences that can be added or modified. Specifically, each node represents an alternative, and an arc from a node $a$ to a node $b$ means that the alternative $a$ is preferred over the alternative $b$.
@@ -62,7 +64,7 @@ Finally, in the diagram we can see an \textit{Oracle} class. This represents "tr
 \Cref{uml:questions} shows the diagram related to the questions implementation. A \textit{Question} can be either a question to the chair, about their preferences on the voting rule, or a question to one of the voters, about their preferences over the alternatives. This is represented by the use of an enumeration \textit{QuestionType} that admits only two values: VOTER$\_$QUESTION and COMMITTEE$\_$QUE\\STION. %For Olivier: I know, I know, please accept it and don't blame me.
 The method \textit{getType()} of \textit{Question} returns one of those two values.
 A \textit{QuestionVoter} is a comparison query relating two alternatives $a$ and $b$, where \textit{getPositiveInformation()} returns the \textit{VoterPreferenceInformation} (see \Cref{uml:prefinfo}) associated to that specific voter and the alternative $a$ and $b$. Conversely, \textit{getNegativeInformation()} returns the information regarding the alternative $b$ and $a$. In other words, the first method returns the information when the answer to the question "$a\pref b ?$" is yes, thus $a$ is preferred to $b$, and the second method that when the answer is no, thus $b\pref a$.
-A \textit{QuestionCommittee} try to improve the knowledge about the scoring rule by refining the multiplier $\lambda$ in the constraint $w_{r} - w_{r+1} \geq \lambda (w_{r+1} - w_{r+2})$ for some $r \in \{1,\ldots,m-2\}$. Given a $\lambda$ and a rank defined by an elicitation strategy, \textit{getPositiveInformation()} returns the response to the following question "$w_{r} - w_{r+1} \geq \lambda (w_{r+1} - w_{r+2})?$" is yes, while \textit{getNegativeInformation()} the information when the answer is no, thus $w_{r} - w_{r+1} \leq \lambda (w_{r+1} - w_{r+2})$.
+A \textit{QuestionCommittee} try to improve the knowledge about the scoring rule by refining the multiplier $\lambda$ in the constraint $w_{r} - w_{r+1} \geq \lambda (w_{r+1} - w_{r+2})$ for some $r \in \{1,\ldots,m-2\}$. Given a $\lambda$ and a rank defined by an elicitation strategy, \textit{getPositiveInformation()} returns the response to the following question "$w_{r} - w_{r+1} \geq \lambda (w_{r+1} - w_{r+2})?$" is yes \commentOC{Had you drunk too much grappa before writing this sentence?}, while \textit{getNegativeInformation()} the information when the answer is no, thus $w_{r} - w_{r+1} \leq \lambda (w_{r+1} - w_{r+2})$.
 Positive and negative information is used by the elicitation strategies for the choice of the next question to ask. In particular, the Pessimistic strategy consider, for each potential question, the information in case of positive and negative answer and pick the question that leads to minimal regret in the worst case. This is described in \Cref{uml:strategies}, in particular in the class diagram of \textit{MmrLottery}.
 
 \vspace{2em}
@@ -86,7 +88,7 @@ Positive and negative information is used by the elicitation strategies for the 
 \end{figure}
 
 \subsection{Regret Computation}
-
+\commentOC{This ugly spacing is, I suspect, the price for the “here” directives that should not be used, as \LaTeX{} knows better.}
 \Cref{uml:regret} is the diagram representing the procedure described in \Cref{sec:mmr}. The \textit{PairwiseMaxRegret} is the building block of the regret computation. Given two alternatives, their ranks and the weights associated to ranks, it computes the regret of choosing the first alternative instead of the second one. This is used by the \textit{Regrets} instance, which calculate the minimal max regret value and it can return all the alternatives associated to such value. A small constant epsilon is introduced to express the granularity of this similarity. In fact, we may want to consider two weights equals if, for example, they are equal up to the third decimal place. \textit{RegretComputer} is the class that handles the proper calling of the methods specified by the classes aforementioned. For example by providing the pairwise maximum regret computation with the worst-case scenario: the worst completion of profile and scoring vector.
 
 
