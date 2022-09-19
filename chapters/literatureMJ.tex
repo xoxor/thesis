@@ -1,12 +1,12 @@
 %!TeX root= ../thesis.tex
 \newpage
-\section{Majority Judgment}
+\section{Median compromise: the Majority Judgment rule}
 \label{sec:litMJ}
 
 As mentioned in \Cref{sec:litCMP}, an example of compromise can be represented by \acl{MJ}, a voting system where voters assign grades to candidates using an ordinal scale. The evaluation of candidates instead of their ranking yields more information as a result of a higher expressiveness.
 In \ac{MJ} each voter evaluates, or judges, each candidate and the winner is the candidate with the highest median of the grades received. 
 This method was introduced by \citet{Balinski2007} in the most recent period of social choice history. Yet, it has attracted increasing attention of french associations and political parties which have started to use \ac{MJ} for internal decisions or local elections. 
-
+\paragraph{An overview of the use of the median as aggregator.}
 The idea of using the median in voting is not new, one of the first use can be traced back to Sir Francis Galton's \textit{middlemost} method \citep{Galton1907a,Galton1907b}. He considered a situation where a group of people has to assess a damage. Galton argued that the aggregation metric that poses the least problems in this context is the median because it is not affected by over- or under-exaggerations. In is words \say{According to the democratic principle of one vote one value, the middlemost estimate expresses the \textit{vox populi}, every other estimate being condemned as too low or too high by a majority of the voters}. In other words, the median for Galton represents the most accurate estimate of \textit{people's voice}. He also precised that in the occurrence of even votes two medians are possible, in this case the average of those is taken.
 
 Numerous observers described the median grade as the highest level at which a candidate obtains the support of the majority of the voters. In other words, starting for the highest grade $d$ we check if the majority of the voters assigned at least $d$ to some alternative $a$. If this is not the case, we descend in the grading scale until such level $d^*$ is found where a candidate $a^*$ satisfies half population. The grade $d^*$ is then the median of $a^*$ grades, and, since it is the first level we stopped at, it corresponds to the best possible median. As we know from \Cref{sec:BK}, this method was rediscovered several times and proposed under the name of Bucklin's rule \citep{Hoag1926}, Majoritarian Compromise \citep{Sertel1986,Sertel1999} and q-approval fallback bargaining \citep{Brams2001}. Moreover, note that when the number of grades is equal to two (approve, disapprove) then this method is reduced to Approval Voting.
@@ -17,6 +17,7 @@ However, \citet{Gehrlein2003}, considering only three candidates elections, prov
 Other studies on the use of the median have been conducted. In particular, \citet{Barthelemy1981} survey mathematical problems and properties related to the notion of median in the context of cluster analysis and social choice theory.
 \cite{Nehring2022} analyze the median rule in judgment aggregation and they define a weighted median rule that is equivalent to \acs{MJ} except for the treatment of ties.
 
+\paragraph{Real-life use cases of the \ac{MJ} procedure.}
 In France, \ac{MJ} has being adopted by a progressively larger number of associations and political parties including: Le Parti Pirate, Génération(s), LaPrimaire.org, France Insoumise and La République en Marche.
 %https://www.lopinion.fr/edition/politique/en-marche-teste-elections-jugement-majoritaire-mode-scrutin-tres-201884
 "Mieux Voter" \citep{MV} is a french association that promotes the use of \ac{MJ} as voting method whenever a collective choice has to be selected: public administration, associations, companies. On their website it is possible to find all the citizens lists \textendash party lists that are not affiliated to any national political party \textemdash that used \ac{MJ} to rank their candidates during the local elections of 2020. In two cases, Bordeaux et Annecy, the candidate selected using \ac{MJ} was then elected as a mayor. 
@@ -26,7 +27,7 @@ LaPrimaire.org \citep{LaPrimaire} is a french political initiative whose goal is
 Any eligible citizen can submit her nomination to the platform and those who gets at least 500 supports are the candidates of the election. The vote is conducted in two rounds.
 In the first round each voter is asked to express her judgment, using \ac{MJ}, on five random candidates. At the end of this phase the five candidates with the highest medians are considered the finalists who qualify for the second round. In the second round each voter is asked to express her judgment, using \ac{MJ}, on all the five finalists. The candidate with the best median at the end of this phase is selected as representative for the presidential election.
 However, the participation of this candidate to the actual presidential election in France is not granted. In fact, by the french law a candidate must collect at least 500 signatures of elected officials in order to participate to the presidential election. The candidate selected by the voters of LaPrimaire.org in 2016 collected only 135 signatures and did not participate in the 2017 presidential elections.  
-
+\paragraph{Criticism and concerns.}
 Despite his public popularity, \ac{MJ} has received several criticisms from part of the scientific community. In particular, \citet{Felsenthal2008, Zahid2009} and \citet{Laslier2018} have shown that this procedure can lead to undesirable and counter-intuitive results.
 The authors of \ac{MJ} highlight the various strengths of their model insisting on:
 \begin{itemize}

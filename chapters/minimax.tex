@@ -180,7 +180,7 @@ Note that in \cref{claim:rankPMR}, in the case $(x \pprefeq_j y)$, $\beta$ is th
 \end{proposition}
 
 \cref{claim:PMR}  shows that PMR is linear in the weights.
-The pairwise max regret $\PMR(x,y; \pprofile,W)$ can thus be obtained by solving the following linear program defined on the variables $w_1, …, w_m$:
+The pairwise max regret $\PMR(x,y;\allowbreak \pprofile,W)$ can thus be obtained by solving the following linear program defined on the variables $w_1, …, w_m$:
 \begin{align}
 	\max_{\w} \sum_{r=1}^m (\hat{\alpha}_{r}^{y} - \hat{\alpha}_{r}^{x}) w_{r} \quad
 	\text{ s.t. } w_1 = 1 ≥ … ≥ w_m = 0, \text{\cref{eq:convexity}} \text{ and } \w \in \pw.
@@ -409,6 +409,7 @@ Another interesting measure is the average number of questions asked to the chai
 	\centering
 	\caption{Questions asked by Pessimistic strategy on several datasets to reach $\frac{n}{10}$ regret, columns 4 and 5, and zero regret, last two columns.}
 	\label{tab:questions}
+	\scalebox{0.9}{
 	\begin{tabular}{p{1.5cm}S[table-number-alignment = center, table-figures-integer=2]S[table-number-alignment = center, table-figures-integer=3]S[table-number-alignment = center, table-figures-integer=2,table-column-width=5em]p{0.5em}@{}S[table-figures-integer=2, table-figures-decimal=1]@{ | }S[table-figures-integer=2, table-figures-decimal=1]@{ | }S[table-figures-integer=2, table-figures-decimal=1]@{ ]} S[table-number-alignment = center, table-figures-integer=2, table-figures-decimal=1,table-column-width=5em]p{0.5em}@{}S[table-figures-integer=2, table-figures-decimal=1]@{ | }S[table-figures-integer=2, table-figures-decimal=1]@{ | }S[table-figures-integer=2, table-figures-decimal=1]@{ ]}}
 		\toprule
 		{dataset} & m & n &{$q_{c}^{\scriptscriptstyle{\MMR} ≤ n/10}$} & \multicolumn{4}{c}{$q_{a}^{\scriptscriptstyle{\MMR} ≤ n/10}$} & {$q_{c}^{ \scriptscriptstyle{\MMR} = 0}$} & \multicolumn{4}{c}{$q_{a}^{ \scriptscriptstyle{\MMR} = 0}$} \\
@@ -425,6 +426,7 @@ Another interesting measure is the average number of questions asked to the chai
 			
 		\bottomrule
 	\end{tabular}
+}
 \end{table}
 
 \Cref{fig:linearity} shows the decrease in MMR according to the number of questions asked for various problem sizes. In particular, this shows important differences between some real datasets and the problems generated using IC.
