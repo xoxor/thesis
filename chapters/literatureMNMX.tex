@@ -70,35 +70,23 @@ Please see \citet{Bouyssou2006} for a more detailed account on the matter and \c
 As a side note, it is also interesting to mention that it is often assumed that in an elicitation process the analyst tries to elicit information that the \ac{DM} has but which is unknown by the analyst. This is not always the case. 
 \citet[Ch. 8]{Bouyssou2000} presented a scenario of information uncertainty with a real case example. A company dealing with the production and distribution of electricity\textemdash which here represents the \ac{DM}\textemdash asked the help of a research group\textemdash which embodies the analyst\textemdash for the realization of a decision-aiding tool that would help them with the company choices. Every three years the company had to reevaluate its plan of building or closing its various (coal, nuclear, and gas) power plants. When formalizing the model, the authors realized that the values to assign to the various criteria were mostly uncertain. For example, the fuel price fluctuates according to the market, the electricity demand may depend on the weather, and a specific pollution legislation may have an impact on the company policy. The authors proposed a model based on successive pairwise comparisons: at each step it compares the consequences of two different decision in the same scenario. The model was adopted by the company, however, the authors showed some drawbacks of the model, in particular how it can lead to inconsistencies, and discussed why they did not adopt a probabilistic approach. Although it is not in the scope of our research, because we assume that the unknown information exists somewhere but is unknown to us, this consideration opens the door to many other potentially interesting scenarios to investigate.
 
-\paragraph{Preference Elicitation in Machine Learning}
+\paragraph{Preference Elicitation in Machine Learning.}
+In general, when we think of machine learning problems we tend to divide them into classification problems\textemdash in which the goal is to predict the category into which a particular instance falls\textemdash and regression problems\textemdash in which the purpose is to predict the value of a particular variable associated with an instance. 
+However, many real-life problems are based on preferences of individuals.
+Consider, as an example, the enormous amount of information on the Web. It is impossible for users to find something without efficient Information Retrieval (IR) mechanisms. Given a query submitted by the user, an IR mechanism provides a list of documents ranked in order of relevance. The ranking is the key element that defines a good system. 
+We might approach the problem by predicting whether or not a document is relevant to the query, as in a classification problem, or by calculating the probability that a document is relevant, like a regression problem. However, we are leaving out an important piece of information that is the correlation between the documents that are not independent variables but are all potential answers to the query. This makes ranking a fundamentally different problem than classification and regression.
+Document retrieval is only one example of the use of rankings in IR, a detailed account of which can be found in \citet{Liu2009}, but other uses can be found like recommender systems.
+%Some other applications are: collaborative filtering\textemdash a technique for the prediction of an individual's preferences from the preferences of other individuals\textemdash, sentiment analysis and product rating. %i don't know how any references for those tho
 
-%\citet{Furnkranz2010} Needless to say, however, the acquisition
-%of preferences is not always an easy task. Therefore, not only modeling languages
-%and representation formalisms, but also methods for the automatic learning, discov-
-%ery, and adaptation of preferences are needed. For example, computerized methods
-%for discovering the preferences of individuals are useful in e-commerce and vari-
-%ous other fields, where an increasing trend toward personalization of products and
-%services can be recognized.
-%Approaches
-%relevant to this area range from approximating the utility function of a single agent
-%on the basis of an as effective as possible question-answer process (often referred to
-%as preference elicitation) to collaborative filtering where a customer’s preferences
-%are estimated from the preferences of other customers. In fact, problems of pref-
-%erence learning can be formalized within various settings, depending, e.g., on the
-%underlying type of preference model or the type of information provided as an input
-%to the learning system.
-%In this introductory chapter, we have tried to give an overview of different appr-
-%oaches to preference learning, categorized by the learning task (label, instance,
-%or object ranking) and the learning technique (learning utility functions, learning
-%binary preference relations, learning preference models having a specific structure,
-%or using local estimation and preference aggregating methods). In principle, all
-%task/technique combinations are conceivable and can be found in the literature. We
-%also highlighted important application areas, in particular in ranking search results
-%and product recommendations.
-%In general, a preference learning task consists of some set of items for which
-%preferences are known, and the task is to learn a function that predicts preferences
-%for a new set of items, or for the same set of items in a different context.
-%
-%The decomposition of the original problem into a set of presumably simpler sub-
-%problems is not only advantageous for human decision making but also useful from
-%a machine learning point of view
+The uses of preferences and rankings play a key role in many machine learning problems. The process of learning preference models from already existing and, available, preference information is denoted as \textit{Preference Learning}. \citet{Furnkranz2010} provided a comprehensive overview of this sub-field of machine learning.
+Given a set of items and a set of preferences over these items, the goal of a \textit{preference learning task} is to learn a function that predicts preferences for a different set of items producing, as a result, a total order of the whole set of items\textemdash this task is denoted as \textit{Object Ranking}\textemdash, or that predicts preferences of new users over the same set of items\textemdash denoted as \textit{Label Ranking}.
+The training preference information is usually given as a set of pairwise preferences.
+This looks quite similar to our elicitation problem, where we have incomplete information that we need to learn. However, there are many differences between the two approaches.
+First, in elicitation we try to learn about each individual preferences in order to find the most accurate approximation, in preference learning, on the other hand, the goal is to find a good prediction that is good on average on the entire population. Moreover, preference elicitation often assumes that, as seen in the psychological studies aforementioned, preferences are constructed concurrently with the elicitation process. This involves a third party, a generic external party as in our approach in \Cref{ch:minimax} that could represent the analyst in decision aiding, who communicates interactively with each individual. In cases of inconsistencies this party can notice and correct them, perhaps by asking clarifying questions to the individuals who produced such inconsistency.
+In preference learning, on the contrary, a ground truth is assumed and the quality of the prediction is measured based on its differences from the truth. Moreover, these preferences exist in a database and are always accessible but there is no interactive process that can help correct inconsistencies.
+
+There are, however, works that position themselves between these two approaches filling the gaps. For example, in \Cref{ch:minimax} we assume the existence of a ground truth, and \citet{Bachrach2010,Lu2011Prob} studied preference elicitation in a probabilistic setting. On the machine learning side, many studies try to put "humans-in-the-loop" to receive feedback on predictions and, in general, to get more accurate results \citep{Wu2022}.
+
+
+
+
