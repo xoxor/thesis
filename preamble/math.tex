@@ -63,18 +63,18 @@
 \NewDocumentCommand{\fltwo}{}{\floor{\bar{l_2}}}
 \NewDocumentCommand{\bltwo}{}{\bar{l_2}}
 
-\newtheorem{conjecture}{Conjecture}
-\newtheorem{example}{Example}
+\newtheorem{conjecture}{Conjecture}[chapter]
+\newtheorem{example}{Example}[chapter]
 \newenvironment{abstract}{\rightskip1in\itshape}{}
 
-\newtheorem{theorem}{Theorem}
-\newtheorem{claim}{Claim}
-\newtheorem{prop}{Proposition}
-\newtheorem{corollary}{Corollary}
-\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{claim}{Claim}[chapter]
+\newtheorem{prop}{Proposition}[chapter]
+\newtheorem{corollary}{Corollary}[chapter]
+\newtheorem{definition}{Definition}[chapter]
 %\newtheorem{proof}{Proof}
-\newtheorem{proposition}{Proposition}
-\newtheorem{remark}{Remark}
+\newtheorem{proposition}{Proposition}[chapter]
+\newtheorem{remark}{Remark}[chapter]
 %\newtheorem{sketch}[proof]{Proof Sketch}
 
 %% generic theorem 
@@ -150,9 +150,18 @@
 \NewDocumentCommand{\reddbar}{}{{\color{red}\overline{\delta}}}
 \NewDocumentCommand{\second}{}{\prime\prime}
 \NewDocumentCommand{\Pbar}{}{\overline{P}}
-\NewDocumentCommand{\fmaj}{}{f_{maj}}
-\NewDocumentCommand{\Fmaj}{}{F_{maj}}
-\NewDocumentCommand{\fmajbar}{}{\overline{f_{maj}}}
-\NewDocumentCommand{\Fmajbar}{}{\overline{F_{maj}}}
+\NewDocumentCommand{\fmaj}{o}{
+	\IfNoValueTF {#1}{f_\mathit{maj}}{f^{#1}_\mathit{maj}}
+}
+\NewDocumentCommand{\Fmaj}{o}{
+	\IfNoValueTF {#1}{F_\mathit{maj}}{F^{#1}_\mathit{maj}}
+}
+\NewDocumentCommand{\fmajbar}{o}{
+	\IfNoValueTF {#1}{\overline{f}_\mathit{maj}}{\overline{f}^{#1}_\mathit{maj}}
+}
+\NewDocumentCommand{\Fmajbar}{o}{
+	\IfNoValueTF {#1}{\overline{F}_\mathit{maj}}{\overline{F}^{#1}_\mathit{maj}}
+}
+
 \NewDocumentCommand{\med}{}{\text{med}}
 \NewDocumentCommand\restr{mm}{#1\raisebox{-.5ex}{$|$}_{#2}}
