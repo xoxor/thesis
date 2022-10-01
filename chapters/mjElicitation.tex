@@ -67,7 +67,7 @@ Similarly to the winner function, given any $x \in \intvl{1,m}$, we can define a
 \commentOC{$F^S_x(P^S) = f^S_\mathit{maj}(P^S) \cup f^{S'}_\mathit{maj}(P^{S'}) …$.} \commentBN{Did you mean capital F? $F^S_x(P^S) = \Fmaj[S](P^S) \cup \Fmaj[S'](P^{S'}) \cup \dots \cup \Fmaj[S^{k-1}](P^{S^{k-1}})$ where $S'= S \setminus \Fmaj[S](P^{S})$, $S''= S \setminus \Fmaj[S](P^S) \setminus \Fmaj[S'](P^{S'})$ etc.}
 
 
-\subsection{Incomplete Knowledge}
+\subsection{Incomplete knowledge}
 In order to analyze the elicitation procedure used by LaPrimaire.org, we need to adapt the notation just described to incomplete profiles. 
 \commentOC{Defining the right, full notations from the start would be more gentle for the reader.} \commentBN{To discuss, I think at the end we decided to keep it like this?} Let $\Pbar$ be our knowledge about the profile $P$.
 The voters have full knowledge of their own judgments but we ignore them; our goal is to elicit them by questioning the voters starting from zero knowledge.
@@ -108,6 +108,7 @@ To summarize the elicitation process we want to investigate, starting with zero 
 	Because we are interested into investigating \acs{MJ}, we are going to use an alphabet with the same size of the one proposed by \citet{Balinski2011} which is composed of the following adjectives: To be Rejected, Inadequate, Mediocre, Average, Good, Very Good, Excellent. For brevity we are gonna rename those adjectives respectively from $\delta_1$, corresponding to To be Rejected, to $\delta_7$, corresponding to Excellent. Therefore, $\triangle=\{\delta_1,\delta_2, \delta_3,\delta_4,\delta_5,\delta_6,\delta_7\}$ 
 \end{remark}
 
+\section{Reasoning on incompleteness}
 Let us now consider the effects of incomplete knowledge on the selection of a winner. In particular, we want to prove that if we consider an incomplete profile and take the $k$ alternatives with the highest median grade, with any $k$ being between $1$ and $m-1$, it is possible to miss the winner of one of its completion. 
 This is important because in the elicitation process implemented by LaPrimaire.org, only the full grade vectors of the $k$ alternatives with the highest median grade are considered. Clearly, if the winning alternative in the complete profile is in this set $K \subset A$, then she will also be the winner of the incomplete profile. This is because the voters will be asked to provide a grade for all those $k$ alternatives, providing thus a restriction of the complete profile to only the alternatives in $K$, i.e. $P^K$. If a candidate is a winner for a complete profile, then she is also a winner for any of its restrictions that include her.
 Note that this is not true in case of multiple winners where ties that cannot be broken by tie-breaking procedures and for which arbitrary ordering is, therefore, necessary. In what follows we assume the absence of such ties.
@@ -184,4 +185,47 @@ We want to show that it is possible for the winning alternative of the complete 
 		Given a set $A$ of alternatives $m\geq 2$, a set of voters $N$ and a value $k\in \intvl{1,m-1}$, there exist a complete profile $P$ and an incomplete profile $\Pbar^k$ such that $P \in C(\Pbar^k)$ and $\Fmaj(P) \neq \Fmajbar(\Pbar^k)$.
 	\end{remark}
 
+	In the proofs of \Cref{th:notinK,th:uncompleteK} we showed the existence of an incomplete profile whose $k \in \intvl{1,m-1}$ best alternatives did not include the winner of one of its completions. To do so, we assumed that no questions were asked about an alternative $j$ winner in the complete profile $P$. Although the theoretical result remains, how likely is this to happen in practice?
+	
+	\begin{proposition}
+		\label{pr:probabilityJ}
+		Given a set $A$ of $m$ alternatives, a set $N$ of $n$ voters, a value $k\in\intvl{1,m-1}$ and considering an elicitation strategy in which each voter is asked to judge $k$ alternatives, the probability of never asking any voter about an alternative $j\in A$ is $(1-\frac{k}{m})^n$.
+	\end{proposition}
+	\begin{proof}
+		To prove this let us first consider $e_i$ the event of asking a voter $i\in N$ to grade the alternative $j$ in $k$ questions, and let us compute the probability $\mathcal{P}$ of this event to happen.
+		There are $\binom{m-1}{k-1}$ ways to select $k$ alternatives among $m$ that include the alternative $j$. This is because once we select the alternative $j$ we can still pick $k-1$ alternatives to ask the voter among the remaining $m-1$.
+		Moreover, there are $\binom{m}{k}$ ways to select $k$ alternatives among $m$ with no constraints. Thus, the probability of asking a voter to grade the alternative $j$ in $k$ questions is:
+		\[\mathcal{P}(e_i)= \frac{\binom{m-1}{k-1}}{\binom{m}{k}}=\frac{\frac{(m-1)!}{(k-1)!(m-1-k+1)!}}{\frac{m!}{k!(m-k)!}}=\frac{(m-1)!}{(k-1)!(m-k)!}\cdot\frac{k(k-1)!(m-k)!}{m(m-1)!}=\frac{k}{m}.\]
+		The probability that one voter is never questioned about an alternative is then:
+		\[\mathcal{P}(\overline{e_i})=1-\mathcal{P}(e_i)=1-\frac{k}{m}.\]
+		Because questionings of voters are independent events, we can express the probability that no one is asked to grade an alternative $j$ as the product of the individual probabilities. Denoting this event with $e_j$ we have that:
+		\[\mathcal{P}(e_j)=\mathcal{P}(e_i)^n=\left(1-\frac{k}{m}\right)^n.\]
+	\end{proof}
+	This value is very low to occur in real examples, if, for example, we consider $k=3$, $n=m=10$ the probability that none is asked to grade the winner of the complete profile is $0.7^{10}$ (which approximated is $0.0282\%$).
+	However, this is also very restrictive. For an alternative $j$, winner of the complete profile, not to be the winner of the incomplete profile it must be that its median is lower than the one of other $k$ alternatives. 
+	We do not need the vector of the alternative considered to be empty, just to be misrepresented enough to have a median lower than $k$ others.
 
+	\begin{example}
+		%TODO 
+		Consider the following profile $P$:
+		\begin{center}
+			$
+			\begin{array}{ccccccc}
+					& i_1 & \dots & i_{\floor{\frac{n}{2}} + 1} & i_{\floor{\frac{n}{2}} + 2} & \dots & i_n \\
+				j_1 & \delta_7 & \dots &\delta_7 & \delta_5 & \dots & \delta_5 \\
+				j_2 & \delta_6 & \dots &\delta_6 & \delta_6 & \dots & \delta_6 \\
+				. & \delta_6 & \dots &\delta_6 & \delta_6 & \dots & \delta_6 \\
+				j_m & \delta_6 & \dots &\delta_6 & \delta_6 & \dots & \delta_6 \\
+			\end{array} \quad.
+			$
+		\end{center}	
+		The probability that $\fmaj(j_1)=\delta_5$ is that
+		\[ \mathcal{P}= \sum_{i=0}^{q/2} \frac{\binom{\frac{n}{2}+1}{ \frac{q}{2}-i}\cdot\binom{\frac{n}{2}-1}{\frac{q}{2}+i}}{\binom{n}{q}} \]
+		On average $q=n\cdot\frac{k}{m}$, and experimentally $\mathcal{P}\approx \frac{1}{2}$
+	\end{example}
+
+
+
+
+\section{Experimental results}
+	
