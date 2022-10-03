@@ -1,7 +1,7 @@
 %!TeX root= ../thesis.tex
 
 \begin{abstract}
-\ac{MJ} is a voting system where voters assign grades to candidates using an ordinal scale. The winner is the candidate with the highest majority-grade \textemdash which is the median of the grades received. This method has attracted increasing attention of french associations and political parties which have started to use \ac{MJ} for internal decisions or local elections. In particular LaPrimaire.org is a french association that uses \ac{MJ} to choose its candidate for the french presidential election. The vote is conducted in two rounds: in the first one the voters judge five candidates randomly picked; the five candidates with the highest medians pass at the second round as finalists and the voters are asked to judge them. Is the random selection of candidates a good elicitation technique? In this paper we explore the consequences of profile incompleteness and we question the elicitation of voters preferences.
+\ac{MJ} is a voting system where voters assign grades to candidates using an ordinal scale. The winner is the candidate with the highest majority-grade \textemdash which is the median of the grades received. This method has attracted increasing attention of french associations and political parties which have started to use \ac{MJ} for internal decisions or local elections. In particular LaPrimaire.org is a french association that uses \ac{MJ} to choose its candidate for the french presidential election. The vote is conducted in two rounds: in the first one the voters judge five candidates randomly picked; the five candidates with the highest medians pass at the second round as finalists and the voters are asked to judge them. Is the random selection of candidates a good elicitation technique? In this paper we explore the consequences of profile incompleteness and prove that this method can fail to elect the winning candidate of the complete profile. Furthermore, we perform experiments on randomly generated profiles and profiles following the grade distribution of a real voting scenario. We find that the probability of not selecting the winner of the full profile greatly decreases as the number of voters increases and we investigate how much of the grade vector we should know in order for this probability to be low. 
 \end{abstract}
 
 \section{Introduction}
@@ -63,13 +63,12 @@ Moreover, when we consider the complete profile (when $S=A$) we will write $\fma
 Given any $S\subseteq A$, the winner function $\Fmaj[S]:\triangle^{S \times N} \rightarrow A$ %$F^S_{maj}:\triangle^{S \times N} \rightarrow 2^A \setminus \emptyset$
 is a function that selects the alternative with the highest median grade as winner. We can define it as $\Fmaj[S](P^S) = \argmax_{j\in S}\rho(P^S_j)_{\floor{\frac{n}{2}}+ 1}$ assuming it is a singleton. \commentBN{I think it makes more sense to define it with $\fmaj$: $\Fmaj[S](P^S) = \argmax_{j\in S}\fmaj(P^S_j)$} For brevity, we will write $\Fmaj$ when considering $S=A$. Consider the case when it is not a singleton, this means that two or more alternatives are associated with the same highest median grade $h=\max_{j\in S}\rho(P^S_j)_{\floor{\frac{n}{2}} + 1}$ \commentBN{$h=\max_{j\in S}\fmaj(P^S_j)$}. In this case ties are broken by removing one $h$ grade from the vectors of grades of each tied alternative, recomputing the new median grade and repeating the process until one unique winner is found or there are no more grades to remove. When $n$ is odd, this is equivalent to take the next element after the median, i.e. the one at index $(\floor{\frac{n}{2}} + 1) +1$. If there is still a tie we then look at the previous element before the median, i.e. the one at index $(\floor{\frac{n}{2}} + 1) -1$, and keep alternating until the tie is broken or there are no more elements in the vector. When $n$ is even the element before the median, i.e. the one at index $\floor{\frac{n}{2}}$, is taken first and, if there is still a tie, then the element after the median is considered, i.e. the one at index $\floor{\frac{n}{2}} + 2$, and so on. If after applying the mechanism there are still ties we break them using an arbitrary ordering defined on all alternatives, e.g. lexicographical order.
 
-Similarly to the winner function, given any $x \in \intvl{1,m}$, we can define a more general \emph{selection function} $F^S_x:\triangle^{S\times N} \rightarrow 2^A \setminus \emptyset$ that selects exactly the $x$ alternatives with the $x$ highest median grades.
-\commentOC{$F^S_x(P^S) = f^S_\mathit{maj}(P^S) \cup f^{S'}_\mathit{maj}(P^{S'}) …$.} \commentBN{Did you mean capital F? $F^S_x(P^S) = \Fmaj[S](P^S) \cup \Fmaj[S'](P^{S'}) \cup \dots \cup \Fmaj[S^{k-1}](P^{S^{k-1}})$ where $S'= S \setminus \Fmaj[S](P^{S})$, $S''= S \setminus \Fmaj[S](P^S) \setminus \Fmaj[S'](P^{S'})$ etc.}
+Similarly to the winner function, given any $x \in \intvl{1,m}$, we can define a more general \emph{selection function} $F^S_x:\triangle^{S\times N} \rightarrow 2^A \setminus \emptyset$ that selects exactly the $x$ alternatives with the $x$ highest median grades. Thus, $F^S_x(P^S) = \Fmaj[S](P^S) \cup \Fmaj[S'](P^{S'}) \cup \dots \cup \Fmaj[S^{k-1}](P^{S^{k-1}})$ where $S'= S \setminus \Fmaj[S](P^{S})$, $S''= S \setminus \Fmaj[S](P^S) \setminus \Fmaj[S'](P^{S'})$ etc.
 
 
 \subsection{Incomplete knowledge}
 In order to analyze the elicitation procedure used by LaPrimaire.org, we need to adapt the notation just described to incomplete profiles. 
-\commentOC{Defining the right, full notations from the start would be more gentle for the reader.} \commentBN{To discuss, I think at the end we decided to keep it like this?} Let $\Pbar$ be our knowledge about the profile $P$.
+\commentOC{Defining the right, full notations from the start would be more gentle for the reader.} \commentBN{To discuss, I think it is better like this to clearly separate the real definition of MJ with my interpretation of incompleteness} Let $\Pbar$ be our knowledge about the profile $P$.
 The voters have full knowledge of their own judgments but we ignore them; our goal is to elicit them by questioning the voters starting from zero knowledge.
 We introduce an additional grade $\dbar$, and, given a language $\Delta$, $\dbar< \delta, \forall \delta \in \Delta$.
 %\commentBN{I think we should avoid to say this but rather add in $\bar{F}$ that the $\dbar$ are excluded.}
@@ -242,10 +241,209 @@ We want to show that it is possible for the winning alternative of the complete 
 
 
 \section{Experimental results}
+	
+	In our experiments we assume the existence of an Oracle who knows the complete profile, to whom we ask questions to elicit voters preferences. Specifically, we want to investigate what is the probability that starting from zero knowledge and asking $k$ questions to each voter the winner of the complete profile is not within the $k$ alternatives with the best medians of the incomplete profile.
+	One of the first observations, also from the previous examples, is that given a number $n$ of voters, this probability is highly dependent on how well each grade vector is represented.
+	Because the average size of each vector is equal to $q=n\cdot\frac{k}{m}$, we are particularly interested in how the probability of \textit{"missing the winner"} varies as a function of $k/m$. This, in fact, can be interpreted as the percentage of representation of the whole grade vector of $n$ elements. By knowing this relation we therefore know the percentage of each vector, on average, that must be known in order to have a given probability of missing the winner. From this, we can infer important information, for example how many questions, $k$, to ask each voter so that the probability of missing the winner is less than a given threshold.
+	Another measure we are interested in follows somewhat the opposite reasoning, given a number of questions $k$ that I want to ask each voter, which can be fixed for reasons of cognitive and computational complexity, how large the electorate $n$ must be for the vectors to be well represented?
+	
+	In what follows we consider two different scenarios. In the first we assume that each grade vector is randomly selected from a uniform distribution, somewhat like in the \textit{Impartial Culture} model used to evaluate ranking methods. In the second we consider that the grade vectors associated with the alternatives are distributed following the results of a real survey carried out during the French presidential election in 2022. The code to run the experiments is available at \url{	https://github.com/xoxor/elicitationMJ}.
 
 
-
-
-
-
+	\paragraph{Profile uniformly distributed}
+	For the first experiment we consider a profile where each voter has equal probability of assigning a grade $\delta \in \Delta$ to each alternative. Because we observed that with a low number of voters the probability of missing the winner $\mathcal{P}$ is very high, and with an high number of voters it is very low, we arbitrarily take $n=100$ and $m=50$. Moreover, in order to avoid the use of tie breaking mechanisms, that can be non resolute in case of ties that cannot be broken, we assume a profile $P$ where there is an alternative $j_1$ whose median is always $\delta_7$ and there are no other alternatives with the same median.
+	Given such a profile $P$, we ask $k$ questions to each voter for all $k\in \{1,m/2\}$. We consider this interval because we observed that already with $k=m/2$ the probability $\mathcal{P}$ is $0$. After the elicitation procedure is complete and the incomplete grade vectors are found, we compute the median for each of those vectors. The $k$ alternatives with the highest medians form the set $K$ and we check if $j_1$ is in this set. If yes, then we know it will be the winner in the next phase when the complete preferences are asked to each voters. Otherwise, $j_1$ will not be the winner and we count this incomplete profile $\Pbar$ for our $\mathcal{P}$. In fact, given the profile $P$ we repeat this operation $1000$ times, and $\mathcal{P}$ will be the number of profiles $\Pbar$ for which $j_1$ is not a winner, over the total number of incomplete profiles considered which is $1000$. 
+	Moreover, we repeat this operations $1000$ times. Thus, we generate $1000$ complete profiles $P$ and for each we consider $1000$ incomplete profiles. At the end we obtain $1000$ probabilities for which we consider average and standard deviation.
+	
+	\Cref{tab:MJelicitationIC} shows the average probability for each value $k$ with the standard deviation over the $1000$ runs. We varied $k$ from $1$ to $25$ but omitted the results after $k=13$ because they are too small to be relevant. The complete results can be found at \url{https://github.com/xoxor/elicitationMJ} and they are displayed on \Cref{fig:MJelicitationIC}. 
+	In fact, if we take the first line of \Cref{tab:MJelicitationIC}, we have that when we ask $k=1$ question to each voter we have $64\%$ of probability not to find $j_1$ in the set $K$. This happens when the incomplete vectors are, on average, $k/m=1/50$ ($2\%$) of the complete vector. If we take $k=5$, we know on average $1/10$ of each grade vector, and the probability drops at $0.19\%$. \Cref{fig:MJelicitationIC} shows this correlation.
+	
+	\begin{table}
+		\centering
+		\captionsetup{type=table}
+		\caption{Average probability of missing the winner $\mathcal{P}$, given $n=100, m=50$ considering $1000$ complete profiles uniformly distributed and $1000$ incomplete profiles for each of them.}
+		\label{tab:MJelicitationIC}
+		\begin{tabular}{S[table-figures-integer=2, table-figures-decimal=0]S[table-number-alignment = right, table-figures-decimal=2]@{ \quad ± \quad }S[table-number-alignment = left]}
+			\toprule
+			{$k$} & {avg $\mathcal{P}$} & {sd} \\
+			\midrule		
+			1	&	0.638898	&	\num{2.43d-04}	\\
+			2	&	0.516191	&	\num{7.75d-04}	\\
+			3	&	0.392228	&	\num{2.40d-03}	\\
+			4	&	0.284388	&	\num{3.03d-03}	\\
+			5	&	0.190178	&	\num{3.10d-03}	\\
+			6	&	0.139743	&	\num{2.77d-03}	\\
+			7	&	0.111304	&	\num{2.60d-03}	\\
+			8	&	0.087645	&	\num{2.21d-03}	\\
+			9	&	0.064264	&	\num{1.60d-03}	\\
+			10	&	0.045563	&	\num{1.01d-03}	\\
+			11	&	0.029234	&	\num{5.85d-04}	\\
+			12	&	0.016319	&	\num{2.33d-04}	\\
+			13	&	\num{8.68d-03}	&	\num{1.01d-04}	\\
+%			14	&	\num{4.25d-03}	&	\num{4.30d-05}	\\
+%			15	&	\num{2.08d-03}	&	\num{1.30d-05}	\\
+%			16	&	\num{1.19d-03}	&	\num{6.93d-06}	\\
+%			17	&	\num{5.98d-04}	&	\num{3.05d-06}	\\
+%			18	&	\num{4.30d-04}	&	\num{1.55d-06}	\\
+%			19	&	\num{2.70d-04}	&	\num{9.81d-07}	\\
+%			20	&	\num{1.27d-04}	&	\num{3.01d-07}	\\
+%			21	&	\num{1.15d-04}	&	\num{3.52d-07}	\\
+%			22	&	\num{5.50d-05}	&	\num{1.14d-07}	\\
+%			23	&	\num{4.20d-05}	&	\num{1.50d-07}	\\
+%			24	&	\num{2.30d-05}	&	\num{5.65d-08}	\\
+%			25	&	\num{1.20d-05}	&	\num{1.39d-08}	\\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	
+	\begin{figure}
+		\centering
+		\caption{Average probability of missing the winner under uniform distribution of preferences, given $n=100, m=50$ for $1000$ batches of $1000$ runs for $n=100,m=50$ and $k\in \intvl{1,25}$.}
+		\label{fig:MJelicitationIC}
+		\begin{tikzpicture}
+			\begin{axis}[
+			%	y=8,
+				xlabel=$k/m$,
+				ylabel=Avg. Prob. of Miss.,
+				table/col sep=comma,
+			%	ytick={0,2,4,6,8,10},
+			%	xtick distance=10,
+			%	ytick distance=2,
+			%	xtick pos=left,
+				ymajorgrids=true,
+				ytick style={draw=none},
+				ymin=0,
+				ymax=0.64,
+				xmin=0.02,
+				xmax=0.5,
+			%	yticklabels={0,2,4,6,8,10},
+			%	legend style={font=\scriptsize}
+				]
+				
+				\addplot[thick, red] table [x=kom, y=ProbOfMiss]{data/table.dat};
+								
+			\end{axis}
+		\end{tikzpicture}
+	\end{figure}
+	
+	\paragraph{Profile real scenario}
+	In the next experiment we want to investigate a different problem. Given a number of alternatives $m$, we assume that we want to ask a limited number of questions $k$ because asking questions is costly. How large the electorate $n$ must be for an incomplete grade vector of $n\cdot k/m$ elements to be sufficiently representative of a complete vector?
+	Because randomly constructed profiles are often seen as unrepresentative of reality we decided to construct the grade vectors for each alternative following the grade distribution obtained in a real experiment conducted during the 2022 French presidential election.
+	Given $12$ political candidates, voters were asked to give a grade from \textit{To be rejected}, corresponding to our $\delta_1$, to \textit{Excellent}, corresponding to $\delta_7$, to each of the alternatives. The winner is determined using \ac{MJ}.
+	
+	The same experiment was carried out independently by the association \textit{Mieux Voter} and the experimental study \textit{Un Autre Vote} (UAV). The results, that can be found respectively at \citet{MieuxVoterElection2022} and \citet{UAVElection2022}, are extremely similar. We chose to use the distribution obtained from the candidates in the UAV experiment for no particular reason. The code can be easily adapted to the results obtained from MieuxVoter.
+	Note that in the UAV study, some voters were asked to judge the alternatives on a $5-$grade scale and others to provide judgments on a $7-$grade scale. We consider the profile obtained in the second case.
+	
+	\begin{figure}
+		\label{fig:distributionUAV}
+		\caption{Result obtained from UAV experiment by asking $n=1147$ voters to judge $m=12$ alternatives.}
+		\includegraphics[scale=0.35]{data/profileUAV}
+	\end{figure}
+	
+	The grade vector associated to the candidate Jean-Luc Mélenchon is composed for: $29\%$ of Excellent grades, $22\%$ of Very good, $16\%$ of Good, $11\%$ of Average, $7\%$ of Mediocre, $5\%$ of Inadequate and for $9\%$ of To be rejected.
+	Because it is the winner of the complete profile this alternative will be our $j_0$ and its complete grade vector will be formed following the same proportions: $29\%$ of $\delta_7$, $22\%$ of $\delta_6$, $16\%$ of $\delta_5$, $11\%$ of $\delta_4$, $7\%$ of $\delta_3$, $5\%$ of $\delta_2$ and for $9\%$ of $\delta_1$.
+	We follow the same reasoning for the other grade vectors in order to have the complete profile.
+	
+	Given $m=12$ alternatives we fix a value of $n$ and see what is the probability that $j_0$ is not in $K$ for $k$ from $1$ to $5$. Using the same reasoning as in the previous experiment we repeat this a total of $1,000,000$ times and we average over the probability. After that we increase $n$ and repeat the same experiment. We note that the probability decreases dramatically as $n$ increases so, although we varied $n$ from $10$ to $1500$, in \Cref{fig:MJelicitationUAV} we show the results only for a limited number of $n$ values.
+	\Cref{tab:MJelicitationUAV} shows the data for the same values of $n$, the complete dataset can be found at \url{https://github.com/xoxor/elicitationMJ}. We see that when we have $n=50$ voters by asking $k=3$ questions per voter already we have an almost zero probability of not electing $j_0$. This result is obtained by asking $2$ questions per voter when $n=100$ and $1$ question when $n=500$.
+	
+	We conclude that in small profiles with few voters this method can pose a serious risk of not electing the "correct" alternative unless many questions are asked. This risk, however, is almost absent for elections in which a large number of voters are involved.
+	
+	\begin{figure}
+		\centering
+		\caption{Average probability of missing the winner using a real case distribution of preferences, given $m=12$ for $n\in \{10,25,50,100,250,500\}$ and $k\in \intvl{1,5}$.}
+		\label{fig:MJelicitationUAV}
+		\begin{tikzpicture}[scale=1.2]
+			\pgfplotsset{
+				every axis legend/.append style={
+					at={(0.5,1.1)},
+					anchor=south
+				},
+			}
+			\begin{axis}[
+				%	y=8,
+				xlabel=$k$,
+				ylabel=Avg. Prob. of Miss.,
+				table/col sep=comma,
+				legend columns=3,
+				%	ytick={0,2,4,6,8,10},
+				%	xtick distance=10,
+				%	ytick distance=2,
+				%	xtick pos=left,
+				ymajorgrids=true,
+				ytick style={draw=none},
+				ymin=0,
+				ymax=0.8,
+				xmin=1,
+				xmax=5,
+				yticklabels={0,2,4,6,8,10},
+					legend style={font=\scriptsize}
+				]
+				
+				\addlegendimage{mark=halfsquare right*,brown,mark size=2}
+				\addlegendimage{mark=diamond*,red,mark size=2}
+				\addlegendimage{mark=pentagon*,cyan,mark size=2}
+				\addlegendimage{mark=halfcircle*,violet,mark size=2}
+				\addlegendimage{mark=*,pink,mark size=2}
+				\addlegendimage{mark=triangle*,green,mark size=2}
+				\addlegendimage{mark=halfsquare left*,blue,mark size=2}
+				\addlegendimage{mark=square*,teal,mark size=2}
+				\addlegendimage{mark=halfsquare*,magenta,mark size=2}
+				
+				
+				\addplot[thick, mark=halfsquare right*, mark size = {2}, mark indices = {3}, brown] table [x=k, y=p10]{data/electiontableFig.dat};
+				\addlegendentry{n=10}
+				\addplot[thick, mark=diamond*, mark size = {2}, mark indices = {3}, red] table [x=k, y=p25]{data/electiontableFig.dat};
+				\addlegendentry{n=25}
+				\addplot[thick, mark=pentagon*, mark size = {2}, mark indices = {2}, cyan] table [x=k, y=p50]{data/electiontableFig.dat};
+				\addlegendentry{n=50}
+				\addplot[thick, mark=halfcircle*, mark size = {2}, mark indices = {2}, violet] table [x=k, y=p100]{data/electiontableFig.dat};
+				\addlegendentry{n=100}
+				\addplot[thick, mark=*, mark size = {2}, mark indices = {1}, pink] table [x=k, y=p250]{data/electiontableFig.dat};
+				\addlegendentry{n=250}
+				\addplot[thick, mark=triangle*, mark size = {2}, mark indices = {1}, green] table [x=k, y=p500]{data/electiontableFig.dat};
+				\addlegendentry{n=500}
+%				\addplot[thick, mark=halfsquare left*, mark size = {2}, mark indices = {1}, blue] table [x=k, y=p1000]{data/electiontableFig.dat};
+%				\addlegendentry{n=1000}
+%				\addplot[thick, mark=square*, mark size = {2}, mark indices = {1}, teal] table [x=k, y=p1500]{data/electiontableFig.dat};
+%				\addlegendentry{n=1500}
+				
+			\end{axis}
+		\end{tikzpicture}
+	\end{figure}
+	
+	
+	\begin{table}
+		\centering
+		\captionsetup{type=table}
+		\caption{Average probability of missing the winner using a real case distribution of preferences, given $m=12$ for different values of $k$ and $n$.}
+		\label{tab:MJelicitationUAV}
+		\begin{tabular}{S[table-figures-integer=1, table-figures-decimal=0]S[table-figures-decimal=2]S[table-figures-decimal=2]S[table-figures-decimal=2]S[table-figures-decimal=2]S[table-figures-decimal=2]S[table-figures-decimal=2]}
+			\toprule
+			{$k$} & {avg $\mathcal{P}_{n=10}$} & {avg $\mathcal{P}_{n=25}$}& {avg $\mathcal{P}_{n=50}$}& {avg $\mathcal{P}_{n=100}$}& {avg $\mathcal{P}_{n=250}$} & {avg $\mathcal{P}_{n=500}$} \\
+			\midrule		
+			1	&	0.718	&	0.492	&	0.337	&	0.159	&	0.031	&	0.005 \\
+			2	&	0.52	&	0.205	&	0.081	&	0.01	&	0.00	&	0.00  \\
+			3	&	0.339	&	0.106	&	0.007	&	0.00	&	0.00	&	0.00  \\
+			4	&	0.153	&	0.035	&	0.001	&	0.00	&	0.00	&	0.00  \\
+			5	&	0.065	&	0.008	&	0.00	&	0.00	&	0.00	&	0.00  \\	
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	\section{Conclusions}
+		In this paper we analyzed a procedure proposed by the association \textit{Mieux Voter} and used in a real life application by \textit{LaPrimaire.org} for eliciting judgments of a set of voters over a set of alternatives.
+		The procedure consists of randomly asking each voter to judge $k$ candidates on the $m$ available. The $k$ alternatives with the best medians are then presented to all voters in a second round of voting, and the best alternative is selected by \ac{MJ} as the winner.
+		We have proven that given a complete profile it is possible to find an incomplete profile (such that a possible completion is equal to the considered profile) with a different winner from the complete profile.
+		We also showed that the probability of this happening depends on the profile considered. 
+		
+		Moreover, we have performed experiments on profiles in which each grade vector has a randomly generated distribution of grade. Fixing the number of voters, we analyzed how much of the grade vector we must know in order for the probability missing the winner to be low.
+		We have also considered a profile created from the grade distribution of a real voting scenario. We have found that the probability of not selecting the winner of the complete profile greatly decreases as the number of voters increases, making this method suitable for elections with large numbers of voters but less appropriate for small profiles.
+		
+		Future work on this topic could investigate the manipulability of this elicitation process. Especially on the side of the "analyst" who is in charge of questioning voters and how she can potentially manipulate the outcome by asking particular questions to specific groups of voters. For example, if she knows that voters in a given electoral district tend to vote predominantly for a given party she may decide never to ask those voters about that party's candidate (or vice-versa depending on the party she favors). 
+		
+		Another step might involve the explainability of this process to voters. In fact, voters may not understand how judging only one person gives a good approximation of the result that would be obtained by asking for the full profile. Also, they may not appreciate judging a random candidate and not their favorite.
+		
+		The code to reproduce the experiments in this article and the files with the reported data are available at \url{https://github.com/xoxor/elicitationMJ}.
 	
