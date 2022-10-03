@@ -198,15 +198,21 @@ We want to show that it is possible for the winning alternative of the complete 
 		\[\mathcal{P}(e_i)= \frac{\binom{m-1}{k-1}}{\binom{m}{k}}=\frac{\frac{(m-1)!}{(k-1)!(m-1-k+1)!}}{\frac{m!}{k!(m-k)!}}=\frac{(m-1)!}{(k-1)!(m-k)!}\cdot\frac{k(k-1)!(m-k)!}{m(m-1)!}=\frac{k}{m}.\]
 		The probability that one voter is never questioned about an alternative is then:
 		\[\mathcal{P}(\overline{e_i})=1-\mathcal{P}(e_i)=1-\frac{k}{m}.\]
-		Because questionings of voters are independent events, we can express the probability that no one is asked to grade an alternative $j$ as the product of the individual probabilities. Denoting this event with $e_j$ we have that:
+		Because questionings different voters are independent events, we can express the probability that no voter is asked to grade an alternative $j$ as the product of the individual probabilities. Denoting this event with $e_j$ we have that:
 		\[\mathcal{P}(e_j)=\mathcal{P}(e_i)^n=\left(1-\frac{k}{m}\right)^n.\]
 	\end{proof}
-	This value is very low to occur in real examples, if, for example, we consider $k=3$, $n=m=10$ the probability that none is asked to grade the winner of the complete profile is $0.7^{10}$ (which approximated is $0.0282\%$).
-	However, this is also very restrictive. For an alternative $j$, winner of the complete profile, not to be the winner of the incomplete profile it must be that its median is lower than the one of other $k$ alternatives. 
-	We do not need the vector of the alternative considered to be empty, just to be misrepresented enough to have a median lower than $k$ others.
 
-	\begin{example}
-		%TODO 
+	\begin{remark}
+		\label{rm:sizeGV}
+		After asking each of the $n$ voters to grade $k\in \intvl{1,m-1}$ of the $m$ alternatives, the average size of the grade vectors is $q = n \cdot \frac{k}{m}$.
+	\end{remark}
+	This observation comes from the proof of \Cref{pr:probabilityJ}. Given an alternative $j\in A$ and a voter $i\in N$ the probability that $i$ is asked about $j$, thus that $\Pbar_{j}(i)$ is defined, is $\frac{k}{m}$. The probability that the whole vector $\Pbar_{j}$ is composed of defined grades is then $n \cdot \frac{k}{m}$. This gives us an approximation on the number of elements of the grade vector, because for each of the $n$ elements, we have $\frac{k}{m}$ probability that the element is defined.
+	
+	The value found in \Cref{pr:probabilityJ} is very low to occur in real examples, if, for example, we consider $k=3$, $n=m=10$ the probability that none is asked to grade the winner of the complete profile is $0.7^{10}$ (which approximated is $0.0282\%$).
+	However, this is also very restrictive. For an alternative $j$, winner of the complete profile, not to be the winner of the incomplete profile it suffices for her median to be smaller than the one of other $k$ alternatives. 
+	We do not need the vector of the alternative considered to be empty, just to be misrepresented enough to have a median lower than $k$ others.
+	
+	\begin{example} \normalfont
 		Consider the following profile $P$:
 		\begin{center}
 			$
@@ -219,13 +225,27 @@ We want to show that it is possible for the winning alternative of the complete 
 			\end{array} \quad.
 			$
 		\end{center}	
-		The probability that $\fmaj(j_1)=\delta_5$ is that
+		Exactly $\floor{\frac{n}{2}} + 1$ voters grade the alternative $j_1$ with the highest grade $\delta_7$ and the rest of the voters grade her $\delta_5$. All voters grade any other alternative $\delta_6$.
+		The median grade of $j_1$ is $\fmaj(P_{j_1})=\delta_7$ and the one of all the other alternatives is $\fmaj(P_x)=\delta_6, \forall x \in A \setminus \{j_1\}$. Thus, $j_1$ is the winner of the profile $P$.
+		For $j_1$ not to be the winner of any $\Pbar$ such that $P \in C(\Pbar)$, it must be that $\fmajbar(j_1)=\delta_5$. This happens when the incomplete grade vector of $j_1$ has a number of $\delta_5$ grades more or equal to $\delta_7$ grades. 
+		Let us denote with $q=|\Pbar_{j_1}|$ the size of the incomplete grade vector of $j_1$.
+		Assume, for the sake of simplicity, that $n$ and $q$ are both even, although this reasoning can easily be adapted in case they are odd.
+		An incomplete grade vector whose median is $\delta_5$, could be formed by $q/2$ $\delta_7$ grades and $q/2$ $\delta_5$ grades. To compute the probability of this vector to be formed, we must consider that there are $\binom{\frac{n}{2}+1}{ \frac{q}{2}}$ ways of taking $q/2$ of the $\frac{n}{2}+1$ $\delta_7$ grades of the complete vector. Moreover, there are $\binom{\frac{n}{2}-1}{ \frac{q}{2}}$ ways of taking $q/2$ of the $\frac{n}{2}-1$ $\delta_5$ grades. If we consider no restrictions there are $\binom{n}{q}$ ways of taking a vector of $q$ grades out of a vector of $n$ elements.
+		However, this is not the only vector whose median is $\delta_5$. In fact, we could have $q/2-1$ $\delta_7$ grades and $q/2+1$ $\delta_5$ grades. If we iterate this reasoning on all the possible division of $q$ we have that:
+	
 		\[ \mathcal{P}= \sum_{i=0}^{q/2} \frac{\binom{\frac{n}{2}+1}{ \frac{q}{2}-i}\cdot\binom{\frac{n}{2}-1}{\frac{q}{2}+i}}{\binom{n}{q}} \]
-		On average $q=n\cdot\frac{k}{m}$, and experimentally $\mathcal{P}\approx \frac{1}{2}$
+		
+		Because we know from \Cref{rm:sizeGV} that the average size of any grade vector is $q=n\cdot\frac{k}{m}$, we experimentally tested this probability with different values of $n,m$ and $k$. Except when $k$ is very close to $m$, and then we have almost the whole vector, we have that this probability is $\mathcal{P}\approx \frac{1}{2}$.
 	\end{example}
 
-
+	Again, the profile considered here is rather peculiar and not of practical use. In the next section we investigate experimentally different profile distributions.
 
 
 \section{Experimental results}
+
+
+
+
+
+
 	
