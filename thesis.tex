@@ -18,12 +18,8 @@
 \institute{l'Université Paris-Dauphine}
 \doctoralschool{École Doctorale SDOSE}{543}
 \specialty{Informatique}
-\date{jj mois aaaa}
+\date{09 Décembre 2022}
 
-%% cotutelle
-% \entitle{Thesis Subject in English}
-% \otherinstitute{CEA Saclay}
-% \logootherinstitute{logo-institute}
 
 %\jurymember{7}{Prénom NOM}{Titre, établissement}{Président}
 \jurymember{1}{Olivier CAILLOUX}{MdC, Université Paris-Dauphine}{Examinateur}
@@ -32,8 +28,7 @@
 \jurymember{4}{İpek ÖZKAL SANVER}{Professeure, İstanbul Bilgi University}{Rapporteuse}
 \jurymember{5}{Remzi SANVER}{Directeur de recherche, CNRS Université Paris-Dauphine\vspace{0.3cm}}{Directeur de thèse}
 \jurymember{6}{Paolo VIAPPIANI}{Chargé de Recherche, Université Paris-Dauphine\vspace{0.3cm}}{Examinateur}
-% \jurymember{9}{Prénom NOM}{Titre, établissement}{Invité}
-% \jurymember{10}{Prénom NOM}{Titre, établissement}{Invité}
+
 
 %moins de 1000 caractères
 %This is 1415
@@ -87,39 +82,37 @@
 			
 	\chapter{Preliminaries and Notation}
 		\label{ch:preliminaries}
-		%\index{Social Choice!SCR}
 		\input{chapters/preliminaries.tex}
-%		\paragraph{Different Aggregation Different Outcome an example:}
-%		\input{chapters/movies.tex}
 	
 	\chapter{History and Literature Review}
+		\label{ch:literature}
 		\input{chapters/literatureCMP}
 		\input{chapters/literatureMJ}
 		\input{chapters/literatureMNMX}
-
 		
 	
 \part{Contributions}
-	\label{part:info}
+	\label{part:contributions}
+
 	\chapter[Simultaneous Elicitation of PSR and Agent Preferences]{Simultaneous Elicitation of Scoring Rule and Agent Preferences for Robust Winner Determination}
 		\chaptermark{Simultaneous Elicitation of PSR and Agent Preferences}
 		\label{ch:minimax}
 		\input{chapters/minimax.tex}
 	\chapter{Java Package to support Elicitation in Social Choice}
+		\label{ch:uml}
 		\input{chapters/implementation.tex}
 	\chapter{Majority Judgment}
 		\label{ch:MJ}
 		\input{chapters/mjElicitation.tex}
 
-%\part{Compromise}
-\chapter{Compromising as an equal loss principle}
-\label{ch:compromise}
-	\input{chapters/compromise.tex}
+	\chapter{Compromising as an equal loss principle}
+	\label{ch:compromise}
+		\input{chapters/compromise.tex}
 
 \part{Conclusion}
 	\chapter{Conclusion}
-		\section{Contribution}
-		\section{Future works}
+		\label{ch:conclusion}
+		\input{chapters/conclusion.tex}
 
 
 
