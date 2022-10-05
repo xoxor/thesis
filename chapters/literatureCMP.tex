@@ -1,5 +1,12 @@
 %!TeX root= ../thesis.tex
 
+In this chapter we will analyze in detail the topics covered in this manuscript. We will describe the different definitions and approaches to the issues considered that have been proposed in the literature. 
+In the first part of this chapter, \Cref{sec:litCMP}, we will focus on the meaning of compromise. All voting rules can be considered a compromise between voters preferences, but some more than others. We will consider several notions of compromise and analyze different aggregation methods that satisfy them. 
+In the second part, \Cref{sec:litMJ}, we will focus on a specific rule that has been considered, by some authors, a compromising rule: Majority Judgment. We will describe its introduction, its uses in real life voting procedures and also its criticisms.
+In the final part, \Cref{sec:litMNMX}, highlighting how some assumptions made so far, notably the complete knowledge of preferences, are too stringent, we will analyze the literature on preference elicitation. We will consider different fields and different approaches within the same field.
+In all sections we will present the definitions introduced in our contributions and position them in the existing literature. We will show how our approach differ from existing works and lay the foundation for the content of the next chapters.
+
+
 \section{Voting as a compromise}
 \label{sec:litCMP}
 
@@ -19,7 +26,7 @@ Moreover, Aristotle is the first to associate the concept of fairness with that 
 \end{displayquote}
 %
 Throughout history, however, compromise has been intended in its Roman meaning: the resolution of a dispute by a third party whose judgment individuals agree to abide by.
-The use of arbitration as a mean of compromise continued until the end of the Middle Ages, only to be overshadowed by the advent of absolute monarchies, like the one of Louis XIV, that tended to centralize all powers in a single strong figure.\citep{Zappala2018}
+The use of arbitration as a mean of compromise continued until the end of the Middle Ages, only to be overshadowed by the advent of absolute monarchies, like the one of Louis XIV, that tended to centralize all powers in a single strong figure\citep{Zappala2018}.
 However, this did not last long. In France, for example, the first constitution approved after the revolution, in 1791, defended the right of arbitration:
 %
 \begin{displayquote}
@@ -28,9 +35,10 @@ However, this did not last long. In France, for example, the first constitution 
 %
 
 It would seem at this point that we are straying a little from the topics treated in this thesis. However, this excursus on how the notion of compromise has been understood for centuries can give us insights on how compromise has been approached in the history of social choice theory. In fact, as \Cref{ex:CompromiseGEQ3,ex:CompromiseEQ2} in \Cref{sec:BK} show, the best-known voting rules grouped under the name of compromise rules start with the intention of seeking a compromise among voters, however they do not ensure that the outcome of the procedure represents a mutual concession.
+
 Consider an example used by \cite{Luban1985}. Rich and Poor are offered $1000$ dollars which they can obtain provided they reach a compromise on how to divide this sum. 
 Rich who knows to have leverage over Poor offers him $100$ dollars threatening to walk from the deal if he does not accept. Poor, who is in desperate need of money, accepts.
-Luban points out that this is considered a compromise because $1)$ it produces an agreement $2)$ the criterion of "equal satisfaction" is met if we imagine that $100$ dollars give Poor the same level of satisfaction that $900$ dollars give Rich. Most of us, however, would not consider this outcome as a compromise but, instead, as an outrageous bullying. 
+Luban points out that this is considered a compromise because $1)$ it produces an agreement $2)$ the criterion of "equal satisfaction" is met if we imagine that $100$ dollars give Poor the same level of satisfaction that $900$ dollars give Rich. Most of us, however, would consider this outcome as a ridiculous extortion rather than a compromise. 
 What is then the best compromise possible between Rich and Poor? There is no clear answer.
 If we were to value equity as a fundamental concept of wealth redistribution, then an equitable solution would be for Rich to get $100$ dollars and Poor $900$ dollars.
 However, if equality is an important social value, we would intuitively think that the only acceptable result is a $500/500$ split. That is, the result where, in the interpretation of compromise as "mutual concession", both parties concede equally.
