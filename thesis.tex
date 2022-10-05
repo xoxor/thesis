@@ -31,19 +31,28 @@
 
 
 %moins de 1000 caractères
-%This is 1415
+%This is 1760
 \frabstract{
-  L'objectif de la thèse est le développement de procédures pouvant aider un comité (ou une société) à choisir une règle de vote appropriée. Cela implique une analyse axiomatique des règles de vote, l'explication de ces axiomes en termes non-expert peut comprendre et privilégier les méthodes d'élicitation. Les règles de vote sont des moyens formels d'agréger les préférences d'un groupe d'électeurs dans une décision collective. Quelle règle à utiliser est une question difficile et cela dépend de la conception de la justice de la société ou du comité concerné. Aucune règle ne peut être considérée comme la meilleure indépendamment du contexte. Une règle de vote peut être caractérisée par un ensemble d'axiomes, et l'analyse axiomatique est une approche bien acceptée pour étudier les propriétés satisfaites par les règles de vote. Mais le choix des axiomes à satisfaire ne devrait pas être laissé aux scientifiques. Ainsi, des méthodes pour présenter des axiomes et leurs conséquences à des utilisateurs non experts doivent être mises en œuvre. De plus, nous ne pouvons pas simplement demander au comité quels axiomes il aime, car il est souvent impossible pour les utilisateurs non experts de voir les conséquences de l'acceptation d'un ensemble d'axiomes. Par conséquent, il existe des techniques d'élicitation qui peuvent capturer des préférences subjectives informelles dans des modèles formels.
+	Les règles de vote représentent des moyens formels d'agréger les préférences d'un groupe d'électeurs en une décision collective. Mais quelle règle choisir dépend du contexte et de la conception de la justice de la société concerné.
+	Bien que toutes les règles de vote puissent être considérées comme un compromis entre individus, certaines le sont plus que d'autres.
+	Dans ce manuscrit, nous proposons deux notions de compromis basées sur une notion de <<equal-loss>>, favorisant un résultat où chaque électeur concède le plus également possible.
+	Nous étudions plusieurs règles qui reflètent un certain concept de compromis et nous montrons comment, bien qu'elles imposent une volonté de compromis aux individus, elles ne garantissent pas un résultat où chacun a effectivement concédé.
+	De plus, nous remettons en question l'hypothèse, souvent faite dans le cadre classique, que la règle de vote est fixée à l'avance et qu'une information complète sur les préférences des individus est fournie. En nous concentrant sur les règles de vote positionnelle, nous proposons des procédures d'élicitation basées sur le regret minimax, capables de poser des questions aux votants et à l'entité responsable de la conception de la règle de vote afin d'obtenir rapidement les informations les plus pertinentes.
+	En considérant la règle de Jugement Majoritaire, nous analysons une procédure particulière d'élicitation des préférences utilisée dans des scénarios de vote réels. Sur la base d'une information partielle sur les préférences des individus, nous analysons la probabilité de sélectionner un gagnant différent de celui obtenu en considérant le profil complet et nous étudions le nombre minimum de questions à poser aux électeurs pour que cette probabilité soit faible.
 }
 
 %moins de 1000 caractères
-%This is 1208
+%This is 1581
 \enabstract{
-  The goal of the Ph.D. project is the development of procedures able to help a committee (or a society) choose a suitable voting rule. This involves axiomatic analysis of voting rules, explanation of those axioms in terms a non-expert can understand and preference elicitation methods. Voting rules are formal means to aggregate preferences of a group of voters into a collective decision. But which rule to use is a difficult question and it depends on the conception of justice of the concerned society or committee. No rule can be considered the best independent of the context. A voting rule can be characterized by a set of axioms, and the axiomatic analysis is a well-accepted approach to studying the properties satisfied by voting rules. But the choice of which axioms should be satisfied should not be left to scientists. Thus, methods to present axioms and their consequences to non-expert users must be implemented. Moreover, we cannot simply ask the committee which axioms it likes, because it is often impossible for non-expert users to see the consequences of accepting a set of axioms. Therefore, elicitation techniques exist that can capture informal subjective preferences into formal models.
+	Voting rules are formal means of aggregating preferences of a group of voters over a set of alternatives into a collective decision. But which rule to use is a difficult question and the answer depends on the conception of justice of the concerned society or committee. 
+	Although all voting rules can be seen as a compromise between individuals, some are more so than others.
+	In this manuscript we provide two notions of compromise based on an equal-loss perspective, favoring an outcome where every voter concedes as equally as possible. We study several rules that reflect some idea of compromise and show how, although imposing a willingness to compromise on individuals, they fail to ensure an outcome where everyone has effectively compromised.	
+  	Moreover, we question the assumption, often made in the classical setting, that the voting rule is fixed beforehand and full information on the preferences of the individuals is provided. Focusing on positional scoring rules, we propose elicitation procedures based on minimax regret, able to interleave questions to the voters and to the entity responsible for designing the voting rule in order to quickly obtain the most relevant information.
+  	Considering \acl{MJ} rule, we analyze a particular preference elicitation procedure used in real voting scenarios. Given a partial information on individuals preferences, we analyze the probability of selecting a different winner from the one obtained by considering the full profile and study the minimum number of questions to ask voters in order for this probability to be low.
 }
 
-\frkeywords{Intelligence Artificielle, Computational Social Choice, Théorie de la décision, Élicitation de préférence, Analyse axiomatique, Modélisation des préférences.}
-\enkeywords{Artificial Intelligence, Computational Social Choice, Decision Theory, Preference Elicitation, Axiomatic Analysis, Preference Modeling.}
+\frkeywords{Intelligence Artificielle, Computational Social Choice, Théorie de la décision, Élicitation de préférence, Modélisation des préférences.}
+\enkeywords{Artificial Intelligence, Computational Social Choice, Decision Theory, Preference Elicitation, Preference Modeling.}
 
 
 \makeglossaries
