@@ -1,0 +1,191 @@
+%% Creator: Inkscape inkscape 0.92.5, www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'basic_svg-tex.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{1245.82500002bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.49370899)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{basic_svg-tex.pdf}}%
+    \put(0.84374812,0.29110228){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}PrefGraph\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{basic_svg-tex.pdf}}%
+    \put(0.72575402,0.27966408){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} - v: VoterPartialPreference\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{basic_svg-tex.pdf}}%
+    \put(0.72575402,0.26160376){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} + addNode(  in node: Alternative): Boolean\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{basic_svg-tex.pdf}}%
+    \put(0.72575402,0.25197159){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} + putEdge(  in nodeU: Alternative,   in nodeV: Alternative): Boolean\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{basic_svg-tex.pdf}}%
+    \put(0.72575402,0.24233941){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} + removeEdge(  in nodeU: Alternative,   in nodeV: Alternative): Boolean\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{basic_svg-tex.pdf}}%
+    \put(0.72575402,0.23270724){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} + removeNode(  in node: Alternative): Boolean\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{basic_svg-tex.pdf}}%
+    \put(0.76789477,0.11049907){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}VoterPartialPreference\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=8]{basic_svg-tex.pdf}}%
+    \put(0.66555295,0.09906086){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} - voter: Voter\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=9]{basic_svg-tex.pdf}}%
+    \put(0.66555295,0.08942869){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} - transitiveEquivalent: ImmutableGraph\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=10]{basic_svg-tex.pdf}}%
+    \put(0.66555295,0.06835832){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} + about(  in voter: Voter,   in alternatives: Set): VoterPartialPreference\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=11]{basic_svg-tex.pdf}}%
+    \put(0.66555295,0.05872615){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} + asGraph(): MutableGraph\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=12]{basic_svg-tex.pdf}}%
+    \put(0.66555295,0.04909397){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} + asTransitiveGraph(): ImmutableGraph\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=13]{basic_svg-tex.pdf}}%
+    \put(0.66555295,0.0394618){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} + getVoter(): Voter\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=14]{basic_svg-tex.pdf}}%
+    \put(0.66555295,0.02982963){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} + setGraphChanged()\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=15]{basic_svg-tex.pdf}}%
+    \put(0.5168563,0.48374571){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Alternative\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=16]{basic_svg-tex.pdf}}%
+    \put(0.4608693,0.47230751){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} - id: Integer\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=17]{basic_svg-tex.pdf}}%
+    \put(0.4608693,0.45063512){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} + getId(): Integer\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=18]{basic_svg-tex.pdf}}%
+    \put(0.73779423,0.48374571){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Voter\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=19]{basic_svg-tex.pdf}}%
+    \put(0.66555295,0.47230751){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} - id: Integer\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=20]{basic_svg-tex.pdf}}%
+    \put(0.66555295,0.45424719){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} + getId(): Integer\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=21]{basic_svg-tex.pdf}}%
+    \put(0.66555295,0.44461501){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} + compareTo(  in v2: Voter): Integer\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=22]{basic_svg-tex.pdf}}%
+    \put(0.51745831,0.32722292){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Preference\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=23]{basic_svg-tex.pdf}}%
+    \put(0.41270845,0.30193847){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} + getAlternative(  in position: Integer): Alternative\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=24]{basic_svg-tex.pdf}}%
+    \put(0.41270845,0.2923063){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} + getPreferencesNonStrict(): Set\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=25]{basic_svg-tex.pdf}}%
+    \put(0.41270845,0.28267413){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} + size(): Integer\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=26]{basic_svg-tex.pdf}}%
+    \put(0.41270845,0.27304196){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} + hasSameAlternatives(  in p: Preference): Boolean\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=27]{basic_svg-tex.pdf}}%
+    \put(0.41270845,0.26340979){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} + isIncludedIn(  in p: Preference): Boolean\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=28]{basic_svg-tex.pdf}}%
+    \put(0.41270845,0.25377762){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} + getAlternativeRank(  in alter: Alternative): Integer\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=29]{basic_svg-tex.pdf}}%
+    \put(0.41270845,0.24414545){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} + toAlternativeSet(  in preference: Set): Alternative [1..*]\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=30]{basic_svg-tex.pdf}}%
+    \put(0.41270845,0.23451327){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} + size(  in list: Set): Integer\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=31]{basic_svg-tex.pdf}}%
+    \put(0.41270845,0.2248811){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} + isStrict(): Boolean\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=32]{basic_svg-tex.pdf}}%
+    \put(0.41270845,0.21524893){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} + toStrictPreference(): StrictPreference\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=33]{basic_svg-tex.pdf}}%
+    \put(0.41270845,0.20561676){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} + contains(  in alter: Alternative): Boolean\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=34]{basic_svg-tex.pdf}}%
+    \put(0.12735537,0.35130335){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}StrictPreference\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=35]{basic_svg-tex.pdf}}%
+    \put(0.01538137,0.3260189){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} + getAlternatives(): Alternative [1..*]\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=36]{basic_svg-tex.pdf}}%
+    \put(0.01538137,0.31638673){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} + listAlternativeToListSetAlternative(  in list: Alternative): Alternative [1..*]\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=37]{basic_svg-tex.pdf}}%
+    \put(0.01538137,0.30675456){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} + listSetAlternativeToList(  in sets: Set): Alternative [1..*]\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=38]{basic_svg-tex.pdf}}%
+    \put(0.01538137,0.29712239){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} + getAlternative(  in position: Integer): Alternative\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=39]{basic_svg-tex.pdf}}%
+    \put(0.01538137,0.28749022){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} + getAlternative(  in position: Integer): Alternative\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=40]{basic_svg-tex.pdf}}%
+    \put(0.01538137,0.27785805){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} + getPreferencesNonStrict(): Set\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=41]{basic_svg-tex.pdf}}%
+    \put(0.01538137,0.26822587){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} + size(): Integer\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=42]{basic_svg-tex.pdf}}%
+    \put(0.01538137,0.2585937){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} + contains(  in alter: Alternative): Boolean\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=43]{basic_svg-tex.pdf}}%
+    \put(0.01538137,0.24896153){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} + hasSameAlternatives(  in p: Preference): Boolean\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=44]{basic_svg-tex.pdf}}%
+    \put(0.01538137,0.23932936){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} + isIncludedIn(  in p: Preference): Boolean\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=45]{basic_svg-tex.pdf}}%
+    \put(0.01538137,0.22969719){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} + getAlternativeRank(  in alter: Alternative): Integer\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=46]{basic_svg-tex.pdf}}%
+    \put(0.01538137,0.22006502){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} + toAlternativeSet(  in preference: Set): Alternative [1..*]\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=47]{basic_svg-tex.pdf}}%
+    \put(0.01538137,0.21043285){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} + size(  in list: Set): Integer\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=48]{basic_svg-tex.pdf}}%
+    \put(0.01538137,0.20080067){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} + isStrict(): Boolean\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=49]{basic_svg-tex.pdf}}%
+    \put(0.01538137,0.1911685){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} + toStrictPreference(): StrictPreference\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=50]{basic_svg-tex.pdf}}%
+    \put(0.44100295,0.11049907){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}VoterStrictPreference\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=51]{basic_svg-tex.pdf}}%
+    \put(0.34046716,0.09906086){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} - voter: Voter\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=52]{basic_svg-tex.pdf}}%
+    \put(0.34046716,0.08100054){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} + getAlternatives(): Alternative [1..*]\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=53]{basic_svg-tex.pdf}}%
+    \put(0.34046716,0.07136837){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} + size(): Integer\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=54]{basic_svg-tex.pdf}}%
+    \put(0.34046716,0.0617362){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} + getAlternativeRank(  in alternative: Alternative): Integer\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=55]{basic_svg-tex.pdf}}%
+    \put(0.34046716,0.05210403){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} + getAlternativeAtRank(  in rank: Integer): Alternative\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=56]{basic_svg-tex.pdf}}%
+    \put(0.34046716,0.04247186){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} + getVoter(): Voter\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=57]{basic_svg-tex.pdf}}%
+    \put(0.34046716,0.03283968){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} + asStrictPreference(): StrictPreference\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=58]{basic_svg-tex.pdf}}%
+    \put(0.34046716,0.02320751){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} + askQuestion(  in qv: QuestionVoter): VoterPreferenceInformation\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=59]{basic_svg-tex.pdf}}%
+    \put(0.32060081,0.23932936){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}<<extend>>\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=60]{basic_svg-tex.pdf}}%
+    \put(0.45785925,0.34167118){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} + preference\end{tabular}}}}%
+    \put(0.53010054,0.40187225){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} + alternative\end{tabular}}}}%
+    \put(0.53010054,0.34167118){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} 1\end{tabular}}}}%
+    \put(0.48254169,0.40187225){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} 1..*\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=61]{basic_svg-tex.pdf}}%
+    \put(0.75886461,0.12494732){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} + voterpartialpreference\end{tabular}}}}%
+    \put(0.86722654,0.19779062){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} + prefgraph\end{tabular}}}}%
+    \put(0.86722654,0.12494732){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} 1\end{tabular}}}}%
+    \put(0.83110589,0.19779062){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} 1\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=62]{basic_svg-tex.pdf}}%
+    \put(0.22066703,0.0448799){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} + voterstrictpreference\end{tabular}}}}%
+    \put(0.15685389,0.14481368){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} + strictpreference\end{tabular}}}}%
+    \put(0.26039974,0.06896033){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} 1\end{tabular}}}}%
+    \put(0.12554933,0.14481368){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l} 1\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=63]{basic_svg-tex.pdf}}%
+  \end{picture}%
+\endgroup%
