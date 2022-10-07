@@ -451,12 +451,12 @@ We want to show that it is possible for the winning alternative of the complete 
 		We have proven that given a complete profile it is possible to find an incomplete profile (such that a possible completion is equal to the considered profile) with a different winner from the complete profile.
 		We also showed that the probability of this happening depends on the profile considered. 
 		
-		Moreover, we have performed experiments on profiles in which each grade vector has a randomly generated distribution of grade. Fixing the number of voters, we analyzed how much of the grade vector we must know in order for the probability missing the winner to be low.
+		Moreover, we have performed experiments on profiles in which each grade vector has a randomly generated distribution of grade. Fixing the number of voters, we analyzed how much of the grade vector we must know in order for the probability missing the winner to be low. We have found that when knowing only the $20\%$ of the vector (thus after having asked $10$ questions) the probability of missing the winner is close to zero.
 		We have also considered a profile created from the grade distribution of a real voting scenario. We have found that the probability of not selecting the winner of the complete profile greatly decreases as the number of voters increases, making this method suitable for elections with large numbers of voters but less appropriate for small profiles.
 		
 		Future work on this topic could investigate the manipulability of this elicitation process. Especially on the side of the "analyst" who is in charge of questioning voters and how she can potentially manipulate the outcome by asking particular questions to specific groups of voters. For example, if she knows that voters in a given electoral district tend to vote predominantly for a given party she may decide never to ask those voters about that party's candidate (or vice-versa depending on the party she favors). 
 		
-		Another step might involve the explainability of this process to voters. In fact, voters may not understand how judging only one person gives a good approximation of the result that would be obtained by asking for the full profile. Also, they may not appreciate judging a random candidate and not their favorite.
+		Another step might involve the explainability of this process to voters. In fact, voters may find difficult to believe that judging only one person gives a good approximation of the result that would be obtained by asking for the full profile. Also, they may not appreciate judging a random candidate and not their favorite.
 		
 		The code to reproduce the experiments in this article and the files with the reported data are available at \url{https://github.com/xoxor/elicitationMJ}.
 	
