@@ -1,3 +1,60 @@
 %!TeX root= ../thesis.tex
+
+Throughout this manuscript, we have addressed several problems related to the field of social choice. In particular, we focused on two scenarios. 
+Considering a classical model in which the preferences of a set of voters over a set of alternatives are known, we defined two classes of voting rules able to reflect a notion of compromise in which egalitarianism, in the sense of conceding equally, is a major concern.
+Moreover, we stepped back from this standard perspective in which preferences are assumed to be known from the beginning and investigated the problem of preference elicitation in different settings. In what follows we describe the results of our works in more detail.
+
 \section{Summary of the contributions}
+
+\paragraph{Simultaneous Elicitation of PSR and Agent Preferences}
+In \Cref{ch:minimax} we studied the second of the aforementioned scenarios. Considering positional scoring rules with convex weights, we developed methods for preference elicitation under uncertainty of both the voting rule and the agent preferences.
+Assuming that those preferences are initially unknown to the system, the goal of the procedures is to incrementally reveal them through questioning and quickly acquire the most relevant information.
+We proposed the use of minimax regret both as a means of robust winner determination and as a guide to the process of simultaneous elicitation of preferences and voting rule.
+This serves mainly for two reasons, first to give an indication of the relevance of potential questions, but also to give us a measure of how many questions it takes to get to a low regret or to stop the elicitation process once the regret reaches a certain threshold.
+We presented incremental elicitation methods that at each step of the elicitation question either one of the agents or the chair, and we discussed several heuristics to choose questions  quickly reduce the regret. Answers to questions are encoded as constraints: questions to the agents are comparisons between pairs of alternatives, while questions to the chair ask to select a winner out of a synthetic profile.
+We compared the effectiveness of several questioning strategies based on the current knowledge of the rule and preferences. 
+Our experimental results suggest that regret-based elicitation is effective and allows to quickly reduce worst-case regret significantly. In particular:
+\begin{itemize}
+	\item we defined different elicitation strategies that achieve good results within reasonable computation time and we compared their performances;
+	\item we showed that with our elicitation methods, in particular with the Pessimistic strategy, it is possible to reach low regret with a reasonable number of questions;
+	\item we analyzed the strategies on both real data and randomly generated profiles and found that low degree of similarity among preferences (as in impartial culture) is a more challenging setting than less varied profiles (as real preferences profiles);
+	\item we showed that for the class of rules considered, asking a few questions to the chair suffice to reach low regret.
+\end{itemize}
+Moreover, as a part of our contribution, we proposed a novel mechanism for eliciting a voting rule by translating abstract questions about weights to a choice of the winning alternative on a concrete profile.
+
+\paragraph{Preference Elicitation Under Majority Judgment}
+In \Cref{ch:MJ} we analyzed the preference elicitation mechanism used in a real voting scenario by the french political initiative LaPrimaire.org.
+In fact, they proposed a voting procedure to select an independent candidate for the french presidential election using \ac{MJ} as voting rule.
+The procedure that they adopted consists of two rounds. In the first round each voter is asked to express her judgment, using \ac{MJ}, on five random candidates. At the end of this phase the five candidates with the highest medians are considered the finalists who qualify for the second round. In the second round each voter is asked to express her judgment, using \ac{MJ}, on all the five finalists. The candidate with the best median at the end of this phase is selected as representative for the presidential election.
+We investigated the consequences of randomness in the described preference elicitation procedure. We analyzed its cost, quantified as number of questions per voter, and its fairness, stating that a winner for the complete profile should not loose for lack of information.
+In particular, we have proven that this latter case it is possible. Given a complete profile it is possible to find an incomplete profile (such that a possible completion is equal to the considered profile) with a different winner.
+We also showed that the probability of this happening depends on the profile considered and we showed, as an extreme example, a case for which this probability is almost $1/2$.
+By denoting this as the probability of "missing the winner", we computed the average size of a grade vector after a given number of questions to each voter and studied what percentage of this vector we need to know so that this probability is low.
+Considering randomly generated vector of grades following a uniform distribution, we have found that when knowing only the $20\%$ of the vector (thus after having asked $10$ questions) the probability of missing the winner is close to zero.
+We have also considered a profile created following the grade distribution of a real voting scenario and analyzed the probability of missing the winner as a function of the number of voters. We have found that this greatly decreases as the number of voters increases, suggesting that this method is more suitable for elections with large numbers of voters but less appropriate for small profiles.
+
+\paragraph{Compromising as an Equal-Loss Principle}
+In \Cref{ch:compromise} we analyzed the concept on compromise in the literature. 
+We observed that almost all the voting rules that are known as \textit{compromise rules} impose over individuals a willingness to compromise but they do not ensure an outcome where everyone has effectively compromised. 
+We revisited the notion of compromise from an \emph{equal-loss} perspective, favoring an outcome where every voter concedes as equally as possible, and we proposed some class of rules reflecting this concept.
+We denoted a voting rule as \textit{Egalitarian Compromise} (EC) (resp., \textit{Egalitarian Compromise Compatible} (ECC)), if \emph{all} (resp., \emph{some}) winners are among the alternatives with the most equally distributed losses.
+Furthermore, we denoted a voting rule as \textit{Paretian Compromise} (PC) (resp., \textit{Paretian Compromise Compatible} (PCC)), if \emph{all} (resp., \emph{some}) winners are among the Pareto optimal alternatives with the most equally distributed losses.
+We proved that no Condorcet procedure is ECC or PCC, no scoring rule is ECC or PCC except for the antiplurality rule, \acs{BK} compromises are neither ECC or PCC except for fallback bargaining that is PC.
+We showed that, although our results are stated for a broad set of spread measures $\Sigma$, they prevail for any subset of $\Sigma$. Moreover, as soon as a we consider such subset where a reasonably mild restriction on $\Sigma$ is imposed, fallback bargaining and antiplurality are no longer PCC. 
+We also considered a specific voting scenario with two individuals and a similar restriction on $\Sigma$, and we proved that all well-known two-person voting rules of the literature, namely, fallback bargaining, Pareto and veto rules, short listing and veto rank, are not PCC.
+
+
 \section{Future works}
+There are many interesting directions for future works for each of the problems considered.
+
+Regarding the simultaneous elicitation of voting rule and agent preferences, one could develop more strategies with different heuristics to compare to the ones we proposed. For example, less computationally costly strategies would allow testing of larger datasets, with more voters and more alternatives. 
+It would also be interesting to expand the elicitation of the voting rules other than scoring rules or to relax the convexity constraint. 
+Furthermore, we think that transforming questions into example profiles is a very interesting concept that is not explored much in the literature and could be applied in different settings. 
+
+The chapter on the analysis of the elicitation procedure using MJ is not yet fully mature so there are many ideas for possible extensions. One could investigate, for example, the manipulability of the elicitation process itself. In particular, how the party in charge of questioning the voters can manipulate the outcome by directing questions to specific voters. 
+Another direction may involve the explainability of this process. Voters may find difficult to believe that judging only one person gives a good approximation of the result that would be obtained by asking for the full profile.
+
+Finally, when considering the concept of compromise, different notions of compromise can be conceived. One approach might consider choosing alternatives that are neither the best nor the worst of any voter. It all depends on the idea of justice one wants to represent and the priorities in the scenario under consideration.
+Furthermore, the trade-off between equity and efficiency can be explored in other, and richer, settings. 
+
+To conclude, we like to think that each of our contributions is merely the beginning of a long series of future expansions.
