@@ -38,10 +38,12 @@
 %Headers style
 \pagestyle{fancy}
 \fancyhead{}
+\fancyhead[LE]{\scshape{Part~\thepart}, \leftmark}
+\fancyhead[RO]{\rightmark}% RO -> Right part on Odd pages
 %\fancyhead[LE]{\scshape{Part~\thepart}, \leftmark}
 %\fancyhead[LE]{\leftmark}% LE -> Left part on Even pages
 %\fancyhead[RO]{\rightmark}% RO -> Right part on Odd pages
-\fancyhead[R]{\ifthenelse{\isodd{\value{page}}}{\leftmark}{\rightmark}}
+%\fancyhead[R]{\ifthenelse{\isodd{\value{page}}}{\leftmark}{\rightmark}}
 %% remove the number at Conclusion
 
 \makeatletter

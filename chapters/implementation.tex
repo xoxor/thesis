@@ -91,7 +91,7 @@ Positive and negative information is used by the elicitation strategies for the 
 	\label{uml:prefinfo}
 \end{figure}
 
-\pagebreak
+\clearpage
 
 \subsection{Regret Computation}
 \Cref{uml:regret} is the diagram representing the procedure described in \Cref{sec:mmr}. The \textit{PairwiseMaxRegret} is the building block of the regret computation. Given two alternatives, their ranks and the weights associated to ranks, it computes the regret of choosing the first alternative instead of the second one. This is used by the \textit{Regrets} instance, which calculate the minimal max regret value and it can return all the alternatives associated to such value. A small constant epsilon is introduced to express the granularity of this similarity. In fact, we may want to consider two weights equals if, for example, they are equal up to the third decimal place. \textit{RegretComputer} is the class that handles the proper calling of the methods specified by the classes aforementioned. For example by providing the pairwise maximum regret computation with the worst-case scenario: the worst completion of profile and scoring vector.
