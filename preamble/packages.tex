@@ -36,9 +36,11 @@
 \usepackage{lscape}
 \usepackage{ifthen}
 %Headers style
+\newcounter{numpart}
+\setcounter{numpart}{0}
 \pagestyle{fancy}
 \fancyhead{}
-\fancyhead[LE]{\scshape{Part~\thepart}, \leftmark}
+\fancyhead[LE]{{\ifnum\value{numpart}>0 \scshape{Part~\thepart},\fi} \leftmark}
 \fancyhead[RO]{\rightmark}% RO -> Right part on Odd pages
 %\fancyhead[LE]{\scshape{Part~\thepart}, \leftmark}
 %\fancyhead[LE]{\leftmark}% LE -> Left part on Even pages
